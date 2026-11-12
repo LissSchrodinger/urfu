@@ -1,4 +1,78 @@
-<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex,nofollow"><title>Каталог программ · показ</title><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex,nofollow"><title>Каталог программ · показ</title><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><script>
+/* v51 (Василиса 12.11): предметы ЕГЭ — тремя буквами во всех видах; полный список с баллами — по «i». Третий вид — таблица. */
+const SH51={'Русский язык':'Рус','Математика':'Мат','Информатика':'Инф','Физика':'Физ','Обществознание':'Общ','История':'Ист','Иностранный язык':'ИнЯ','Химия':'Хим','Биология':'Био','География':'Гео','Литература':'Лит','Творческое':'Твр'};
+const ST51M=(()=>{try{return new URLSearchParams(location.search).get('st')||'B'}catch(e){return 'B'}})();
+document.documentElement.dataset.st51=ST51M;
+const CK51='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function PL51(ev,tb){if(!ev||ev[0]>1||(ev[0]===0&&!(ST51M==='A'||ST51M==='C')))return '';return `<span class="pl51${tb?' pl51t':''}" data-tip="${ev[1].replace(/^✓\s*/,'')}" tabindex="0">${CK51}${ev[0]===0?'Подходит':'Нужно творческое'}</span>`}
+function EX51(p,REQ,est){if(p.g!=='school')return '';const r=REQ[p.n+'|'+p.code];if(!r)return `<div class="eg20"><span class="eg20n">Баллы на 2026 ещё не опубликованы</span></div>`;
+ const [a,b]=r.split('|');const pr=x=>x?x.split(',').map(t=>{const [n,m]=t.split(':');return [n,+m]}):[];
+ const st=(ST51M==='B'||ST51M==='C')?est:null;
+ const has=(n,m)=>{if(!st)return false;const q=st.subj[n];return !!(q&&q.on&&q.v>=m)};
+ const ch=pr(b);
+ return `<div class="eg20 eg51">${pr(a).map(([n,m])=>`<span class="c20 c51${has(n,m)?' y51':''}" data-tip="${FULL51[n]||n}" tabindex="0">${has(n,m)?CK51:''}${SH51[n]||n}</span>`).join('')}${ch.length?`<span class="pl51x">+ ${ch.map(([n,m])=>`<span class="o51${has(n,m)?' y51':''}" data-tip="${FULL51[n]||n}" tabindex="0">${has(n,m)?CK51:''}${SH51[n]||n}</span>`).join('<i>/</i>')}</span>`:''}${EI51(r,has)}</div>`}
+const FULL51={'Творческое':'Творческое испытание'};
+function AB51(t,o){return `<span class="c20${o?' ch1c':''} c51" data-tip="${FULL51[t]||t}" tabindex="0">${SH51[t]||t}</span>`}
+function EI51(r,has){const [a,b]=r.split('|');const pr=x=>x?x.split(',').map(t=>{const [n,m]=t.split(':');return [FULL51[n]||n,+m,has?has(n,+m):false]}):[];
+ const d=encodeURIComponent(JSON.stringify({a:pr(a),b:pr(b)}));
+ return `<button type="button" class="ei51" data-tt51="${d}" aria-label="Минимальные баллы ЕГЭ"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="4.9" r=".9" fill="currentColor"/></svg></button>`}
+function T51(rows,h){const sch=rows.some(x=>x.p.g==='school');
+ return `<table class="t51${sch?' t51s':''}"><colgroup><col class="c51p"><col class="c51l">${sch?'<col class="c51e">':''}<col class="c51n"><col class="c51n"><col class="c51i"><col class="c51c"></colgroup><thead><tr><th>Программа</th><th>Уровень</th>${sch?'<th>Экзамены</th>':''}<th>Бюджет</th><th>Платно</th><th>Институт</th><th><span class="sr51">Сравнение</span></th></tr></thead><tbody>${rows.map(({p,ev})=>`<tr class="t51r${ev&&ev[0]>1?' dim3':''}"><td><small class="k25d">${h.hl(p.dir)}</small><b class="t51n">${h.hl(p.n)}</b></td><td><span class="k25l">${p.lv}</span></td>${sch?`<td class="t51e">${h.ege(p)}${h.st(ev)}${PL51(ev,1)}</td>`:''}<td class="t51d">${p.bud}</td><td class="t51d">${p.paid}</td><td class="ti t51i">${h.inst(p)}</td><td class="t51b">${h.cb(p)}</td></tr>`).join('')}</tbody></table>`}
+</script>
+<style>
+/* v51 — сокращения и «i» */
+.c51{cursor:default}
+.ei51{width:24px;height:24px;display:inline-grid;place-items:center;border-radius:7px;color:var(--muted);transition:background .2s,color .2s}
+.ei51:hover,.ei51:focus-visible{background:var(--sunk);color:var(--ink)}
+.ei51[data-tip]::after{white-space:pre-line;max-width:260px!important;right:auto!important;left:50%!important;transform:translateX(-50%)}
+/* v51 — таблица */
+.t51{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;background:var(--card);border-radius:18px;font-size:14px}
+.t51 col.c51l{width:132px}.t51 col.c51e{width:250px}.t51 col.c51n{width:84px}.t51 col.c51i{width:96px}.t51 col.c51c{width:60px}
+.t51 thead th{position:sticky;top:0;z-index:3;background:var(--card);text-align:left;font-size:12px;font-weight:500;color:var(--muted);padding:14px 12px 12px;box-shadow:inset 0 -1px 0 color-mix(in srgb,var(--line) 70%,transparent)}
+.t51 thead th:first-child{padding-left:20px;border-top-left-radius:18px}.t51 thead th:last-child{border-top-right-radius:18px}
+.t51 td{padding:14px 12px;vertical-align:top;border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.t51 tbody tr:first-child td{border-top:0}
+.t51 td:first-child{padding-left:20px}.t51 td:last-child{padding-right:12px}
+.t51 tbody tr:last-child td:first-child{border-bottom-left-radius:18px}.t51 tbody tr:last-child td:last-child{border-bottom-right-radius:18px}
+.t51 .k25d{display:block;margin-bottom:4px}
+.t51n{display:block;font-size:15px;line-height:20px;font-weight:600;color:var(--ink)}
+.t51d{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);padding-top:16px!important}
+.t51 .k25l{height:24px}
+.t51i{padding-top:16px!important}
+.t51b{padding-top:8px!important;text-align:right}
+.t51e .eg20{margin-top:0}
+.t51e .ch1{width:auto}
+.t51 tbody tr{transition:background .2s}
+.t51 tbody tr:hover td{background:color-mix(in srgb,var(--pc) 5%,var(--card))}
+.t51 .p5go{cursor:pointer}
+.sr51{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.t51 col.c51l,.t51.t51s col.c51l{width:136px}.t51 col.c51e{width:290px}.t51 col.c51n{width:76px}.t51 col.c51i{width:108px}.t51 col.c51c{width:52px}
+.t51 .k25l,.t51i,.t51i span{white-space:nowrap}
+.t51n{font-weight:500!important}
+.t51e .ch1{display:inline-flex}
+/* v52 — экзамены одной строкой: обязательные плашками, «+ на выбор» текстом через «/» */
+.eg51{flex-wrap:wrap;row-gap:4px}
+.pl51x{font-size:13px;color:var(--ink2);display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px;margin-left:2px}
+.pl51x i{font-style:normal;color:var(--muted)}
+.o51{display:inline-flex;align-items:center;gap:2px}
+.c51{display:inline-flex;align-items:center;gap:3px}
+.c51 svg,.o51 svg{flex:none}
+/* «подходит» */
+html:not([data-st51=T]) .st{display:none}
+.pl51{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px 0 8px;border-radius:7px;font-size:12px;font-weight:600;background:var(--sunk);color:var(--ink);white-space:nowrap}
+.pl51 svg{color:var(--ink)}
+.r4m .pl51{justify-self:end}.k25h .pl51{margin-left:auto;margin-right:4px}
+.pl51t{margin-top:8px}
+.y51{color:var(--ink)}
+/* v54: сданный предмет — заливка тоном пути (жёлтый текст на светлом — 1,4:1, не читается); галочка — оптически меньший отступ слева */
+html .c20.y51{background:color-mix(in srgb,var(--pc) 34%,var(--cd))!important;color:var(--ink);padding-left:7px}
+html .o51.y51{background:color-mix(in srgb,var(--pc) 34%,var(--cd));color:var(--ink);padding:4px 10px 4px 7px;border-radius:8px;font-size:12px;line-height:16px;font-weight:400;color:var(--ink)!important}
+.c51 svg,.o51 svg{margin-top:-1px}
+.c51,.o51{gap:2px}
+
+.t51:not(.t51s) col.c51l{width:224px}
+</style>
+</head><body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>Каталог программ · показ</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,500&display=swap">
@@ -626,7 +700,7 @@ body{background:var(--page)}
           </div>
           <div class="cat" id="cat" data-fv="A">
             <div class="fbar" id="fbar"></div>
-            <div class="tb"><button type="button" class="fall" id="fall"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h12M5.5 9h7M7.5 12.5h3"/></svg>Фильтры<b>0</b></button><div class="cn" id="cn"></div><div class="chips3" id="chips"></div><div class="seg3" role="radiogroup" aria-label="Вид списка"><button type="button" data-vw="table" role="radio" aria-label="Таблицей" title="Таблицей"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 4.5h12M3 9h12M3 13.5h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><button type="button" data-vw="cards" role="radio" aria-label="Карточками" title="Карточками"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.75" y="2.75" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10.25" y="2.75" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2.75" y="10.25" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10.25" y="10.25" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg></button></div></div>
+            <div class="tb"><button type="button" class="fall" id="fall"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 5.5h12M5.5 9h7M7.5 12.5h3"/></svg>Фильтры<b>0</b></button><div class="cn" id="cn"></div><div class="chips3" id="chips"></div><div class="seg3" role="radiogroup" aria-label="Вид списка"><button type="button" data-vw="table" role="radio" aria-label="Строками" title="Строками"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.75" y="2.75" width="12.5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2.75" y="10.25" width="12.5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" data-vw="cards" role="radio" aria-label="Карточками" title="Карточками"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.75" y="2.75" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10.25" y="2.75" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2.75" y="10.25" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10.25" y="10.25" width="5" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" data-vw="grid" role="radio" aria-label="Таблицей" title="Таблицей"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 4.5h12M3 9h12M3 13.5h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button></div></div>
             <div class="cbody"><aside class="side3" id="side" aria-label="Фильтры"></aside><div class="ls" id="ls"></div></div>
           </div>
         </div></div>
@@ -1248,23 +1322,25 @@ function sync(){
   $$('[data-gb]').forEach(b=>{const k=b.dataset.gb;b.classList.toggle('nt',k==='year'&&S.year==='2026');b.textContent=k==='year'?S.year:k==='ege'?(eg?EXS.filter(exOn).length:''):k==='lv'?'':(S.f[k].length||'')});
   const tot=Object.values(S.f).reduce((a,x)=>a+x.length,0)+(S.year!=='2026')+(eg?1:0);$('#fall b').textContent=tot;
   const ch=[];for(const [k] of GR){if(k==='year'){if(S.year!=='2026')ch.push(`<span class="fchip">Набор ${S.year}<button type="button" data-unf="year" aria-label="Убрать фильтр «Набор»">${XI}</button></span>`)}else S.f[k].forEach(v=>ch.push(`<span class="fchip"${k==='inst'?` data-tip="${INSTN[v]}"`:''}>${v}<button type="button" data-unf="${k}" data-v="${v}" aria-label="Убрать ${v}">${XI}</button></span>`))}
+  if(eg)EXS.forEach(x=>{if(S.ex[x]&&S.ex[x].on&&!LOCK.includes(x))ch.push(`<span class="fchip">${x}<button type="button" data-unex="${x}" aria-label="Убрать ${x}">${XI}</button></span>`)}); /* v56 — предметы ЕГЭ чипами, как другие фильтры */
   const any=tot||S.q||offs.size||(cp===0&&Object.keys(S.ex).some(x=>S.ex[x].v));
   $('#chips').innerHTML=ch.join('')+(any?'<button type="button" class="reset" data-reset>Сбросить всё</button>':'');
-  const rows=rowsFor(),n=eg?rows.filter(r=>!r.ev[0]).length:rows.length;$('#cn').textContent=n+' '+(eg?plural(n):progW(n));$('#dwgo').textContent='Показать '+rows.length+' '+progW(rows.length);
+  const rows=rowsFor().filter(r=>!(r.ev&&r.ev[0]>1)),n=rows.length;$('#cn').textContent=n+' '+(eg?plural(n):progW(n));$('#dwgo').textContent='Показать '+rows.length+' '+progW(rows.length);
   $$('[data-vw]').forEach(b=>{const on=b.dataset.vw===S.view;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
   const st=ev=>{if(!ev||ev[0]===4)return '';const c=ev[0]===0?'ok':ev[0]<=2?'warn':'no';return `<span class="st st-${c}">${ev[0]===0&&!exScored()?'Подходит по твоим предметам':ev[1].replace(/^✓\s*/,'')}</span>`};
   const cb=p=>{const on=S.cmp.includes(p.id);return `<button type="button" class="cmpb" data-cmp="${p.id}" aria-pressed="${on}" data-tip="${on?'Убрать из сравнения':'Сравнить'}" aria-label="${on?'Убрать из сравнения':'Сравнить'}">${CMP}</button>`};
   const inst=p=>`<span data-tip="${INSTN[p.inst]||''}" tabindex="0">${p.inst}</span>`;
-  const ege=p=>{if(p.g!=='school')return '';const r=REQ[p.n+'|'+p.code];if(!r)return `<div class="eg20"><span class="eg20n">Баллы на 2026 ещё не опубликованы</span></div>`;const [a,b]=r.split('|');const nm=x=>x.split(',').map(t=>t.split(':')[0]);return `<div class="eg20">${nm(a).map(t=>`<span class="c20">${t}</span>`).join('')}${b?`<span class="ch1"><span class="ch1l">и одно из</span>${nm(b).map(t=>`<span class="c20 ch1c">${t}</span>`).join('')}</span>`:''}</div>`};
+  const ege=p=>EX51(p,REQ,egeSt());
   const dn=p=>p.dir.slice(p.code.length+1);
   const cd=p=>`<span class="cd20" data-tip="${dn(p)}" tabindex="0">${hl(p.code)}</span>`;
   const dl=p=>{const d=hl(p.dir);return S.q&&d.includes('<mark')&&!hl(p.n).includes('<mark')?`<small>${d}</small>`:''};
   const pl=p=>`<span>${p.bud} бюджетных</span><span>${p.paid} платных</span>`;
   const ls=$('#ls');
   if(!rows.length)ls.innerHTML=`<div class="empty3"><p>Ничего не нашлось. Попробуй другое название или код направления.</p><button type="button" class="btn3" data-reset>Сбросить всё</button></div>`;
-  else if(S.view==='table')ls.innerHTML=`<div class="tbl t29 t4">${rows.map(({p,ev})=>`<div class="tr${ev&&ev[0]>1?' dim3':''}"><span class="rp"><i></i></span><div class="r4t"><div class="tn"><small class="k25d">${hl(p.dir)}</small><b>${hl(p.n)}</b></div><div class="r4m"><span class="k25l">${p.lv}</span><span></span>${cb(p)}</div></div><div class="r4b">${p.g==='school'?`<div class="r4e">${ege(p)}${st(ev)}</div>`:''}<div class="k25r r4f"><div><span>Бюджет</span><b>${p.bud}</b></div><div><span>Платно</span><b>${p.paid}</b></div><div><span>Институт</span><b class="ti">${inst(p)}</b></div></div></div></div>`).join('')}</div>`;
-  else ls.innerHTML=`<div class="grid3 k25" data-kv="B">${rows.map(({p,ev})=>{const r=REQ[p.n+'|'+p.code];let ex='';if(p.g==='school'){if(!r)ex='<span class="k25n">Баллы на 2026 ещё не опубликованы</span>';else{const [a,b]=r.split('|');const nm=x=>x.split(',').map(t=>t.split(':')[0]);ex=nm(a).join(', ')+(b?` <span class="k25t" data-tip="${nm(b).join(' / ')}" tabindex="0">+ 1 на выбор</span>`:'')}}
-return `<div class="kd k25c${ev&&ev[0]>1?' dim3':''}"><span class="rp"><i></i></span><div class="k25h"><span class="k25l">${p.lv}</span>${cb(p)}</div><small class="k25d">${hl(p.dir)}</small><b class="k25ti">${hl(p.n)}</b>${p.g==='school'?`<div class="k25ex">${ege(p)}</div>`:''}${st(ev)}<div class="k25f">${p.g==='school'?`<div class="k25e"><span>Экзамены</span><b>${ex}</b></div>`:''}<div class="k25r"><div><span>Бюджет</span><b>${p.bud}</b></div><div><span>Платно</span><b>${p.paid}</b></div><div><span>Институт</span><b class="ti">${inst(p)}</b></div></div></div></div>`}).join('')}</div>`;
+  else if(S.view==='grid')ls.innerHTML=T51(rows,{hl,cb,inst,ege,st});
+  else if(S.view==='table')ls.innerHTML=`<div class="tbl t29 t4">${rows.map(({p,ev})=>`<div class="tr${ev&&ev[0]>1?' dim3':''}"><span class="rp"><i></i></span><div class="r4t"><div class="tn"><small class="k25d">${hl(p.dir)}</small><b>${hl(p.n)}</b></div><div class="r4m"><span class="k25l">${p.lv}</span>${PL51(ev)||'<span></span>'}${cb(p)}</div></div><div class="r4b">${p.g==='school'?`<div class="r4e">${ege(p)}${st(ev)}</div>`:''}<div class="k25r r4f"><div><span>Бюджет</span><b>${p.bud}</b></div><div><span>Платно</span><b>${p.paid}</b></div><div><span>Институт</span><b class="ti">${inst(p)}</b></div></div></div></div>`).join('')}</div>`;
+  else ls.innerHTML=`<div class="grid3 k25" data-kv="B">${rows.map(({p,ev})=>{const r=REQ[p.n+'|'+p.code];let ex='';if(p.g==='school'){if(!r)ex='<span class="k25n">Баллы на 2026 ещё не опубликованы</span>';else{const [a,b]=r.split('|');const nm=x=>x.split(',').map(t=>t.split(':')[0]);ex=nm(a).map(t=>SH51[t]||t).join(', ')+(b?` <span class="k25t" data-tip="${nm(b).join(' / ')}" tabindex="0">+ 1 на выбор</span>`:'')}}
+return `<div class="kd k25c${ev&&ev[0]>1?' dim3':''}"><span class="rp"><i></i></span><div class="k25h"><span class="k25l">${p.lv}</span>${PL51(ev)}${cb(p)}</div><small class="k25d">${hl(p.dir)}</small><b class="k25ti">${hl(p.n)}</b>${p.g==='school'?`<div class="k25ex">${ege(p)}</div>`:''}${st(ev)}<div class="k25f">${p.g==='school'?`<div class="k25e"><span>Экзамены</span><b>${ex}</b></div>`:''}<div class="k25r"><div><span>Бюджет</span><b>${p.bud}</b></div><div><span>Платно</span><b>${p.paid}</b></div><div><span>Институт</span><b class="ti">${inst(p)}</b></div></div></div></div>`}).join('')}</div>`;
   const tr=$('#tray');tr.hidden=!S.cmp.length;tr.querySelector('b').textContent=S.cmp.length}
 function fin(){$$('.fbw').forEach(w=>{const on=S.pop===w.dataset.fbw;w.querySelector('.fpop').hidden=!on;const b=w.querySelector('.fb');b.classList.toggle('on',on);b.setAttribute('aria-expanded',on)});
   $$('.gh[data-g]').forEach(b=>b.setAttribute('aria-expanded',!!S.og[b.dataset.g]));$('#drawer').hidden=$('#dws').hidden=!S.drawer}
@@ -1274,7 +1350,8 @@ window.postDraw=()=>{if(lastCp!==cp){lastCp=cp;build()}else{if(!document.activeE
 bq.addEventListener('input',()=>{S.q=bq.value.trim();$('#bx').classList.toggle('on',!!bq.value);draw2()});
 document.addEventListener('input',e=>{const t=e.target;if(!t.matches('.exv'))return;let v=t.value.replace(/\D/g,'');if(v!==''&&+v>100)v='100';t.value=v;const x=t.dataset.exv,c=S.ex[x]||(S.ex[x]={on:false,v:''});c.v=v;if(v!==''&&!c.on&&!LOCK.includes(x)){c.on=true;t.previousElementSibling.setAttribute('aria-checked','true')}sync()});
 document.addEventListener('click',e=>{const t=e.target;let b;
-  if(b=t.closest('[data-lvx]')){const j=+b.dataset.lvx;if(offs.has(j))offs.delete(j);else if(offs.size<PATHS[cp].lv.length-1)offs.add(j);draw2()}
+  if(b=t.closest('[data-unex]')){const x=b.dataset.unex;if(S.ex[x])S.ex[x].on=false;drawEge();sync()}
+  else if(b=t.closest('[data-lvx]')){const j=+b.dataset.lvx;if(offs.has(j))offs.delete(j);else if(offs.size<PATHS[cp].lv.length-1)offs.add(j);draw2()}
   else if(b=t.closest('.fo[data-f]')){const k=b.dataset.f,v=b.dataset.v;if(k==='year')S.year=v;else{const a=S.f[k],i=a.indexOf(v);i<0?a.push(v):a.splice(i,1)}draw2()}
   else if(b=t.closest('[data-ex]')){const x=b.dataset.ex;if(!LOCK.includes(x)){const c=S.ex[x]||(S.ex[x]={on:false,v:''});c.on=!c.on;drawEge();sync()}}
   else if(t.closest('[data-exadd]')){S.exAdd=!S.exAdd;drawEge()}
@@ -1846,7 +1923,7 @@ const close=()=>{unb&&unb();unb=null;k2.classList.remove('p5on');try{if(location
 window.p5open=open;window.p5close=close;
 el.addEventListener('click',e=>{if(e.target.closest('[data-p5back]'))close();if(e.target.closest('[data-noop]'))e.preventDefault();const t=e.target.closest('.p5t button');if(t)el.querySelectorAll('.p5t button').forEach(b=>{b.classList.toggle('on',b===t);b.setAttribute('aria-selected',b===t)})});
 const BYN=Object.fromEntries(Object.entries(PR).map(([k,v])=>[v.n,k]));
-const mark=()=>document.querySelectorAll('#ls .tr,#ls .k25c').forEach(r=>{const b=r.querySelector('.tn b,.k25ti');const id=b&&BYN[b.textContent.trim()];r.classList.toggle('p5go',!!id);if(id)r.dataset.p5=id;else delete r.dataset.p5;if(id&&r.parentNode.firstElementChild!==r)r.parentNode.prepend(r)});
+const mark=()=>document.querySelectorAll('#ls .tr,#ls .k25c,#ls .t51r').forEach(r=>{const b=r.querySelector('.tn b,.k25ti,.t51n');const id=b&&BYN[b.textContent.trim()];r.classList.toggle('p5go',!!id);if(id)r.dataset.p5=id;else delete r.dataset.p5;if(id&&r.parentNode.firstElementChild!==r)r.parentNode.prepend(r)});
 const pd=window.postDraw;window.postDraw=function(){pd&&pd.apply(this,arguments);mark()};
 new MutationObserver(mark).observe(document.querySelector('#ls'),{childList:true});mark();
 document.querySelector('#ls').addEventListener('click',e=>{const r=e.target.closest('.p5go');if(!r||e.target.closest('.cmpb,button,a'))return;try{history.replaceState(null,'','#p'+r.dataset.p5)}catch(e){}open(r.dataset.p5)});
@@ -1866,5 +1943,39 @@ html:root[data-theme=dark] .pc16.on{background:color-mix(in srgb,var(--pc) 16%,#
 html:root[data-theme=dark] .pc16:not(.on):hover{background:color-mix(in srgb,var(--pc) 7%,#232329)}
 @media (prefers-color-scheme:dark){html:root:not([data-theme=light]) .pc16.on{background:color-mix(in srgb,var(--pc) 16%,#232329)}
 html:root:not([data-theme=light]) .pc16:not(.on):hover{background:color-mix(in srgb,var(--pc) 7%,#232329)}}
+</style>
+<script>
+/* v55 — всплывашка «i»: табличка предмет / балл, уголок к иконке */
+(()=>{let tt,cur;const CK='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+ const row=([n,m,y])=>`<div class="tt51r${y?' y':''}"><span>${y?CK:''}${n}</span><b>${m}</b></div>`;
+ function show(b){let d;try{d=JSON.parse(decodeURIComponent(b.dataset.tt51))}catch(e){return}
+  if(!tt){tt=document.createElement('div');tt.className='tt51';tt.setAttribute('role','tooltip');tt.id='tt51';document.body.appendChild(tt)}
+  tt.innerHTML=`<div class="tt51h"><span>Минимальные баллы ЕГЭ</span></div>${d.a.map(row).join('')}${d.b.length?`<div class="tt51g">И один на выбор</div>${d.b.map(row).join('')}`:''}<i class="tt51a"></i>`;
+  tt.classList.toggle('ck',[...d.a,...d.b].some(x=>x[2]));tt.classList.add('on');b.setAttribute('aria-describedby','tt51');cur=b;
+  const r=b.getBoundingClientRect(),w=tt.offsetWidth,h=tt.offsetHeight,cx=r.left+r.width/2;
+  let x=Math.min(Math.max(cx-w/2,12),innerWidth-w-12);const below=innerHeight-r.bottom>h+20;
+  const y=below?r.bottom+10:r.top-h-10;tt.style.left=x+'px';tt.style.top=y+'px';tt.dataset.up=below?'0':'1';
+  tt.querySelector('.tt51a').style.left=(cx-x-6)+'px'}
+ function hide(){if(tt)tt.classList.remove('on');if(cur)cur.removeAttribute('aria-describedby');cur=null}
+ document.addEventListener('mouseover',e=>{const b=e.target.closest&&e.target.closest('.ei51');if(b&&b!==cur)show(b);else if(!b&&cur)hide()});
+ document.addEventListener('focusin',e=>{const b=e.target.closest&&e.target.closest('.ei51');if(b)show(b);else hide()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
+ addEventListener('scroll',hide,{passive:true});
+})();
+</script>
+<style>
+.tt51{position:fixed;z-index:60;width:248px;padding:14px 16px 13px;border-radius:12px;background:var(--ink);color:var(--card);font:400 13px/18px var(--font);box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .2s;display:grid;row-gap:6px}
+.tt51.ck{padding-left:32px}
+.tt51.on{opacity:1}
+.tt51h,.tt51g{font-size:12px;line-height:16px;font-weight:500;color:color-mix(in srgb,var(--card) 62%,transparent)}
+.tt51h{margin-bottom:2px}
+.tt51r{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.tt51r span{position:relative}.tt51r span svg{position:absolute;left:-17px;top:3px}
+.tt51r b{font-weight:600;font-variant-numeric:tabular-nums}
+.tt51r span{color:var(--card)}
+.tt51g{margin-top:3px;padding-top:9px;margin-bottom:2px;border-top:1px solid color-mix(in srgb,var(--card) 16%,transparent)}
+.tt51a{position:absolute;width:12px;height:12px;background:var(--ink);transform:rotate(45deg);border-radius:2px;top:-5px}
+.tt51[data-up="1"] .tt51a{top:auto;bottom:-5px}
+.ei51[data-tip]::after{display:none}
 </style>
 </body></html>
