@@ -1,0 +1,124 @@
+
+/* ===== v15 (16.11, ночь): правки после разбора через линзы ===== */
+/* сравнение: без повторов, со ссылкой на программы уровня */
+.cg>div,.cg>div+div{grid-row:span 8}
+.cg dl div:last-child{border-bottom:1px solid #d6d3ee}
+.cgo{display:inline-flex;align-items:center;gap:8px;width:max-content;font:500 15px/22px Golos;color:#33177F;text-decoration:none}
+.cgo:after{content:"→";color:#4D22C4;transition:transform .3s}
+.cgo:hover span{text-decoration:underline dashed;text-decoration-thickness:1px;text-underline-offset:5px}
+.cgo:hover:after{transform:translateX(3px)}
+.cft{margin:24px 0 0;font:400 15px/22px Golos;color:#55507a}
+/* уровень различается цветом: магистратура — тёплый, СпВО — лавандовый (как косые черты в сравнении) */
+.k25l.lvm{background:#ffd9c7}
+.k25l.lvs{background:#d3cdfa}
+
+/* v16 (16.11, 23:30) */
+.cg h3{margin-bottom:28px}
+/* даты на первом экране — белым: коралл давал 2,4–3,4:1 */
+.hero .dates dd,.dates dd{color:var(--co)!important;font-weight:600!important}.dates dt{opacity:.85}
+/* финал без подзаголовка */
+.fin .h1{margin-bottom:40px}
+/* переключатели — сегментом: одна подложка, активный пункт плашкой */
+.seg{flex-wrap:nowrap;gap:2px;padding:3px;border-radius:14px;background:rgba(255,255,255,.1)}
+.seg button{height:38px;padding:0 16px;border-radius:10px;background:transparent;color:rgba(255,255,255,.78);white-space:nowrap}
+.seg button:hover{background:rgba(255,255,255,.08);color:#fff}
+.seg button.on,.seg button.on:hover{background:#fff;color:#1b1150}
+.pl .seg{background:#e2e0f3}
+.pl .seg button{background:transparent;color:#4a4670}
+.pl .seg button:hover{background:rgba(255,255,255,.5);color:#141416}
+.pl .seg button.on,.pl .seg button.on:hover{background:#fff;color:#141416}
+/* поиск по программам — на всю оставшуюся ширину после фильтров */
+.srch{flex:1 1 240px;width:auto;margin-left:0;min-width:240px}
+
+/* ===== v17 (16.11, 23:45) ===== */
+/* первый экран: кнопки вместо строки поиска */
+.bar .acts{justify-content:flex-start;gap:12px}
+.bar .acts .btn{height:56px;padding:0 30px;font-size:17px}
+section{scroll-margin-top:72px}
+/* форма: мягкие углы — только у кнопок, полей и плашек; блоки страницы — прямые */
+.ph img,.vbig,.pl .tb,.pl .rw,.t51 th:first-child,.t51 th:last-child,.t51 tbody tr:last-child td:first-child,.t51 tbody tr:last-child td:last-child{border-radius:0!important}
+/* список программ без подложки-карточки: линии, как в отзывах */
+.pl .tb{background:transparent;margin:0 -20px}
+.pl .t51 th{background:#efeefb;border-bottom:1px solid #d6d3ee}
+.pl .t51 td{border-bottom:1px solid #d6d3ee;padding-top:18px;padding-bottom:18px}
+.pl .t51 tbody tr:last-child td{border-bottom:1px solid #d6d3ee}
+/* цвет уровня: магистратура — тёплый, СпВО — фиолетовый; тем же цветом заливка строки при наведении */
+.pl .t51 tbody tr,.pl .t51 tbody tr:nth-child(n){background-color:transparent!important}
+.pl .t51 tbody tr.lvm,.pl .rw.lvm{--hc:#ffeadf!important}
+.pl .t51 tbody tr.lvs,.pl .rw.lvs{--hc:#e4e0fc!important}
+.pl .rw.lvm,.pl .rw.lvs{background-color:#fff!important}
+/* страницы вместо «Показать ещё» */
+.more{justify-content:space-between;align-items:center;margin-top:28px}
+.pgn{display:flex;gap:4px;align-items:center}
+.pgn button{min-width:40px;height:40px;padding:0 6px;border:0;border-radius:12px;background:transparent;color:#3b3560;font:500 15px/20px Golos;font-variant-numeric:tabular-nums;cursor:pointer;display:grid;place-items:center;transition:background .3s,color .3s}
+.pgn button:hover{background:#e2e0f3;color:#141416}
+.pgn button.on,.pgn button.on:hover{background:#141416;color:#fff}
+.pgn button:disabled{opacity:.3;cursor:default;background:transparent}
+.pgd{width:28px;text-align:center;color:#7a7499}
+.pgc{font:400 14px/20px Golos;color:#7a7499;font-variant-numeric:tabular-nums}
+
+/* ===== v18 (17.11, 00:00) ===== */
+/* карточки программ нажимаются — значит, со скруглением (строки-карточки и плитка); таблица остаётся на линиях */
+.pl .rw{border-radius:16px!important}
+/* сравнение: подписи строк в одну строку */
+.cg dl div{grid-template-columns:176px 1fr}
+/* заголовки разделов крупнее — ближе к масштабу первого экрана */
+.st{font-size:68px!important;line-height:72px!important}
+.shr{margin-bottom:56px}
+/* видео: одно крупное и два рядом, без списка; подписи и значок уже есть в самих кадрах */
+.vm{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:16px}
+.vt{display:block;overflow:hidden;border-radius:16px;position:relative;background:#1b1150}
+.vt.big{grid-row:1/3;aspect-ratio:16/9}
+.vt img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.vt:hover img{transform:scale(1.035)}
+/* финал: как первый экран — слева, в две строки, крупно */
+.fin{text-align:left;padding:150px 0 120px}
+.fin .h1{font-size:132px!important;line-height:122px!important;margin-bottom:56px}
+.fin .acts{justify-content:flex-start}
+.fin .acts .btn{height:56px;padding:0 30px;font-size:17px}
+/* подвал: без сетки из линий, контакты в ряд */
+.ft .g{display:flex;gap:88px;border-top:1px solid rgba(255,255,255,.22);border-bottom:0;padding-top:32px}
+.ft .g>div,.ft .g>div+div{padding:0;border:0}
+.ft dd{font:500 20px/28px Golos}
+.ft .bt{margin-top:56px}
+
+/* ===== v19 (17.11, 00:15) ===== */
+.btn{font-family:Golos,sans-serif}button.btn.o{background:transparent;cursor:pointer}
+.cons{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:24px;background:rgba(16,10,48,.62);opacity:0;transition:opacity .3s}
+.cons.on{opacity:1}
+.cbox{position:relative;width:min(520px,100%);max-height:calc(100vh - 48px);overflow:auto;background:#fff;color:#1b1150;border-radius:24px;padding:40px;transform:translateY(12px);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.cons.on .cbox{transform:none}
+.cbox h2{font:400 30px/36px Bounded;margin:0 40px 12px 0}
+.cbox .cl{font:400 16px/24px Golos;color:#55507a;margin:0 0 28px}
+.cbox label{display:block;margin-bottom:16px}
+.cbox label span{display:block;font:500 14px/20px Golos;margin-bottom:6px}
+.cbox label i{font-style:normal;font-weight:400;color:#7a7499;margin-left:6px}
+.cbox input,.cbox textarea{width:100%;box-sizing:border-box;border:0;box-shadow:inset 0 0 0 1px #cfcbe6;border-radius:14px;padding:12px 14px;font:400 16px/24px Golos;color:#141416;background:#fff;outline:none;resize:vertical;transition:box-shadow .3s}
+.cbox input:focus,.cbox textarea:focus{box-shadow:inset 0 0 0 2px #4D22C4}
+.cbox .btn{height:52px;padding:0 28px;font-size:16px;margin-top:8px;border:0;cursor:pointer}
+.cbox .cn{font:400 14px/20px Golos;color:#55507a;margin:24px 0 0}
+.cbox .cn a{color:#33177F;font-weight:500;white-space:nowrap}
+.cx{position:absolute;right:20px;top:20px;width:40px;height:40px;border:0;border-radius:14px;background:#efeefb;color:#1b1150;display:grid;place-items:center;cursor:pointer;transition:background .3s}
+.cx:hover{background:#e2e0f3}
+.cons[hidden],.cbox [hidden]{display:none!important}
+
+/* ===== v20 (17.11, 00:30) ===== */
+.stk>.ly{will-change:clip-path;transform:translateZ(0);backface-visibility:hidden}
+/* видео: при наведении по кадру проходит блик-грань, как свет по лучам */
+.vt::after{content:"";position:absolute;top:-10%;bottom:-10%;left:0;width:38%;pointer-events:none;opacity:0;transform:translateX(-160%) skewX(-18deg);
+ background:linear-gradient(90deg,rgba(255,135,92,0),rgba(255,135,92,.55) 30%,rgba(255,236,226,.85) 52%,rgba(143,140,240,.55) 74%,rgba(143,140,240,0));mix-blend-mode:soft-light}
+.vt:hover::after{animation:vshine20 .8s cubic-bezier(.4,0,.2,1) both}
+@keyframes vshine20{0%{transform:translateX(-160%) skewX(-18deg);opacity:1}100%{transform:translateX(330%) skewX(-18deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.vt:hover::after{animation:none}}
+/* v21: «Есть бюджет» — наведение как у соседних фильтров, без серой заливки и синей рамки браузера */
+.pl .chk{transition:background .3s,box-shadow .3s;outline:none}
+.pl .chk:hover{background:#f6f5fb}
+.pl .chk:focus{outline:none}
+.pl .chk:focus-visible{outline:2px solid #4D22C4;outline-offset:2px}
+.pl .chk.on{box-shadow:inset 0 0 0 1.5px #4D22C4}
+.pl .chk i{transition:background .3s,border-color .3s}
+.pl .chk:hover i{border-color:#4D22C4}
+/* наведение у фильтров: фон остаётся белым, появляется тонкая рамка (серо-сиреневая заливка сливалась с панелью) */
+.pl .chk:hover,.pl .ddb:hover{background:#fff;box-shadow:inset 0 0 0 1px #b9b3e6}
+.pl .chk.on,.pl .chk.on:hover,.pl .ddb.set,.pl .ddb.set:hover{box-shadow:inset 0 0 0 1.5px #4D22C4}
+.pl .ddb{transition:box-shadow .3s}
