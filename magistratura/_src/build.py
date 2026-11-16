@@ -8,6 +8,8 @@ html=head+body+'<script>'+js+'</script></body></html>'
 html=html.replace('%RAYS%',r('part_rays.svg'))
 import re as _re
 html=html.replace('%RAYS2%',_re.sub(r'(id="|url\(#)g',r'\1f',r('part_rays.svg')).replace('class="rays"','class="rays3"').replace('xMinYMin slice','xMidYMin slice'))
+html=html.replace('%RAYS3%',_re.sub(r'(id="|url\(#)g',r'\1h',r('part_rays.svg')).replace('class="rays"','class="rays4"').replace('xMinYMin slice','xMidYMid slice'))
+html=html.replace('%FAN1%',r('part_fan1.svg')).replace('%FAN2%',r('part_fan2.svg'))
 html=html.replace('%LOGO%',r('logo.svg').replace('fill="#E50046"','fill="currentColor"'))
 inline='--inline' in sys.argv
 if inline:
