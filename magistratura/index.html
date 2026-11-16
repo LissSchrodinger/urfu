@@ -105,6 +105,12 @@ html[data-hero=a] .ht{grid-template-rows:auto auto 1fr}
 @media (max-width:1300px){.dg2{grid-template-columns:minmax(0,1fr) 420px}.dh{font-size:40px;line-height:48px}}
 .wrap{max-width:none!important}
 
+.hs{width:min(720px,52vw);padding:8px 8px 8px 26px;gap:14px}
+.hs input{font-size:20px;line-height:28px}
+.hs .btn{height:56px;padding:0 30px;font-size:17px;border:0}
+.hs svg{width:24px;height:24px}
+button.btn{border:0;font-family:Golos;cursor:pointer}
+
 /* ===== страница: тёмное поле + светлые панели (как v4) ===== */
 body{background:#2a1478}
 .wrap{max-width:1440px;margin:0 auto;padding:0 var(--pad)}
@@ -336,7 +342,6 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
     </div>
     <div class="ph"><img src="img/students.jpg" alt="Студенты УрФУ за работой"></div>
   </div>
-  <p class="src">Раскладка и фото — макет сайта агентства (Грани_Контрастный_вариант.ai, монтажная область 10); строка про заочную форму — наша, числа по списку программ сайта</p>
 </div></section>
 </div>
 
@@ -351,7 +356,6 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
       <div><h3><span class="sl v"></span>Специализированное высшее</h3><p>Федеральный пилотный проект: обучение строится вокруг конкретной профессиональной задачи и роли выпускника.</p>
         <dl><div><dt>Цель</dt><dd>Конкретная профессиональная задача и роль выпускника</dd></div><div><dt>Кому</dt><dd>Тем, кто уже понимает, для какой задачи ему нужны знания</dd></div><div><dt>Типы программ</dt><dd>Исследовательские, профессиональные, управленческие</dd></div><div><dt>Программ</dt><dd id="nS"></dd></div><div><dt>Дальше</dt><dd>Аспирантура</dd></div></dl></div>
     </div>
-    <p class="src">Из FAQ masters.urfu.ru и решения созвона 12.11; «Программ» — по списку сайта</p>
   </div>
 </div></section>
 
@@ -367,7 +371,7 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
     <label class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="q" type="search" placeholder="Поиск" aria-label="Поиск по программам"></label>
   </div>
   <div class="lbar"><span class="cnt" id="cnt"></span>
-    <span style="display:flex;gap:16px;align-items:center"><span class="notel">данные masters.urfu.ru на 16.11.2026; клик — страница программы на текущем сайте</span>
+    <span style="display:flex;gap:16px;align-items:center">
     <span class="vw" id="vw" role="group" aria-label="Вид списка">
       <button data-v="table" class="on" aria-label="Таблица" title="Таблица"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4h14M2 9h14M2 14h14"/></svg></button>
       <button data-v="rows" aria-label="Строки" title="Строки"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="14" height="5" rx="1.5"/><rect x="2" y="10" width="14" height="5" rx="1.5"/></svg></button>
@@ -388,7 +392,6 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
     <div class="sp4"><span class="k">3</span><h3>Подай документы</h3><div class="ln"><a href="https://www.gosuslugi.ru/vuzonline" target="_blank" rel="noopener">Онлайн через Госуслуги</a><a href="https://magister.urfu.ru/ru/documents/kalendar-priema/" target="_blank" rel="noopener">Календарь приёма</a></div><dl><dt>Очная форма</dt><dd>20.06 — 17.08</dd><dt>Очно-заочная и заочная</dt><dd>20.06 — 17.08</dd></dl></div>
     <div class="sp4"><span class="k">4</span><h3>Пройди вступительные испытания</h3><dl style="margin-top:0"><dt>Очная форма</dt><dd>01.07 — 20.08</dd><dt>Очно-заочная и заочная</dt><dd>01.07 — 20.08</dd></dl><div class="ln"><a href="https://urfu.ru/ru/alpha-second/" target="_blank" rel="noopener">Списки поступающих</a></div></div>
   </div>
-  <p class="src">Тексты, сроки и ссылки — masters.urfu.ru, кампания 2026. Сроки на вкладках «Бюджет» и «Контракт» на сайте одинаковые <span class="notel">в FAQ сайта сказано, что они отличаются — уточнить</span></p>
 </div></section>
 
 <!-- видео -->
@@ -396,14 +399,12 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
   <div class="shr"><h2 class="st">Видео</h2></div>
   <div class="vg"><a class="vbig" id="vb" href="https://disk.yandex.ru/d/F-waNiOpdyrBTg" target="_blank" rel="noopener"><img src="img/v1.jpg" alt="Магистратура. Ученый"></a>
     <div class="vl" id="vl"><a class="on"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg></i>Магистратура. Ученый</a><a><i><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg></i>Магистратура. Инженер</a><a><i><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"/></svg></i>Магистратура. Продюсер</a></div></div>
-  <p class="src">Три ролика и обложки — с masters.urfu.ru, ролики лежат на Яндекс Диске</p>
 </div></section>
 
 <!-- отзывы -->
 <section class="sec dk" id="reviews" style="padding-top:40px"><div class="wrap">
   <div class="shr" style="align-items:center"><h2 class="st">Отзывы выпускников</h2><div class="nav2"><button id="rp" aria-label="Предыдущий">←</button><button id="rn" aria-label="Следующий">→</button></div></div>
   <div class="rvg"><div class="rmain" id="rm"></div><div class="rside" id="rsd"></div></div>
-  <p class="src">Фрагменты отзывов с masters.urfu.ru, полный текст — по кнопке <span class="notel">фрагменты выбраны нами</span></p>
 </div></section>
 
 <!-- панель 2: FAQ + новости -->
@@ -417,7 +418,6 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
       <a class="nn"><div class="im"><img src="img/n1.jpg" alt=""></div><time>28 июля 2026 г.</time><h3>УрФУ побил исторический рекорд приемных кампаний</h3><p>Заявления на бюджетные места бакалавриата подали почти 50 тысяч абитуриентов</p></a>
       <a class="nn"><div class="im"><img src="img/n2.jpg" alt=""></div><time>21 июля 2026 г.</time><h3>УрФУ — в топ-5 лучших вузов России по партнерству с ИТ-компаниями</h3><p>Заключено 31 соглашение о сотрудничестве</p></a>
     </div>
-    <p class="src">Новости с сайта; фото — из v4</p>
   </div>
 </div></section>
 
@@ -427,7 +427,7 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
   <div class="h1">подай документы</div>
   <p>Онлайн через Госуслуги · в 2026 приём шёл 20.06 — 17.08</p>
   <div class="acts"><a class="btn c" href="https://www.gosuslugi.ru/vuzonline" target="_blank" rel="noopener">Подать документы</a><a class="btn o">Получить консультацию</a></div>
-  <p style="margin:20px 0 0"><span class="notel">«Получить консультацию» — из v4, на сайте такой кнопки нет</span></p>
+  
 </section>
 </main>
 
@@ -437,7 +437,7 @@ mark{background:rgba(255,135,92,.35);color:inherit;border-radius:4px;padding:0 2
     <div><dt>Телефон</dt><dd><a href="tel:+73433754474">+7 (343) 375 44 74</a></dd></div>
     <div><dt>Адрес</dt><dd>Екатеринбург, ул. Мира, 19, каб. ГУК-100</dd></div>
   </dl>
-  <div class="bt"><span>Эскиз для обсуждения · не для публикации</span><span class="so"><a>ВКонтакте</a><a>MAX</a></span></div>
+  <div class="bt"><span>Уральский федеральный университет</span><span class="so"><a>ВКонтакте</a><a>MAX</a></span></div>
 </div></footer>
 <script>document.documentElement.dataset.hero=(new URLSearchParams(location.search).get('hero')||'a');
 
@@ -498,8 +498,7 @@ const fb=$('#fb');const tb=()=>{S.b=!S.b;fb.classList.toggle('on',S.b);fb.setAtt
 document.querySelectorAll('#vw button').forEach(b=>b.onclick=()=>{S.v=b.dataset.v;document.querySelectorAll('#vw button').forEach(x=>x.classList.toggle('on',x===b));draw()});
 draw();
 
-document.querySelectorAll('#fin button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#fin button').forEach(x=>x.classList.toggle('on',x===b));
- $('#finn').innerHTML=b.dataset.k==='b'?'Тексты и сроки — masters.urfu.ru, вкладка «Бюджет» (2026). <span class="notel">ссылки не подключены</span>':'Сроки для контракта на сайте отличаются — <span class="notel">вкладку «Контракт» не сверяли, показаны сроки бюджета</span>'});
+document.querySelectorAll('#fin button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#fin button').forEach(x=>x.classList.toggle('on',x===b))});
 document.querySelectorAll('#vl a').forEach((a,i)=>a.onclick=()=>{document.querySelectorAll('#vl a').forEach(x=>x.classList.toggle('on',x===a));$('#vb img').src='img/v'+(i+1)+'.jpg';$('#vb img').alt=a.textContent});
 $('#nM').textContent=PROGS.filter(p=>p.l==='М').length;$('#nS').textContent=PROGS.filter(p=>p.l==='СВ').length;
 const nW=f=>PROGS.filter(p=>p.forms.includes(f)).length;$('#wk').textContent=`Учишься без отрыва от работы: заочно — ${nW('Заочная')} программы, очно-заочно — ${nW('Очно-заочная')}`;

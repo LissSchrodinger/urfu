@@ -1,0 +1,112 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Магистратура УрФУ · лендинг (эскиз)</title>
+<style>
+@font-face{font-family:Bounded;src:url(fonts/bounded.woff2) format('woff2');font-weight:200 600;font-display:swap}
+@font-face{font-family:Golos;src:url(fonts/golos-text-cyrillic-wght-normal.woff2) format('woff2');font-weight:400 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Golos;src:url(fonts/golos-text-latin-wght-normal.woff2) format('woff2');font-weight:400 900;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215}
+:root{--v0:#33177F;--v1:#4D22C4;--v2:#6E6DC5;--co:#FF875C;--ink:#141416;--pad:5vw}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:400 16px/24px Golos,system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.mk{position:relative}
+/* пометка «сверх реального контента» */
+.note{font:500 11px/14px Golos;letter-spacing:.02em;color:rgba(255,255,255,.62);border:1px dashed rgba(255,255,255,.4);border-radius:6px;padding:2px 6px;white-space:nowrap}
+
+/* ===== первый экран ===== */
+.hero{position:relative;min-height:max(760px,100vh);color:#fff;overflow:hidden;background:#4D22C4;display:flex;flex-direction:column}
+.hero svg.rays{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.nav{position:relative;z-index:2;display:flex;align-items:center;gap:32px;height:88px;padding:0 var(--pad)}
+.nav a.l{font:500 15px/20px Golos;opacity:.92;transition:opacity .3s}
+.nav a.l:hover{opacity:1;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.nav .sp{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 22px;border-radius:999px;font:500 15px/20px Golos;transition:background .3s,color .3s,border-color .3s;white-space:nowrap}
+.btn.w{background:#fff;color:var(--v0)}.btn.w:hover{background:#ece9fb}
+.btn.o{border:1px solid rgba(255,255,255,.55);color:#fff}.btn.o:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.btn.s{height:40px;padding:0 18px;font-size:14px}
+.ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.35)}
+.ic:hover{border-color:#fff}
+.logo{height:32px;width:auto;color:#fff}.logo path{fill:currentColor}
+.hb{position:relative;z-index:2;flex:1;display:grid;grid-template-rows:auto 1fr auto;padding:24px var(--pad) 88px}
+.h1{font:400 104px/100px Bounded;letter-spacing:-.02em;margin:0;text-transform:lowercase}
+.lead{font:500 24px/32px Golos;margin:28px 0 0;max-width:600px;min-height:30px;opacity:.95}
+.tw{justify-self:end;align-self:center;text-align:right;margin-top:24px}
+.tw .h1 span{display:block}
+.word{display:inline-block;transition:opacity .45s,transform .45s;will-change:transform}
+.word.out{opacity:0;transform:translateY(24px)}
+.lead span{transition:opacity .45s}
+.lead.out span{opacity:0}
+.bar{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,.22)}
+.acts{display:flex;gap:12px}
+.dates{display:flex;gap:48px}
+.dates dt{font:400 14px/20px Golos;opacity:.72;margin:0 0 4px}
+.dates dd{margin:0;font:500 20px/28px Golos}
+.dots{display:flex;gap:6px;margin-top:20px}
+.dots i{width:24px;height:2px;background:rgba(255,255,255,.3);border-radius:2px;transition:background .3s}
+.dots i.on{background:#fff}
+@media (max-width:1300px){.h1{font-size:88px;line-height:86px}}
+@media (prefers-reduced-motion:reduce){.word,.lead span{transition:none}}
+
+.hs{display:flex;align-items:center;gap:12px;background:#fff;border-radius:999px;padding:6px 6px 6px 22px;width:560px}
+.hs input{flex:1;border:0;outline:none;font:400 17px/24px Golos;color:var(--ink);background:transparent;min-width:0}
+.hs input::placeholder{color:#6b6690}
+.hs .btn{height:44px}
+.btn.c{background:var(--co);color:#1b1150}.btn.c:hover{background:#ff9a75}
+.bar{align-items:center}
+
+.hb{grid-template-rows:1fr auto!important;padding-top:0!important}
+.ht{align-self:end;display:flex;justify-content:space-between;align-items:flex-end;gap:48px;padding-bottom:40px}
+.h1{font-size:96px;line-height:96px}
+.h2w{margin-top:28px}.h2w b{font-weight:400}
+.lead{font:500 34px/42px Golos!important;max-width:470px;margin:0!important;min-height:126px;display:flex;align-items:flex-end}
+.dots{display:none}
+.nav .logo{height:40px}
+@media (max-width:1300px){.h1{font-size:80px;line-height:80px}.lead{font-size:28px!important;line-height:36px!important}}
+
+/* вариант A — как отмеченный 16:9 «новые возможности»: заголовок и подпись слева сверху, «новые …» справа снизу */
+html[data-hero=a] .ht{display:grid;grid-template-columns:1fr;align-self:stretch;padding-top:24px;gap:0}
+html[data-hero=a] .ht>div{display:contents}
+html[data-hero=a] .ht h1{grid-row:1}
+html[data-hero=a] .ht .lead{grid-row:2;margin-top:28px!important;min-height:0;font-size:30px!important;line-height:38px!important;max-width:300px;align-self:start}
+html[data-hero=a] .ht .h2w{grid-row:3;justify-self:end;align-self:end;text-align:right;margin-top:0}
+html[data-hero=a] .h2w .word{display:block}
+html[data-hero=a] .ht{grid-template-rows:auto auto 1fr}
+
+/* ===== первый экран по макету агентства (Грани_Контрастный_вариант.ai, монтажная область 10, 1920×1211): фон — растр из макета без текста, текст — HTML в тех же местах ===== */
+.hA{--u:calc(100vw/1440);position:relative;display:block;min-height:0;height:calc(var(--u)*800);background:transparent;color:#fff}
+.hA .nav{position:absolute;left:0;right:0;top:0;height:auto;padding:0;display:block}
+.hA .nav .l{position:absolute;top:calc(var(--u)*39);font:200 calc(var(--u)*22.5)/calc(var(--u)*31) Bounded;opacity:1;white-space:nowrap}
+.hA .nav .l:hover{text-decoration:underline;text-underline-offset:calc(var(--u)*8);text-decoration-thickness:1px}
+.hA .nav .l:nth-child(1){left:calc(var(--u)*72)}.hA .nav .l:nth-child(2){left:calc(var(--u)*317)}.hA .nav .l:nth-child(3){left:calc(var(--u)*521)}.hA .nav .l:nth-child(4){left:calc(var(--u)*626)}
+.hA .si{position:absolute;left:calc(var(--u)*920);top:calc(var(--u)*38);width:calc(var(--u)*36);height:calc(var(--u)*36)}
+.hA .si svg{width:100%;height:100%}
+.hA .lg{position:absolute;right:calc(var(--u)*72);top:calc(var(--u)*41)}
+.hA .lg .logo{height:calc(var(--u)*60);width:auto}
+.hA .h1{position:absolute;font:400 calc(var(--u)*95)/calc(var(--u)*89) Bounded;letter-spacing:0;margin:0;text-transform:lowercase}
+.hA .t1{left:calc(var(--u)*67);top:calc(var(--u)*148)}
+.hA .t2{left:calc(var(--u)*556);top:calc(var(--u)*376)}
+.hA .t2 .word{font-weight:400}
+.hA .lead{position:absolute;left:calc(var(--u)*76);top:calc(var(--u)*418);margin:0!important;font:400 calc(var(--u)*30.2)/calc(var(--u)*36) Bounded!important;max-width:none;min-height:0;display:block}
+.hA .lead.out span{opacity:0}
+.hA .bar{position:absolute;left:calc(var(--u)*72);right:calc(var(--u)*72);top:calc(var(--u)*660);display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.28);padding-top:calc(var(--u)*36)}
+
+.top{position:relative;background:#2a1478 url(img/hero_bg.jpg) top left/100% auto no-repeat}
+.top:before{content:"";position:absolute;left:0;right:0;top:calc(100vw/1440*640);height:calc(100vw/1440*270);background:linear-gradient(rgba(42,20,120,0),#2a1478);pointer-events:none}
+.top>*{position:relative}
+.hA .bar{top:calc(var(--u)*640)!important}
+.dipA{color:#fff;padding:40px 0 96px}
+.dg2{display:grid;grid-template-columns:minmax(0,1fr) 512px;gap:64px;align-items:start}
+.dh{font:400 46px/54px Bounded;margin:0}
+.dl{font:500 17px/24px Golos;margin:28px 0 0;max-width:660px;opacity:.95}
+.tks{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:40px}
+.tks h3{font:400 24px/30px Bounded;margin:0 0 10px}
+.tks p{margin:0;font:400 15px/22px Golos;opacity:.8}
+.wk2{display:inline-flex;gap:10px;margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.2);font:500 15px/22px Golos;color:#fff}
+.wk2 b{color:var(--co);font-weight:500;transition:transform .3s}.wk2:hover b{transform:translateX(3px)}
+.ph img{display:block;width:100%;border-radius:0}
+@media (max-width:1300px){.dg2{grid-template-columns:minmax(0,1fr) 420px}.dh{font-size:40px;line-height:48px}}
+.wrap{max-width:none!important}
+
+.hs{width:min(720px,52vw);padding:8px 8px 8px 26px;gap:14px}
+.hs input{font-size:20px;line-height:28px}
+.hs .btn{height:56px;padding:0 30px;font-size:17px;border:0}
+.hs svg{width:24px;height:24px}
+button.btn{border:0;font-family:Golos;cursor:pointer}
