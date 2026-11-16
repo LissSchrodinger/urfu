@@ -118,3 +118,7 @@ main.n2 #programs.pl{padding:140px 0 120px!important}
 main.n2 .fin{margin-top:0}
 .fin::before{content:"";position:absolute;left:0;right:0;top:-1px;height:calc(var(--u)*120);z-index:2;background:var(--pg);clip-path:polygon(0 0,100% 0,100% 40%,64% 100%,0 20%);pointer-events:none}
 main.n2 .fin{overflow:hidden!important;clip-path:inset(0)}
+/* срезы кадров — тонко (17.11) */
+.kb{background:var(--pg)}
+.kb .kw .pg{fill:var(--pg)}
+.kb .kw polyline{vector-effect:non-scaling-stroke}
