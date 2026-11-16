@@ -30,11 +30,11 @@ document.body.insertAdjacentHTML('beforeend',`<button type="button" class="pkf" 
 const g=i=>document.getElementById(i),pk=g('pk');
 // тонкие лучи из точки слева снизу (за краем окна)
 const rays=()=>{const sv=g('pkrays'),bx=sv.parentNode,W=bx.clientWidth,H=bx.clientHeight;if(!W)return;const ox=-W*.06,oy=H*1.12;
- let h=`<defs><linearGradient id="pkrl" gradientUnits="userSpaceOnUse" x1="${ox}" y1="${oy}" x2="${W}" y2="0"><stop offset="0" stop-color="#FF875C" stop-opacity=".55"/><stop offset=".45" stop-color="#c77ac8" stop-opacity=".22"/><stop offset="1" stop-color="#a29ff5" stop-opacity="0"/></linearGradient><radialGradient id="pkrg" cx="${ox}" cy="${oy}" r="${W*.55}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF875C" stop-opacity=".22"/><stop offset="1" stop-color="#FF875C" stop-opacity="0"/></radialGradient></defs><circle cx="${ox}" cy="${oy}" r="${W*.55}" fill="url(#pkrg)"/>`;
- const A=[-8,-14,-21,-27,-34,-42,-51,-61,-72];const L=Math.hypot(W,H)*1.2;
- A.forEach((a,i)=>{const r=a*Math.PI/180,x=ox+Math.cos(r)*L,y=oy+Math.sin(r)*L;
-  if(i%3===1){const r2=A[i+1]*Math.PI/180;h+=`<polygon points="${ox},${oy} ${x},${y} ${ox+Math.cos(r2)*L},${oy+Math.sin(r2)*L}" fill="url(#pkrl)" opacity=".09"/>`}
-  h+=`<line x1="${ox}" y1="${oy}" x2="${x}" y2="${y}" stroke="url(#pkrl)" stroke-width="1" opacity="${i%2?.55:.8}"/>`});
+ let h=`<defs><linearGradient id="pkrl" gradientUnits="userSpaceOnUse" x1="${ox}" y1="${oy}" x2="${W}" y2="0"><stop offset="0" stop-color="#FF875C" stop-opacity=".5"/><stop offset=".4" stop-color="#c77ac8" stop-opacity=".18"/><stop offset=".85" stop-color="#a29ff5" stop-opacity="0"/></linearGradient><radialGradient id="pkrg" cx="${ox}" cy="${oy}" r="${W*.55}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF875C" stop-opacity=".22"/><stop offset="1" stop-color="#FF875C" stop-opacity="0"/></radialGradient></defs><circle cx="${ox}" cy="${oy}" r="${W*.55}" fill="url(#pkrg)"/>`;
+ // мягкие грани-клинья без контуров: чередуются по яркости, гаснут к правому верхнему углу
+ const A=[-4,-13,-22,-33,-45,-58,-72];const L=Math.hypot(W,H)*1.25,O=[.16,.06,.12,.04,.09,.03];
+ for(let i=0;i<A.length-1;i++){const r1=A[i]*Math.PI/180,r2=A[i+1]*Math.PI/180;
+  h+=`<polygon points="${ox},${oy} ${ox+Math.cos(r1)*L},${oy+Math.sin(r1)*L} ${ox+Math.cos(r2)*L},${oy+Math.sin(r2)*L}" fill="url(#pkrl)" opacity="${O[i]*3}"/>`}
  sv.setAttribute('viewBox',`0 0 ${W} ${H}`);sv.innerHTML=h};
 new ResizeObserver(rays).observe(pk.querySelector('.pkb'));
 function num(to){const el=g('pkn'),from=+el.textContent||0,t0=performance.now();const go=t=>{const k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);el.textContent=Math.round(from+(to-from)*e);if(k<1)requestAnimationFrame(go)};

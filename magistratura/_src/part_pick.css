@@ -50,3 +50,5 @@
 .pko small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pkn{padding-top:clamp(10px,3vh,30px)}
 .pkn b{font-size:clamp(64px,10vh,96px)}
+/* 17.11: оверлей темнее и с размытием */
+.pk{background:rgba(12,6,40,.7);backdrop-filter:blur(12px) saturate(.8);-webkit-backdrop-filter:blur(12px) saturate(.8)}
