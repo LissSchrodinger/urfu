@@ -14,9 +14,11 @@ function pass(p,skip){return (skip==='l'||!S.l||p.l===S.l)&&(skip==='a'||S.a<0||
 const fi=$('#fi');[...new Map(PROGS.map(p=>[p.i,p.I]))].sort((x,y)=>x[0].localeCompare(y[0])).forEach(([k,v])=>fi.insertAdjacentHTML('beforeend',`<option value="${k}">${esc(v)}</option>`));
 $('#ar').innerHTML=`<button data-a="-1" class="on">Все области</button>`+AREAS.map((a,i)=>`<button data-a="${i}">${a[0]}</button>`).join('');
 const go=p=>window.open('https://masters.urfu.ru/programs/'+p.id,'_blank','noopener');
-const ty=p=>`<span class="sl ${p.l==='СВ'?'v':''}" style="height:14px;margin-right:10px"></span>${LV[p.l]}`;
+const ty=p=>`<span class="k25l">${LV[p.l]}</span>`;
+const EXT='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+const inst=p=>`<span data-tip="${esc(p.I)}" tabindex="0">${p.i}</span>`;
 const GO='<span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>';
-const facts=p=>`<dl class="fx"><div><dt>Бюджет</dt><dd>${p.bud||'—'}</dd></div><div><dt>Контракт</dt><dd>${p.paid||'—'}</dd></div><div><dt>Стоимость в год</dt><dd style="font-size:15px;line-height:20px;margin-top:6px">${rub(p.price)}</dd></div>${S.v==='rows'?GO:''}</dl>`;
+const facts=p=>`<dl class="fx"><div><dt>Бюджет</dt><dd>${p.bud}</dd></div><div><dt>Платно</dt><dd>${p.paid}</dd></div><div><dt>Институт</dt><dd class="fi">${inst(p)}</dd></div></dl>`;
 function draw(){
  const all=PROGS.filter(p=>pass(p));
  document.querySelectorAll('#lvl button').forEach(b=>{b.classList.toggle('on',b.dataset.l===S.l);b.querySelector('i').textContent=PROGS.filter(p=>pass(p,'l')&&(!b.dataset.l||p.l===b.dataset.l)).length});
@@ -25,9 +27,9 @@ function draw(){
  $('#cnt').textContent=all.length?`${all.length} ${pl(all.length)}`:'';
  const ls=$('#ls');
  if(!all.length){ls.className='';ls.innerHTML='<div class="empty">Ничего не нашлось. Попробуй изменить фильтры.</div>'}
- else if(S.v==='table'){ls.className='tb';ls.innerHTML=`<table><colgroup><col><col style="width:270px"><col style="width:96px"><col style="width:96px"><col style="width:150px"><col style="width:64px"></colgroup><thead><tr><th>Программа</th><th>Тип</th><th>Бюджет</th><th>Контракт</th><th>Стоимость в год</th><th></th></tr></thead><tbody>${rows.map((p,k)=>`<tr data-k="${k}"><td><span class="nm">${hl(p.n)}</span><span class="cd"><span data-tip="${esc(p.d)}">${hl(p.c)}</span> · ${p.forms.join(', ')||'—'} · <span data-tip="${esc(p.I)}">${p.i}</span></span></td><td>${ty(p)}</td><td class="big">${p.bud||'—'}</td><td class="big">${p.paid||'—'}</td><td>${rub(p.price)}</td><td>${GO}</td></tr>`).join('')}</tbody></table>`}
- else{ls.className='ls '+(S.v==='cards'?'cards':'');ls.innerHTML=rows.map((p,k)=>`<article class="rw" data-k="${k}" tabindex="0"><div><div class="cd">${hl(p.c)} ${hl(p.d)} · ${p.forms.join(', ')} · <span data-tip="${esc(p.I)}">${p.i}</span></div><div class="nm">${hl(p.n)}</div><div class="ty">${ty(p)}</div></div>${facts(p)}</article>`).join('')}
- ls.querySelectorAll('[data-k]').forEach(e=>e.onclick=()=>go(rows[+e.dataset.k]));
+ else if(S.v==='table'){ls.className='tb';ls.innerHTML=`<table class="t51"><colgroup><col><col style="width:84px"><col style="width:84px"><col style="width:128px"><col style="width:56px"></colgroup><thead><tr><th>Программа</th><th>Бюджет</th><th>Платно</th><th>Институт</th><th><span class="sr">Перейти</span></th></tr></thead><tbody>${rows.map((p,k)=>`<tr data-k="${k}"><td><div class="t51m">${ty(p)}</div><b class="t51n">${hl(p.n)} <span class="cd64" data-tip="${esc(p.c+' '+p.d)}" tabindex="0">${hl(p.c)}</span></b></td><td class="t51d">${p.bud}</td><td class="t51d">${p.paid}</td><td class="t51i">${inst(p)}</td><td class="t51x">${EXT}</td></tr>`).join('')}</tbody></table>`}
+ else{ls.className='ls '+(S.v==='cards'?'cards':'');ls.innerHTML=rows.map((p,k)=>`<article class="rw" data-k="${k}" tabindex="0"><div class="rt">${ty(p)}<span class="t51x">${EXT}</span></div><div class="nm">${hl(p.n)}</div><div class="cd">${hl(p.c)} ${hl(p.d)}</div>${facts(p)}</article>`).join('')}
+ ls.querySelectorAll('[data-k]').forEach(e=>{e.onclick=ev=>{if(ev.target.closest('[data-tip]'))return;go(rows[+e.dataset.k])};e.onkeydown=ev=>{if(ev.key==='Enter')go(rows[+e.dataset.k])}});
  const rest=all.length-rows.length;
  $('#more').innerHTML=rest>0?`<button class="btn wl" id="mb">Показать ещё ${Math.min(9,rest)}</button>`:'';
  if(rest>0)$('#mb').onclick=()=>{S.n+=9;draw()};

@@ -1,0 +1,6 @@
+<div id="pick" style="position:fixed;right:20px;bottom:20px;z-index:100;display:flex;gap:4px;padding:6px;background:#fff;border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.25);font:500 14px Golos,sans-serif">
+<span style="align-self:center;padding:0 8px;color:#6a6a72">Смена слов:</span>
+<button data-a="a">A маска</button><button data-a="b">B буквы</button><button data-a="c">C грань</button><button data-a="d">D наплыв</button><button data-a="e">E лента</button><span style="width:1px;background:#dcdce0;margin:4px 6px"></span><button data-l="1">Подпись стоит</button></div>
+<style>#pick button{height:36px;padding:0 12px;border:0;border-radius:9px;background:#ebebed;font:inherit;cursor:pointer}#pick button.on{background:#141416;color:#fff}</style>
+<script>(()=>{const p=document.getElementById('pick');const mark=()=>p.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.l?window.LEADFIX:b.dataset.a===window.ANIM));mark();
+p.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.l){window.LEADFIX=!window.LEADFIX;mark();return}window.ANIM=b.dataset.a;mark();clearInterval(window.HT);step();window.HT=setInterval(step,4000)})})()</script>

@@ -1,0 +1,57 @@
+
+/* ===== программы — светлая таблица как в каталоге (16.11) ===== */
+#programs.pl{background:#efeefb;color:#141416;margin:20px 20px 0;border-radius:32px;padding:96px 0}
+.pl .st{color:#141416}
+.pl .seg button{background:#fff;color:#3d3d44}.pl .seg button:hover{background:#ebebed}
+.pl .seg button.on{background:#141416;color:#fff}
+.pl .seg.ar button{background:transparent;box-shadow:inset 0 0 0 1px #dcdce0;color:#3d3d44}
+.pl .seg.ar button:hover{background:#ebebed}
+.pl .seg.ar button.on{background:#141416;color:#fff;box-shadow:none}
+.pl .sel select{background:#fff;color:#141416}.pl .sel select:hover{background:#ebebed}
+.pl .sel:after{border-color:#141416}
+.pl .chk{background:#fff;color:#141416}.pl .chk:hover{background:#ebebed}
+.pl .chk i{border-color:#6a6a72}.pl .chk.on i{background:#4D22C4;border-color:#4D22C4}.pl .chk i svg{stroke:#fff}
+.pl .srch input{background:#fff;color:#141416;box-shadow:inset 0 0 0 1px #dcdce0}
+.pl .srch input:focus{background:#fff;box-shadow:inset 0 0 0 1px #141416}
+.pl .srch input::placeholder{color:#6a6a72}.pl .srch svg{stroke:#6a6a72}
+.pl .cnt{font:500 20px/28px Golos;color:#141416}
+.pl .vw{background:#e2e0f3}.pl .vw button{color:#6a6a72}.pl .vw button.on{background:#fff;color:#141416}
+.pl .tb{background:#fff;border-radius:18px}
+.pl .t51{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;font:400 14px/21px Golos}
+.pl .t51 th{position:sticky;top:72px;z-index:2;background:#fff;text-align:left;font:500 12px/18px Golos;color:#6a6a72;padding:14px 12px 12px;border-bottom:1px solid #ebebed}
+.pl .t51 th:first-child{padding-left:20px;border-top-left-radius:18px}.pl .t51 th:last-child{border-top-right-radius:18px}
+.pl .t51 td{padding:14px 12px;vertical-align:top;border-bottom:1px solid #ebebed;color:#141416}
+.pl .t51 td:first-child{padding-left:20px}
+.pl .t51 tbody tr:last-child td{border-bottom:0}
+.pl .t51 tbody tr{cursor:pointer;transition:background .25s}
+.pl .t51 tbody tr:hover{background:color-mix(in srgb,#4D22C4 5%,#fff)}
+.pl .t51 tbody tr:last-child td:first-child{border-bottom-left-radius:18px}.pl .t51 tbody tr:last-child td:last-child{border-bottom-right-radius:18px}
+.k25l{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:7px;background:#d8cef2;color:#141416;font:600 12px/18px Golos;white-space:nowrap}
+.pl .t51n{display:block;margin-top:8px;font:500 15px/20px Golos}
+.pl .cd64{font:400 13px/20px Golos;color:#6a6a72;margin-left:4px;white-space:nowrap}
+.pl .t51d{padding-top:15px!important;font:600 15px/22px Golos;font-variant-numeric:tabular-nums}
+.pl .t51i{padding-top:15px!important;color:#3d3d44}
+.pl .t51x{color:#6a6a72;text-align:right;padding-top:16px!important;padding-right:20px!important}
+.pl tr:hover .t51x,.pl .rw:hover .t51x{color:#141416}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.pl .rw{background:#fff;color:#141416;grid-template-columns:minmax(0,1fr);gap:0;padding:20px}
+.pl .rw:hover{background:color-mix(in srgb,#4D22C4 5%,#fff)}
+.pl .rw .rt{display:flex;justify-content:space-between;align-items:center}
+.pl .rw .nm{font:500 18px/24px Golos;margin-top:12px}
+.pl .rw .cd{font:400 13px/18px Golos;color:#6a6a72;margin-top:4px}
+.pl .rw .fx{gap:0;margin-top:16px;padding-top:13px;border-top:1px solid #ebebed}
+.pl .fx div{padding:0 20px;border-left:1px solid #ebebed}.pl .fx div:first-child{padding-left:0;border-left:0}
+.pl .fx dt{color:#6a6a72}.pl .fx dd{font:600 15px/22px Golos;margin-top:2px}.pl .fx dd.fi{font-weight:400;color:#3d3d44}
+.pl .ls.cards .rw{min-height:0;align-content:start}
+.pl .ls.cards .fx{margin-top:auto}
+.pl .ls.cards .rw{display:flex;flex-direction:column}
+.pl .ls:not(.cards) .rw{display:grid;grid-template-columns:minmax(0,1fr) 300px;column-gap:32px}
+.pl .ls:not(.cards) .rw .rt{grid-column:1/-1}
+.pl .ls:not(.cards) .rw .fx{grid-column:2;grid-row:2/4;margin-top:12px;border-top:0;padding-top:0;align-self:start}
+.pl mark{background:rgba(77,34,196,.14)}
+.pl .btn.wl{background:#141416;color:#fff}.pl .btn.wl:hover{background:#3d3d44}
+.pl .empty{color:#6a6a72;background:#fff;border-radius:18px}
+.pl #lvl .sl{display:none}
+.pl .fx [data-tip],.pl .t51 [data-tip]{border-bottom:0!important;text-decoration:none!important}
+.pl .ls.cards .rw .cd{margin-bottom:16px}
+.pl .fx dd{border:0!important;padding:0!important}

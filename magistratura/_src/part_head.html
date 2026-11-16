@@ -1,4 +1,4 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Магистратура УрФУ · лендинг (эскиз)</title>
+<!doctype html><html lang="ru" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Магистратура УрФУ</title>
 <style>
 @font-face{font-family:Bounded;src:url(fonts/bounded.woff2) format('woff2');font-weight:200 600;font-display:swap}
 @font-face{font-family:Golos;src:url(fonts/golos-text-cyrillic-wght-normal.woff2) format('woff2');font-weight:400 900;unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
@@ -71,27 +71,29 @@ html[data-hero=a] .h2w .word{display:block}
 html[data-hero=a] .ht{grid-template-rows:auto auto 1fr}
 
 /* ===== первый экран по макету агентства (Грани_Контрастный_вариант.ai, монтажная область 10, 1920×1211): фон — растр из макета без текста, текст — HTML в тех же местах ===== */
-.hA{--u:calc(100vw/1440);position:relative;display:block;min-height:0;height:calc(var(--u)*800);background:transparent;color:#fff}
-.hA .nav{position:absolute;left:0;right:0;top:0;height:auto;padding:0;display:block}
-.hA .nav .l{position:absolute;top:calc(var(--u)*39);font:200 calc(var(--u)*22.5)/calc(var(--u)*31) Bounded;opacity:1;white-space:nowrap}
-.hA .nav .l:hover{text-decoration:underline;text-underline-offset:calc(var(--u)*8);text-decoration-thickness:1px}
-.hA .nav .l:nth-child(1){left:calc(var(--u)*72)}.hA .nav .l:nth-child(2){left:calc(var(--u)*317)}.hA .nav .l:nth-child(3){left:calc(var(--u)*521)}.hA .nav .l:nth-child(4){left:calc(var(--u)*626)}
-.hA .si{position:absolute;left:calc(var(--u)*920);top:calc(var(--u)*38);width:calc(var(--u)*36);height:calc(var(--u)*36)}
-.hA .si svg{width:100%;height:100%}
-.hA .lg{position:absolute;right:calc(var(--u)*72);top:calc(var(--u)*41)}
-.hA .lg .logo{height:calc(var(--u)*60);width:auto}
-.hA .h1{position:absolute;font:400 calc(var(--u)*95)/calc(var(--u)*89) Bounded;letter-spacing:0;margin:0;text-transform:lowercase}
-.hA .t1{left:calc(var(--u)*67);top:calc(var(--u)*148)}
-.hA .t2{left:calc(var(--u)*556);top:calc(var(--u)*376)}
-.hA .t2 .word{font-weight:400}
-.hA .lead{position:absolute;left:calc(var(--u)*76);top:calc(var(--u)*418);margin:0!important;font:400 calc(var(--u)*30.2)/calc(var(--u)*36) Bounded!important;max-width:none;min-height:0;display:block}
-.hA .lead.out span{opacity:0}
-.hA .bar{position:absolute;left:calc(var(--u)*72);right:calc(var(--u)*72);top:calc(var(--u)*660);display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.28);padding-top:calc(var(--u)*36)}
+.hM{--u:calc(100vw/1440);position:relative;display:block;min-height:0;height:calc(var(--u)*800);background:transparent;color:#fff}
+.hM .nav{position:absolute;left:0;right:0;top:0;height:auto;padding:0;display:block}
+.hM .nav .l{position:absolute;top:calc(var(--u)*39);font:200 calc(var(--u)*22.5)/calc(var(--u)*31) Bounded;opacity:1;white-space:nowrap}
+.hM .nav .l:hover{text-decoration:underline;text-underline-offset:calc(var(--u)*8);text-decoration-thickness:1px}
+.hM .nav .l:nth-child(1){left:calc(var(--u)*72)}.hM .nav .l:nth-child(2){left:calc(var(--u)*317)}.hM .nav .l:nth-child(3){left:calc(var(--u)*521)}.hM .nav .l:nth-child(4){left:calc(var(--u)*626)}
+.hM .si{position:absolute;left:calc(var(--u)*920);top:calc(var(--u)*38);width:calc(var(--u)*36);height:calc(var(--u)*36)}
+.hM .si svg{width:100%;height:100%}
+.hM .lg{position:absolute;right:calc(var(--u)*72);top:calc(var(--u)*41)}
+.hM .lg .logo{height:calc(var(--u)*60);width:auto}
+.hM .h1{position:absolute;font:400 calc(var(--u)*95)/calc(var(--u)*89) Bounded;letter-spacing:0;margin:0;text-transform:lowercase}
+.hM .t1{left:calc(var(--u)*67);top:calc(var(--u)*148)}
+.hM .t2{left:calc(var(--u)*556);top:calc(var(--u)*376)}
+.hM .t2 .word{font-weight:400}
+.hM .lead{position:absolute;left:calc(var(--u)*76);top:calc(var(--u)*418);margin:0!important;font:400 calc(var(--u)*30.2)/calc(var(--u)*36) Bounded!important;max-width:none;min-height:0;display:block}
+.hM .lead.out span{opacity:0}
+.hM .bar{position:absolute;left:calc(var(--u)*72);right:calc(var(--u)*72);top:calc(var(--u)*660);display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.28);padding-top:calc(var(--u)*36)}
 
-.top{position:relative;background:#2a1478 url(img/hero_bg.jpg) top left/100% auto no-repeat}
+.top{position:relative;isolation:isolate;background:#2a1478}
+.top>svg.rays{position:absolute;left:0;top:0;width:100%;height:calc(100vw/1440*908);z-index:0;display:block}
+.top:before{z-index:1}.top>section{z-index:2}
 .top:before{content:"";position:absolute;left:0;right:0;top:calc(100vw/1440*640);height:calc(100vw/1440*270);background:linear-gradient(rgba(42,20,120,0),#2a1478);pointer-events:none}
 .top>*{position:relative}
-.hA .bar{top:calc(var(--u)*640)!important}
+.hM .bar{top:calc(var(--u)*640)!important}
 .dipA{color:#fff;padding:40px 0 96px}
 .dg2{display:grid;grid-template-columns:minmax(0,1fr) 512px;gap:64px;align-items:start}
 .dh{font:400 46px/54px Bounded;margin:0}
@@ -110,3 +112,13 @@ html[data-hero=a] .ht{grid-template-rows:auto auto 1fr}
 .hs .btn{height:56px;padding:0 30px;font-size:17px;border:0}
 .hs svg{width:24px;height:24px}
 button.btn{border:0;font-family:Golos;cursor:pointer}
+
+/* смена слова — слои в одной ячейке, строки под маской */
+.stk{display:inline-grid;vertical-align:top}
+.stk>.ly{grid-area:1/1;display:block}
+.stk .ln{display:block;overflow:hidden;padding:0 .08em .16em;margin:0 -.08em -.16em}
+.stk .li{display:block;will-change:transform}
+.stk .wd{display:inline-block;white-space:nowrap}
+.stk .ch{font-style:normal;display:inline-block;white-space:pre}
+.hM .t2 .word{display:inline-grid}
+.hM .lead.stk{display:grid}
