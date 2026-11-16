@@ -107,3 +107,14 @@ main.n2 .fin .st,main.n2 .fin .h1{color:#fff}
 .zh2 .steps{grid-template-columns:repeat(4,minmax(0,1fr))}
 .zh2 .st{white-space:nowrap}
 @media (max-width:1360px){.zh2 .sp4 h3{min-height:90px}}
+/* проход «красивость» 17.11 */
+main.n2 #programs.pl{padding:140px 0 120px!important}
+.zh2{padding:120px 0 160px}
+.zc .cg dl div{padding:16px 0}
+.zv{overflow:hidden;isolation:isolate}
+.zv::before{content:"";position:absolute;z-index:-1;right:-10%;top:-30%;width:70%;height:90%;background:radial-gradient(closest-side,rgba(255,135,92,.28),rgba(107,56,242,.14) 55%,transparent);filter:blur(20px)}
+.zv::after{content:"";position:absolute;z-index:-1;left:-15%;bottom:-35%;width:60%;height:80%;background:radial-gradient(closest-side,rgba(107,56,242,.35),transparent)}
+.vbig{box-shadow:0 40px 120px -40px rgba(0,0,0,.6)}
+main.n2 .fin{margin-top:0}
+.fin::before{content:"";position:absolute;left:0;right:0;top:-1px;height:calc(var(--u)*120);z-index:2;background:var(--pg);clip-path:polygon(0 0,100% 0,100% 40%,64% 100%,0 20%);pointer-events:none}
+main.n2 .fin{overflow:hidden!important;clip-path:inset(0)}
