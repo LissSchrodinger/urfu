@@ -70,7 +70,7 @@ document.querySelectorAll('.cg dl[data-lv]').forEach(dl=>{const L=PROGS.filter(p
  set('n',L.length);set('b',`На ${wb.length} из ${L.length} программ, всего ${wb.reduce((s,p)=>s+p.bud,0).toLocaleString('ru-RU')} мест`);
  set('f',[['Очная','очная'],['Очно-заочная','очно-заочная'],['Заочная','заочная']].filter(x=>nf(x[0])).map(x=>`${x[1]} — ${nf(x[0])}`).join(', ').replace(/^./,c=>c.toUpperCase()));
  set('p',pr.length?rub(Math.min(...pr)):'—')});
-const nW=f=>PROGS.filter(p=>p.forms.includes(f)).length;$('#wk').textContent=`Учишься без отрыва от работы: заочно — ${nW('Заочная')} ${pl(nW('Заочная'))}, очно-заочно — ${nW('Очно-заочная')}`;
+const nW=f=>PROGS.filter(p=>p.forms.includes(f)).length;if($('#wk'))$('#wk').textContent=`Учишься без отрыва от работы: заочно — ${nW('Заочная')} ${pl(nW('Заочная'))}, очно-заочно — ${nW('Очно-заочная')}`;
 document.querySelectorAll('[data-f=w]').forEach(a=>a.addEventListener('click',()=>{S.l='';S.f.clear();S.f.add('Заочная');S.f.add('Очно-заочная');S.pg=1;draw()}));
 
 const RV=[
@@ -111,3 +111,13 @@ document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.pare
  document.addEventListener('pointerover',e=>{const el=e.target.closest('[data-tip]');if(!el||!el.dataset.tip)return;
   t.textContent=el.dataset.tip;const r=el.getBoundingClientRect();t.style.opacity=1;const w=t.offsetWidth;t.style.left=Math.max(12,Math.min(innerWidth-w-12,r.left+r.width/2-w/2))+'px';t.style.top=(r.bottom+8)+'px'});
  document.addEventListener('pointerout',e=>{if(e.target.closest('[data-tip]'))t.style.opacity=0});addEventListener('scroll',()=>t.style.opacity=0,{passive:true})})();
+
+/* v19. Консультация — модальное окно (прототип: заявка никуда не уходит) */
+(()=>{const m=document.getElementById('cons');if(!m)return;const f=m.querySelector('form'),ok=m.querySelector('.cok');let last=null;
+const open=e=>{e&&e.preventDefault();last=document.activeElement;f.hidden=false;ok.hidden=true;f.reset();m.hidden=false;requestAnimationFrame(()=>{m.classList.add('on');f.querySelector('input').focus()});document.documentElement.style.overflow='hidden'};
+const close=()=>{m.classList.remove('on');document.documentElement.style.overflow='';setTimeout(()=>{m.hidden=true},300);last&&last.focus&&last.focus()};
+document.querySelectorAll('[data-cons]').forEach(b=>b.addEventListener('click',open));
+m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-x]'))close()});
+document.addEventListener('keydown',e=>{if(m.hidden)return;if(e.key==='Escape')close();
+ if(e.key==='Tab'){const q=[...m.querySelectorAll('button,input,textarea,a[href]')].filter(x=>!x.closest('[hidden]'));const a=q[0],z=q[q.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+f.addEventListener('submit',e=>{e.preventDefault();f.hidden=true;ok.hidden=false;ok.querySelector('button').focus()})})();

@@ -70,7 +70,7 @@
 <!-- финал -->
 <section class="fin dk" id="apply">%RAYS2%
   <div class="wrap"><div class="h1">выбери<br>программу</div>
-  <div class="acts"><a class="btn c" href="#programs">Подобрать программу</a><a class="btn o">Получить консультацию</a></div></div>
+  <div class="acts"><a class="btn c" href="#programs">Подобрать программу</a><button type="button" class="btn o" data-cons>Получить консультацию</button></div></div>
 </section>
 </main>
 
@@ -82,3 +82,17 @@
   </dl>
   <div class="bt"><span>Уральский федеральный университет</span><span class="so"><a>ВКонтакте</a><a>MAX</a></span></div>
 </div></footer>
+
+<div class="cons" id="cons" hidden><div class="cbox" role="dialog" aria-modal="true" aria-labelledby="consT">
+  <button type="button" class="cx" data-x aria-label="Закрыть"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 4l10 10M14 4 4 14"/></svg></button>
+  <form novalidate>
+    <h2 id="consT">Получить консультацию</h2>
+    <p class="cl">Оставь контакты — приёмная комиссия ответит на вопросы о поступлении.</p>
+    <label><span>Имя</span><input type="text" name="n" autocomplete="name" required></label>
+    <label><span>Телефон или почта</span><input type="text" name="c" autocomplete="email" required></label>
+    <label><span>Вопрос <i>необязательно</i></span><textarea name="q" rows="3"></textarea></label>
+    <button class="btn c" type="submit">Отправить</button>
+    <p class="cn">Или свяжись сам: <a href="tel:+73433754474">+7 (343) 375 44 74</a> · <a href="mailto:priem@urfu.ru">priem@urfu.ru</a></p>
+  </form>
+  <div class="cok" hidden><h2>Заявка отправлена</h2><p class="cl">Приёмная комиссия свяжется с тобой.</p><button type="button" class="btn c" data-x>Хорошо</button></div>
+</div></div>

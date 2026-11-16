@@ -36,7 +36,6 @@
 .bar .acts .btn{height:56px;padding:0 30px;font-size:17px}
 section{scroll-margin-top:72px}
 /* форма: мягкие углы — только у кнопок, полей и плашек; блоки страницы — прямые */
-.panel,.panel.p1{margin:0;border-radius:0}
 .ph img,.vbig,.pl .tb,.pl .rw,.t51 th:first-child,.t51 th:last-child,.t51 tbody tr:last-child td:first-child,.t51 tbody tr:last-child td:last-child{border-radius:0!important}
 /* список программ без подложки-карточки: линии, как в отзывах */
 .pl .tb{background:transparent;margin:0 -20px}
@@ -57,7 +56,6 @@ section{scroll-margin-top:72px}
 .pgn button:disabled{opacity:.3;cursor:default;background:transparent}
 .pgd{width:28px;text-align:center;color:#7a7499}
 .pgc{font:400 14px/20px Golos;color:#7a7499;font-variant-numeric:tabular-nums}
-html body section.sec.pl#programs{margin:0!important;border-radius:0!important}
 
 /* ===== v18 (17.11, 00:00) ===== */
 /* карточки программ нажимаются — значит, со скруглением (строки-карточки и плитка); таблица остаётся на линиях */
@@ -74,7 +72,7 @@ html body section.sec.pl#programs{margin:0!important;border-radius:0!important}
 .vt img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .vt:hover img{transform:scale(1.035)}
 /* финал: как первый экран — слева, в две строки, крупно */
-.fin{text-align:left;padding:150px 0 220px}
+.fin{text-align:left;padding:150px 0 120px}
 .fin .h1{font-size:132px!important;line-height:122px!important;margin-bottom:56px}
 .fin .acts{justify-content:flex-start}
 .fin .acts .btn{height:56px;padding:0 30px;font-size:17px}
@@ -83,3 +81,23 @@ html body section.sec.pl#programs{margin:0!important;border-radius:0!important}
 .ft .g>div,.ft .g>div+div{padding:0;border:0}
 .ft dd{font:500 20px/28px Golos}
 .ft .bt{margin-top:56px}
+
+/* ===== v19 (17.11, 00:15) ===== */
+.btn{font-family:Golos,sans-serif}button.btn.o{background:transparent;cursor:pointer}
+.cons{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:24px;background:rgba(16,10,48,.62);opacity:0;transition:opacity .3s}
+.cons.on{opacity:1}
+.cbox{position:relative;width:min(520px,100%);max-height:calc(100vh - 48px);overflow:auto;background:#fff;color:#1b1150;border-radius:24px;padding:40px;transform:translateY(12px);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.cons.on .cbox{transform:none}
+.cbox h2{font:400 30px/36px Bounded;margin:0 40px 12px 0}
+.cbox .cl{font:400 16px/24px Golos;color:#55507a;margin:0 0 28px}
+.cbox label{display:block;margin-bottom:16px}
+.cbox label span{display:block;font:500 14px/20px Golos;margin-bottom:6px}
+.cbox label i{font-style:normal;font-weight:400;color:#7a7499;margin-left:6px}
+.cbox input,.cbox textarea{width:100%;box-sizing:border-box;border:0;box-shadow:inset 0 0 0 1px #cfcbe6;border-radius:14px;padding:12px 14px;font:400 16px/24px Golos;color:#141416;background:#fff;outline:none;resize:vertical;transition:box-shadow .3s}
+.cbox input:focus,.cbox textarea:focus{box-shadow:inset 0 0 0 2px #4D22C4}
+.cbox .btn{height:52px;padding:0 28px;font-size:16px;margin-top:8px;border:0;cursor:pointer}
+.cbox .cn{font:400 14px/20px Golos;color:#55507a;margin:24px 0 0}
+.cbox .cn a{color:#33177F;font-weight:500;white-space:nowrap}
+.cx{position:absolute;right:20px;top:20px;width:40px;height:40px;border:0;border-radius:14px;background:#efeefb;color:#1b1150;display:grid;place-items:center;cursor:pointer;transition:background .3s}
+.cx:hover{background:#e2e0f3}
+.cons[hidden],.cbox [hidden]{display:none!important}
