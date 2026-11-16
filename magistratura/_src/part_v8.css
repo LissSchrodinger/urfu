@@ -118,3 +118,19 @@
 .chp button:focus-visible{outline:2px solid #4D22C4;outline-offset:2px;border-radius:8px}
 .chr{all:unset;cursor:pointer;height:36px;padding:0 8px;font:500 14px/36px Golos;color:#4D22C4}
 .chr:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* ===== v12 (16.11, 22:15) ===== */
+/* убрать блик по стыкам — анимация теперь как в окне программы каталога */
+/* «Есть диплом»: фото по высоте до низа подписей треков */
+.dipA .ph img{object-fit:cover;width:100%}
+.dg2{align-items:start}
+/* сравнение: строки двух колонок на одних уровнях */
+.cg>div,.cg>div+div{display:grid;grid-template-rows:subgrid;grid-row:span 7;align-content:start}
+.cg dl{display:contents}
+.cg>div>p{margin-bottom:28px}
+/* наведение на строки — прозрачнее */
+.pl .t51 tbody tr:nth-child(3n+1):hover,.pl .rw:nth-child(3n+1):hover{background:#f4f1ff!important}
+.pl .t51 tbody tr:nth-child(3n+2):hover,.pl .rw:nth-child(3n+2):hover{background:#fff3ec!important}
+.pl .t51 tbody tr:nth-child(3n):hover,.pl .rw:nth-child(3n):hover{background:#fff0f5!important}
+/* «подай документы» — белым */
+.fin .h1{color:#fff!important;background:none!important;-webkit-text-fill-color:#fff!important;filter:none!important}

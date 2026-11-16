@@ -13,26 +13,43 @@ const UP=200;const fit=()=>{const fr=f.getBoundingClientRect(),w=fr.width,k=1440
   const py=(a.getBoundingClientRect().bottom-fr.top+UP+84)*k;g.setAttribute('transform',`translate(${720-495} ${(py-408).toFixed(1)})`);const u=(UP/h*100).toFixed(1);s.style.webkitMaskImage=s.style.maskImage=`linear-gradient(transparent 0,#000 ${u}%)`};
 fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(f);if(ft)new ResizeObserver(fit).observe(ft)})();
 
-/* Переливы по граням: свет бежит по линиям между гранями туда, где курсор (сами грани и фон не меняются). */
-(()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const NS='http://www.w3.org/2000/svg';const P={x:495,y:408},L=2200;
-const OFF=[-.2,-.07,0,.07,.2],COL=['#FF875C','#FFB08F','#ffffff','#C9C4FF','#8f8cf0'],OP=[0,.75,1,.75,0];
+/* v12. Анимация как в окне программы каталога (rays.js, режим LD), чуть ярче:
+   L — грани ловят свет: к курсору светлеют, от курсора темнеют (оттенок граней, а не стыки);
+   D — глубина слоями: грани сдвигаются на 6/4 px, свечение точки — на 20/13 px;
+   плюс мягкое пятно света скользит за курсором и подсвечивает оттенок грани (soft-light). */
+(()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const NS='http://www.w3.org/2000/svg';const P={x:495,y:408};
+const LIT=.16,SHADE=.12;
 document.querySelectorAll('svg.rays,svg.rays3').forEach((s,si)=>{const paths=[...s.querySelectorAll('path')];if(!paths.length)return;const host=paths[0].parentNode;
-  const defs=s.querySelector('defs')||s.insertBefore(document.createElementNS(NS,'defs'),s.firstChild);
-  const lay=document.createElementNS(NS,'g');lay.setAttribute('style','mix-blend-mode:screen;pointer-events:none');host.appendChild(lay);
-  const E=paths.map((p,i)=>{const m=p.getAttribute('d').match(/-?[\d.]+/g).map(Number);const ang=Math.atan2(m[3]-m[1],m[2]-m[0]),dx=Math.cos(ang),dy=Math.sin(ang);
-    const id=`sh${si}_${i}`,gr=document.createElementNS(NS,'linearGradient');gr.id=id;gr.setAttribute('gradientUnits','userSpaceOnUse');
-    gr.setAttribute('x1',P.x);gr.setAttribute('y1',P.y);gr.setAttribute('x2',P.x+dx*L);gr.setAttribute('y2',P.y+dy*L);
-    const st=OFF.map((o,k)=>{const e=document.createElementNS(NS,'stop');e.setAttribute('stop-color',COL[k]);e.setAttribute('stop-opacity',OP[k]);gr.appendChild(e);return e});defs.appendChild(gr);
-    const mk=(w,o)=>{const l=document.createElementNS(NS,'line');l.setAttribute('x1',P.x);l.setAttribute('y1',P.y);l.setAttribute('x2',P.x+dx*L);l.setAttribute('y2',P.y+dy*L);
-      l.setAttribute('stroke',`url(#${id})`);l.setAttribute('stroke-width',w);l.setAttribute('stroke-linecap','round');l.setAttribute('opacity',0);lay.appendChild(l);return l};
-    return {ang,st,wide:mk(26,0),thin:mk(2.2,0),hair:(()=>{const l=mk(1,0);l.setAttribute('stroke','#fff');l.setAttribute('opacity','.07');return l})(),c:.3,tc:.3,w:0,tw:0}});
-  let run=false;
-  const tick=()=>{let mv=false;E.forEach(e=>{e.c+=(e.tc-e.c)*.09;e.w+=(e.tw-e.w)*.08;if(Math.abs(e.tc-e.c)+Math.abs(e.tw-e.w)>.001)mv=true;
-      e.st.forEach((x,k)=>x.setAttribute('offset',Math.min(1,Math.max(0,e.c+OFF[k])).toFixed(4)));e.thin.setAttribute('opacity',Math.min(1,e.w*1.1).toFixed(3));e.wide.setAttribute('opacity',(e.w*.42).toFixed(3))});
-    if(mv)requestAnimationFrame(tick);else run=false};
-  addEventListener('pointermove',ev=>{const r=s.getBoundingClientRect();const inb=ev.clientY>r.top-60&&ev.clientY<r.bottom+60;
-    let ca=null,dist=0;if(inb){const m=host.getScreenCTM();if(m){const q=new DOMPoint(ev.clientX,ev.clientY).matrixTransform(m.inverse());ca=Math.atan2(q.y-P.y,q.x-P.x);dist=Math.hypot(q.x-P.x,q.y-P.y)}}
-    E.forEach(e=>{if(ca===null){e.tw=0;return}let d=Math.abs(e.ang-ca);d=Math.min(d,2*Math.PI-d);e.tw=Math.pow(Math.max(0,Math.cos(d)),3);e.tc=Math.min(.95,Math.max(.03,dist/L))});
-    if(!run){run=true;requestAnimationFrame(tick)}},{passive:true});
-  document.addEventListener('pointerleave',()=>{E.forEach(e=>e.tw=0);if(!run){run=true;requestAnimationFrame(tick)}});
+  const defs=s.querySelector('defs');const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
+  defs.insertAdjacentHTML('beforeend',`<filter id="rb${si}" x="-100%" y="-100%" width="300%" height="300%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="46"/></filter>
+   <radialGradient id="rgw${si}"><stop offset="0" stop-color="#FF875C" stop-opacity=".55"/><stop offset=".35" stop-color="#FF9F7E" stop-opacity=".3"/><stop offset=".7" stop-color="#c77ac8" stop-opacity=".08"/><stop offset="1" stop-color="#c77ac8" stop-opacity="0"/></radialGradient>
+   <radialGradient id="rgs${si}"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".45" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`);
+  const gF=el('g',{});host.insertBefore(gF,paths[0]);
+  const F=paths.map(p=>{gF.appendChild(p);const m=p.getAttribute('d').match(/-?[\d.]+/g).map(Number);const a=Math.atan2(m[5]-m[1],m[4]-m[0]);
+    const hi=p.cloneNode();hi.setAttribute('fill','#fff');hi.setAttribute('opacity',0);const lo=p.cloneNode();lo.setAttribute('fill','#14093f');lo.setAttribute('opacity',0);return {a,hi,lo,v:0,t:0}});
+  F.forEach(f=>gF.appendChild(f.hi));F.forEach(f=>gF.appendChild(f.lo));
+  const spot=el('ellipse',{rx:420,ry:340,fill:`url(#rgs${si})`,opacity:0,style:'mix-blend-mode:soft-light'});gF.appendChild(spot);
+  const gG=el('g',{});const glow=el('ellipse',{cx:P.x,cy:P.y,rx:360,ry:230,fill:`url(#rgw${si})`,filter:`url(#rb${si})`});gG.appendChild(glow);host.appendChild(gG);
+  const st={px:0,py:0,tpx:0,tpy:0,sx:P.x,sy:P.y,tsx:P.x,tsy:P.y,so:0,tso:0};let raf=0;
+  const lr=(a,b,k)=>a+(b-a)*k;
+  const tick=()=>{raf=0;let more=false;const k=.06;const ch=(a,b)=>{if(Math.abs(b-a)>.001)more=true};
+    ['px','py','so'].forEach(n=>{const t='t'+n;st[n]=lr(st[n],st[t],k);ch(st[n],st[t])});
+    ['sx','sy'].forEach(n=>{const t='t'+n;st[n]=lr(st[n],st[t],.09);if(Math.abs(st[t]-st[n])>.5)more=true});
+    F.forEach(f=>{f.v=lr(f.v,f.t,k);ch(f.v,f.t);f.hi.setAttribute('opacity',(Math.max(0,f.v)*LIT).toFixed(3));f.lo.setAttribute('opacity',(Math.max(0,-f.v)*SHADE).toFixed(3))});
+    gF.setAttribute('transform',`translate(${(st.px*6).toFixed(2)} ${(st.py*4).toFixed(2)})`);gG.setAttribute('transform',`translate(${(st.px*20).toFixed(2)} ${(st.py*13).toFixed(2)})`);
+    spot.setAttribute('cx',st.sx.toFixed(1));spot.setAttribute('cy',st.sy.toFixed(1));spot.setAttribute('opacity',st.so.toFixed(3));
+    if(more)raf=requestAnimationFrame(tick)};
+  const go=()=>{if(!raf)raf=requestAnimationFrame(tick)};
+  const off=()=>{F.forEach(f=>f.t=0);st.tpx=st.tpy=0;st.tso=0;go()};
+  addEventListener('pointermove',e=>{const r=s.getBoundingClientRect();if(e.clientY<r.top-80||e.clientY>r.bottom+80){off();return}
+    const m=host.getScreenCTM();if(!m)return;const q=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());const ca=Math.atan2(q.y-P.y,q.x-P.x);
+    F.forEach(f=>f.t=Math.cos(ca-f.a));
+    st.tpx=Math.max(-1,Math.min(1,(e.clientX-innerWidth/2)/(innerWidth*.5)));st.tpy=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.bottom)/2)/(r.height*.6)));
+    st.tsx=q.x;st.tsy=q.y;st.tso=.75;go()},{passive:true});
+  document.addEventListener('pointerleave',off);
 })})();
+
+/* «Есть диплом»: фото от своего верха до низа подписей треков */
+(()=>{const ph=document.querySelector('.dipA .ph'),im=ph&&ph.querySelector('img'),tk=document.querySelector('.dipA .tks');if(!im||!tk)return;
+const fit=()=>{const ps=[...tk.querySelectorAll('p')];if(!ps.length)return;const b=Math.max(...ps.map(p=>p.getBoundingClientRect().bottom));const h=b-ph.getBoundingClientRect().top;if(h>120)im.style.height=Math.round(h)+'px'};
+fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(tk);document.fonts&&document.fonts.ready.then(fit)})();

@@ -1,7 +1,10 @@
 import base64,json,sys
 D='/home/claude/mag/'
 r=lambda f:open(D+f,encoding='utf8').read()
-head=r('part_head.html')+r('part_rest.css')+r('part_prog.css')+r('hdr_land.css')+r('part_v8.css')+'</style></head><body>'
+import re as _r
+RAD={32:24,24:16,20:14,18:12,14:10,12:8,10:7,9:6}
+def rad(css):return _r.sub(r'(border-radius:)([^;}!]+)',lambda m:m.group(1)+_r.sub(r'\b(\d+)px',lambda n:str(RAD.get(int(n.group(1)),int(n.group(1))))+'px',m.group(2)),css)
+head=rad(r('part_head.html'))+rad(r('part_rest.css'))+rad(r('part_prog.css'))+r('hdr_land.css')+rad(r('part_v8.css'))+'</style></head><body>'
 body='<div class="frame"><div class="scrim2"></div>'+r('hdr.html')+r('hdr_tpl.html')+r('part_hero.html')+r('part_rest.html')+'</div>'
 js='(()=>{'+r('hdr.js')[:r('hdr.js').find('drawNav();')+10]+r('hdr_land.js')+'})();'+r('part_herojs.js')+r('part_dd.js')+r('part_top.js')+r('part_rest.js').replace('%PROGS%',json.dumps(json.load(open(D+'progs2.json')),ensure_ascii=False))
 html=head+body+'<script>'+js+'</script></body></html>'
