@@ -12,7 +12,7 @@ const rub=n=>n?'от '+n.toLocaleString('ru-RU').replace(/,/g,' ')+' ₽':'—';
 function pass(p,skip){return (skip==='l'||!S.l||p.l===S.l)&&(skip==='a'||S.a<0||AREAS[S.a][1].includes(p.pre))&&(!S.i||p.i===S.i)&&(!S.f||p.forms.includes(S.f))&&(!S.b||p.bud>0)&&
  (!S.q||(p.n+' '+p.c+' '+p.d).toLowerCase().includes(S.q.toLowerCase()))}
 const fi=$('#fi');[...new Map(PROGS.map(p=>[p.i,p.I]))].sort((x,y)=>x[0].localeCompare(y[0])).forEach(([k,v])=>fi.insertAdjacentHTML('beforeend',`<option value="${k}">${esc(v)}</option>`));
-$('#ar').innerHTML=`<button data-a="-1" class="on">Все области</button>`+AREAS.map((a,i)=>`<button data-a="${i}">${a[0]}</button>`).join('');
+const fa=$('#fa');fa.innerHTML='<option value="-1">Все области</option>'+AREAS.map((a,i)=>`<option value="${i}">${a[0]}</option>`).join('');fa.onchange=e=>{S.a=+e.target.value;S.n=9;draw()};
 const go=p=>window.open('https://masters.urfu.ru/programs/'+p.id,'_blank','noopener');
 const ty=p=>`<span class="k25l">${LV[p.l]}</span>`;
 const EXT='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
@@ -22,7 +22,7 @@ const facts=p=>`<dl class="fx"><div><dt>Бюджет</dt><dd>${p.bud}</dd></div>
 function draw(){
  const all=PROGS.filter(p=>pass(p));
  document.querySelectorAll('#lvl button').forEach(b=>{b.classList.toggle('on',b.dataset.l===S.l);b.querySelector('i').textContent=PROGS.filter(p=>pass(p,'l')&&(!b.dataset.l||p.l===b.dataset.l)).length});
- document.querySelectorAll('#ar button').forEach(b=>b.classList.toggle('on',+b.dataset.a===S.a));
+ $('#fa').value=S.a;$('#fi').value=S.i;$('#ff').value=S.f;window.ddSync&&ddSync();
  const rows=all.slice(0,S.n);
  $('#cnt').textContent=all.length?`${all.length} ${pl(all.length)}`:'';
  const ls=$('#ls');
@@ -76,7 +76,7 @@ const FQ=[
  ['Можно ли после специализированного высшего поступить в аспирантуру?',['Да. После окончания любой из программ специализированного высшего образования можно продолжить обучение в аспирантуре.']]];
 
 $('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===1?' op':''}"><button aria-expanded="${i===1}"><span class="n">0${i+1}</span>${f[0]}<span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${t}</p>`).join('')}</div></div></div>`).join('');
-document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.parentNode.classList.toggle('op');b.setAttribute('aria-expanded',o)});
+document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.parentNode.classList.toggle('op');b.setAttribute('aria-expanded',o)});{const f=document.querySelector('.fi');if(f){f.classList.add('op');f.querySelector('button').setAttribute('aria-expanded',true)}}
 
 /* финал: мягкое свечение и грани */
 (function(){const s=document.querySelector('.rays2');if(!s)return;const W=1440,H=640,P=[720,120];
