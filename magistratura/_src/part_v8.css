@@ -1,0 +1,31 @@
+
+/* ===== v8 (16.11, 21:20) ===== */
+/* кнопки и поля — прямоугольник со скруглением, как «Личный кабинет» в шапке */
+.btn{border-radius:12px}
+.hs{border-radius:20px}
+.seg button,.sel select,.chk,.srch input{border-radius:12px}
+.seg.ar button{border-radius:10px}
+.nav2 button,.fi .pm,.vl i{border-radius:12px}
+.go{border-radius:12px}
+/* фото «Есть диплом» — со скруглением, как остальной интерфейс */
+.ph img{border-radius:24px}
+/* «Сравнение» + «Программы» — одна панель */
+.panel.p1{border-radius:32px 32px 0 0;padding-bottom:40px}
+#programs.pl{margin:0 20px!important;border-radius:0 0 32px 32px!important;padding-top:80px!important}
+/* наведение на строку — заметно темнее сиреневой панели */
+.pl .t51 tbody tr:hover,.pl .rw:hover{background:color-mix(in srgb,#4D22C4 12%,#fff)!important}
+.pl .t51 tbody tr:hover .t51x,.pl .rw:hover .t51x{color:#4D22C4}
+/* «Как поступить»: стрелки — цветом текста и одной толщины, подчёркивание пунктиром и только под текстом */
+.sp4 .ln a:after{content:"";flex:none;width:16px;height:16px;margin-top:3px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center/16px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center/16px no-repeat;opacity:.7;transition:opacity .2s}
+.sp4 .ln a.in:after{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 8h11M9.5 4l4 4-4 4'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 8h11M9.5 4l4 4-4 4'/%3E%3C/svg%3E")}
+.sp4 .ln a:hover{text-decoration:none}
+.sp4 .ln a:hover span{text-decoration:underline dashed;text-decoration-thickness:1px;text-underline-offset:5px}
+.sp4 .ln a:hover:after{opacity:1}
+/* финал — лучи как на первом экране */
+.fin{isolation:isolate}
+.fin>svg.rays3{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+.fin:after{content:"";position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(rgba(42,20,120,0),#2a1478);z-index:0;pointer-events:none}
+.fin>*:not(svg){z-index:1}
+.fin .btn.o{border:1px solid rgba(255,255,255,.55);color:#fff}
+.sp4 .ln a:after{color:inherit!important}
+.fin .h1{color:#fff!important}

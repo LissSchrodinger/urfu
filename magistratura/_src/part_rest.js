@@ -79,7 +79,7 @@ $('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===1?' op':''}"><button aria-
 document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.parentNode.classList.toggle('op');b.setAttribute('aria-expanded',o)});
 
 /* финал: мягкое свечение и грани */
-(function(){const s=document.querySelector('.rays2'),W=1440,H=640,P=[720,120];
+(function(){const s=document.querySelector('.rays2');if(!s)return;const W=1440,H=640,P=[720,120];
  const E=[[0,0],[360,0],[720,0],[1080,0],[1440,0],[1440,320],[1440,640],[960,640],[480,640],[0,640],[0,320],[0,0]];
  const C=['#2a1478','#30177f','#2a1478','#341a88','#2a1478','#2f1680'];
  let h=`<defs><filter id="fb" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="70"/></filter><radialGradient id="fg"><stop offset="0" stop-color="#FF875C" stop-opacity=".55"/><stop offset=".5" stop-color="#c77ac8" stop-opacity=".2"/><stop offset="1" stop-color="#6B38F2" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${H}" fill="#2a1478"/>`;
