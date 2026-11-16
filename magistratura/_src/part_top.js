@@ -10,7 +10,7 @@ fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(t)})();
 const g=document.createElementNS('http://www.w3.org/2000/svg','g');[...s.querySelectorAll(':scope>path')].forEach(p=>g.appendChild(p));s.appendChild(g);
 const UP=200;const fit=()=>{const fr=f.getBoundingClientRect(),w=fr.width,k=1440/w;const bot=ft?ft.getBoundingClientRect().bottom:fr.bottom;const h=bot-fr.top+UP;
   s.style.top=-UP+'px';s.style.height=h+'px';s.style.bottom='auto';s.setAttribute('viewBox','0 0 1440 '+Math.round(h*k));s.setAttribute('preserveAspectRatio','xMidYMin slice');
-  const py=(a.getBoundingClientRect().bottom-fr.top+UP+84)*k;g.setAttribute('transform',`translate(${720-495} ${(py-408).toFixed(1)})`);const u=(UP/h*100).toFixed(1);s.style.webkitMaskImage=s.style.maskImage=`linear-gradient(transparent 0,#000 ${u}%)`};
+  /* v18: лучи финала развёрнуты на 180° — узкие яркие грани уходят вверх за заголовок, подвал лежит на широких спокойных */const py=(a.getBoundingClientRect().top-fr.top+UP-20)*k;g.setAttribute('transform',`translate(1010 ${py.toFixed(1)}) rotate(180) translate(-495 -408)`);const u=(UP/h*100).toFixed(1);s.style.webkitMaskImage=s.style.maskImage=`linear-gradient(transparent 0,#000 ${u}%)`};
 fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(f);if(ft)new ResizeObserver(fit).observe(ft)})();
 
 /* v15. Переливы цвета по граням — три варианта, ?rays=a|b|old (по умолчанию a).
