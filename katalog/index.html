@@ -1,6 +1,7 @@
 <!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex,nofollow"><title>Каталог программ · показ</title><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><script>
 /* v51 (Василиса 12.11): предметы ЕГЭ — тремя буквами во всех видах; полный список с баллами — по «i». Третий вид — таблица. */
 const SH51={'Русский язык':'Рус','Математика':'Мат','Информатика':'Инф','Физика':'Физ','Обществознание':'Общ','История':'Ист','Иностранный язык':'ИнЯ','Химия':'Хим','Биология':'Био','География':'Гео','Литература':'Лит','Творческое':'Твр'};
+try{document.documentElement.dataset.cd=new URLSearchParams(location.search).get('cd')||'A'}catch(e){}
 const ST51M=(()=>{try{return new URLSearchParams(location.search).get('st')||'B'}catch(e){return 'B'}})();
 document.documentElement.dataset.st51=ST51M;
 const CK51='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -9,15 +10,16 @@ function EX51(p,REQ,est){if(p.g!=='school')return '';const r=REQ[p.n+'|'+p.code]
  const [a,b]=r.split('|');const pr=x=>x?x.split(',').map(t=>{const [n,m]=t.split(':');return [n,+m]}):[];
  const st=(ST51M==='B'||ST51M==='C')?est:null;
  const has=(n,m)=>{if(!st)return false;const q=st.subj[n];return !!(q&&q.on&&q.v>=m)};
- const ch=pr(b);
- return `<div class="eg20 eg51">${pr(a).map(([n,m])=>`<span class="c20 c51${has(n,m)?' y51':''}" data-tip="${FULL51[n]||n}" tabindex="0">${has(n,m)?CK51:''}${SH51[n]||n}</span>`).join('')}${ch.length?`<span class="pl51x">+ ${ch.map(([n,m])=>`<span class="o51${has(n,m)?' y51':''}" data-tip="${FULL51[n]||n}" tabindex="0">${has(n,m)?CK51:''}${SH51[n]||n}</span>`).join('<i>/</i>')}</span>`:''}${EI51(r,has)}</div>`}
+ let ch=pr(b);let more=[];if(window.EXMAX51&&ch.length>window.EXMAX51){ch=ch.slice().sort((x,y)=>has(y[0],y[1])-has(x[0],x[1]));more=ch.slice(window.EXMAX51);ch=ch.slice(0,window.EXMAX51)}
+ return `<div class="eg20 eg51">${pr(a).map(([n,m])=>`<span class="c20 c51${has(n,m)?' y51':''}" data-tip="${FULL51[n]||n}" tabindex="0">${has(n,m)?CK51:''}${SH51[n]||n}</span>`).join('')}${ch.length?`<span class="pl51x">+ ${ch.map(([n,m])=>`<span class="o51${has(n,m)?' y51':''}" data-tip="${FULL51[n]||n}" tabindex="0">${has(n,m)?CK51:''}${SH51[n]||n}</span>`).join('<i>/</i>')}${more.length?`<span class="m51" data-tip="${more.map(([n])=>FULL51[n]||n).join(', ')}" tabindex="0">+${more.length}</span>`:''}</span>`:''}${EI51(r,has)}</div>`}
 const FULL51={'Творческое':'Творческое испытание'};
 function AB51(t,o){return `<span class="c20${o?' ch1c':''} c51" data-tip="${FULL51[t]||t}" tabindex="0">${SH51[t]||t}</span>`}
 function EI51(r,has){const [a,b]=r.split('|');const pr=x=>x?x.split(',').map(t=>{const [n,m]=t.split(':');return [FULL51[n]||n,+m,has?has(n,+m):false]}):[];
  const d=encodeURIComponent(JSON.stringify({a:pr(a),b:pr(b)}));
  return `<button type="button" class="ei51" data-tt51="${d}" aria-label="Минимальные баллы ЕГЭ"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="8" cy="4.9" r=".9" fill="currentColor"/></svg></button>`}
-function T51(rows,h){const sch=rows.some(x=>x.p.g==='school');
- return `<table class="t51${sch?' t51s':''}"><colgroup><col class="c51p"><col class="c51l">${sch?'<col class="c51e">':''}<col class="c51n"><col class="c51n"><col class="c51i"><col class="c51c"></colgroup><thead><tr><th>Программа</th><th>Уровень</th>${sch?'<th>Экзамены</th>':''}<th>Бюджет</th><th>Платно</th><th>Институт</th><th><span class="sr51">Сравнение</span></th></tr></thead><tbody>${rows.map(({p,ev})=>`<tr class="t51r${ev&&ev[0]>1?' dim3':''}"><td><small class="k25d">${h.hl(p.dir)}</small><b class="t51n">${h.hl(p.n)}</b></td><td><span class="k25l">${p.lv}</span></td>${sch?`<td class="t51e">${h.ege(p)}${h.st(ev)}${PL51(ev,1)}</td>`:''}<td class="t51d">${p.bud}</td><td class="t51d">${p.paid}</td><td class="ti t51i">${h.inst(p)}</td><td class="t51b">${h.cb(p)}</td></tr>`).join('')}</tbody></table>`}
+function T51(rows,h){window.EXMAX51=3;try{return T51b(rows,h)}finally{window.EXMAX51=0}}
+function T51b(rows,h){const sch=rows.some(x=>x.p.g==='school');
+ return `<table class="t51${sch?' t51s':''}"><colgroup><col class="c51p">${sch?'<col class="c51e">':''}<col class="c51n"><col class="c51n"><col class="c51i"><col class="c51c"></colgroup><thead><tr><th>Программа</th>${sch?'<th>Экзамены</th>':''}<th>Бюджет</th><th>Платно</th><th>Институт</th><th><span class="sr51">Сравнение</span></th></tr></thead><tbody>${rows.map(({p,ev})=>`<tr class="t51r${ev&&ev[0]>1?' dim3':''}"><td><div class="t51m"><span class="k25l">${p.lv}</span></div><b class="t51n">${h.hl(p.n)} <span class="cd64" data-tip="${p.dir}" tabindex="0">${h.hl(p.code)}</span></b></td>${sch?`<td class="t51e">${h.ege(p)}${h.st(ev)}${PL51(ev,1)}</td>`:''}<td class="t51d">${p.bud}</td><td class="t51d">${p.paid}</td><td class="ti t51i">${h.inst(p)}</td><td class="t51b">${h.cb(p)}</td></tr>`).join('')}</tbody></table>`}
 </script>
 <style>
 /* v51 — сокращения и «i» */
@@ -46,12 +48,28 @@ function T51(rows,h){const sch=rows.some(x=>x.p.g==='school');
 .t51 tbody tr:hover td{background:color-mix(in srgb,var(--pc) 5%,var(--card))}
 .t51 .p5go{cursor:pointer}
 .sr51{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.t51 col.c51l,.t51.t51s col.c51l{width:136px}.t51 col.c51e{width:290px}.t51 col.c51n{width:76px}.t51 col.c51i{width:108px}.t51 col.c51c{width:52px}
+.t51 col.c51l,.t51.t51s col.c51l{width:136px}.t51 col.c51e{width:300px}.t51 col.c51n{width:76px}.t51 col.c51i{width:108px}.t51 col.c51c{width:52px}
 .t51 .k25l,.t51i,.t51i span{white-space:nowrap}
 .t51n{font-weight:500!important}
 .t51e .ch1{display:inline-flex}
 /* v52 — экзамены одной строкой: обязательные плашками, «+ на выбор» текстом через «/» */
 .eg51{flex-wrap:wrap;row-gap:4px}
+.m51{margin-left:4px;color:var(--muted)}
+/* v61: первая строка таблицы на одной оси — подпись «Баллы … не опубликованы» и код программы по центру ярлыка уровня */
+.t51e .eg20n{display:block;padding-top:3px}
+.t51 tbody td:first-child{padding-top:14px}
+/* v62: уровень и код — над названием; колонки «Уровень» нет */
+.t51m{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+
+/* v64 — код в конце названия, мелко и серым (Василиса 16.11) */
+.cd64{font-size:13px;font-weight:400;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;margin-left:2px}
+/* v63 — варианты вида кода: ?cd=A текст · B обводка · C код + направление */
+html[data-cd=A] .cd51{background:none;padding:0 0 0 4px;color:var(--muted);font-size:13px}
+html[data-cd=B] .cd51{background:none;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--line) 100%,transparent);color:var(--ink2)}
+html[data-cd=C] .cd51{background:none;padding:0 0 0 4px;color:var(--muted);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;display:block;line-height:24px}
+html[data-cd=C] .t51m{min-width:0}
+.cd51{display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:7px;background:var(--sunk);color:var(--ink2);font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.t51 td.t51d,.t51 td.t51i{padding-top:15px!important}.t51e .eg51{flex-wrap:nowrap}.t51e .pl51x{flex-wrap:nowrap;white-space:nowrap}
 .pl51x{font-size:13px;color:var(--ink2);display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px;margin-left:2px}
 .pl51x i{font-style:normal;color:var(--muted)}
 .o51{display:inline-flex;align-items:center;gap:2px}
@@ -1945,37 +1963,51 @@ html:root[data-theme=dark] .pc16:not(.on):hover{background:color-mix(in srgb,var
 html:root:not([data-theme=light]) .pc16:not(.on):hover{background:color-mix(in srgb,var(--pc) 7%,#232329)}}
 </style>
 <script>
-/* v55 — всплывашка «i»: табличка предмет / балл, уголок к иконке */
+/* v60 — единая подсказка для всего показа: один плавающий элемент, одни правила.
+   Источники: data-tt51 (табличка баллов), data-tip (текст), title (переводится в data-tip при наведении, чтобы не было системной).
+   Правила: под элементом, если не помещается — над; уголок к центру элемента; прижата к краям окна с отступом 12; задержки нет, проявление 0,2 с;
+   закрывается при уходе курсора, прокрутке, Esc; открывается и с клавиатуры (focus). */
 (()=>{let tt,cur;const CK='<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.3l2.3 2.2 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
- const row=([n,m,y])=>`<div class="tt51r${y?' y':''}"><span>${y?CK:''}${n}</span><b>${m}</b></div>`;
- function show(b){let d;try{d=JSON.parse(decodeURIComponent(b.dataset.tt51))}catch(e){return}
+ const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ const row=([n,m,y])=>`<div class="tt51r${y?' y':''}"><span>${y?CK:''}${esc(n)}</span><b>${m}</b></div>`;
+ const SEL='[data-tt51],[data-tip],[title]';
+ function target(e){const b=e.target&&e.target.closest&&e.target.closest(SEL);if(!b||b===document.documentElement||b.closest('.tt51'))return null;if(b.hasAttribute('title')){const t=b.getAttribute('title');b.removeAttribute('title');if(t&&!b.dataset.tip)b.dataset.tip=t;if(!b.getAttribute('aria-label')&&t)b.setAttribute('aria-label',t)}return (b.dataset.tt51||b.dataset.tip)?b:null}
+ function show(b){
   if(!tt){tt=document.createElement('div');tt.className='tt51';tt.setAttribute('role','tooltip');tt.id='tt51';document.body.appendChild(tt)}
-  tt.innerHTML=`<div class="tt51h"><span>Минимальные баллы ЕГЭ</span></div>${d.a.map(row).join('')}${d.b.length?`<div class="tt51g">И один на выбор</div>${d.b.map(row).join('')}`:''}<i class="tt51a"></i>`;
-  tt.classList.toggle('ck',[...d.a,...d.b].some(x=>x[2]));tt.classList.add('on');b.setAttribute('aria-describedby','tt51');cur=b;
+  let html,ck=false,tbl=false;
+  if(b.dataset.tt51){let d;try{d=JSON.parse(decodeURIComponent(b.dataset.tt51))}catch(e){return}tbl=true;ck=[...d.a,...d.b].some(x=>x[2]);
+   html=`<div class="tt51h">Минимальные баллы ЕГЭ</div>${d.a.map(row).join('')}${d.b.length?`<div class="tt51g">И один на выбор</div>${d.b.map(row).join('')}`:''}`}
+  else html=`<div class="tt51t">${esc(b.dataset.tip)}</div>`;
+  tt.innerHTML=html+'<i class="tt51a"></i>';tt.classList.toggle('tb',tbl);tt.classList.toggle('ck',ck);
+  tt.style.left='0px';tt.style.top='0px';tt.classList.add('on');b.setAttribute('aria-describedby','tt51');cur=b;
   const r=b.getBoundingClientRect(),w=tt.offsetWidth,h=tt.offsetHeight,cx=r.left+r.width/2;
-  let x=Math.min(Math.max(cx-w/2,12),innerWidth-w-12);const below=innerHeight-r.bottom>h+20;
-  const y=below?r.bottom+10:r.top-h-10;tt.style.left=x+'px';tt.style.top=y+'px';tt.dataset.up=below?'0':'1';
-  tt.querySelector('.tt51a').style.left=(cx-x-6)+'px'}
+  const x=Math.min(Math.max(cx-w/2,12),innerWidth-w-12);const below=innerHeight-r.bottom>=h+22||r.top<h+22;
+  tt.style.left=x+'px';tt.style.top=(below?r.bottom+10:r.top-h-10)+'px';tt.dataset.up=below?'0':'1';
+  tt.querySelector('.tt51a').style.left=Math.min(Math.max(cx-x-6,10),w-22)+'px'}
  function hide(){if(tt)tt.classList.remove('on');if(cur)cur.removeAttribute('aria-describedby');cur=null}
- document.addEventListener('mouseover',e=>{const b=e.target.closest&&e.target.closest('.ei51');if(b&&b!==cur)show(b);else if(!b&&cur)hide()});
- document.addEventListener('focusin',e=>{const b=e.target.closest&&e.target.closest('.ei51');if(b)show(b);else hide()});
+ document.addEventListener('mouseover',e=>{const b=target(e);if(b&&b!==cur)show(b);else if(!b&&cur)hide()});
+ document.addEventListener('focusin',e=>{const b=target(e);if(b)show(b);else hide()});
+ document.addEventListener('focusout',()=>hide());
  document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
- addEventListener('scroll',hide,{passive:true});
+ document.addEventListener('click',()=>{if(cur&&!document.contains(cur))hide()});
+ addEventListener('scroll',hide,{passive:true,capture:true});
 })();
 </script>
 <style>
-.tt51{position:fixed;z-index:60;width:248px;padding:14px 16px 13px;border-radius:12px;background:var(--ink);color:var(--card);font:400 13px/18px var(--font);box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .2s;display:grid;row-gap:6px}
-.tt51.ck{padding-left:32px}
+/* v60 — старые подсказки на ::after выключены везде, работает только .tt51 */
+[data-tip]::after,[data-tip]:hover::after,[data-tip]:focus-visible::after{content:none!important;display:none!important}
+.tt51{position:fixed;z-index:200;max-width:280px;padding:8px 12px;border-radius:10px;background:var(--ink);color:var(--card);font:400 13px/18px var(--font);text-align:left;box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .2s}
 .tt51.on{opacity:1}
+.tt51t{white-space:pre-line}
+.tt51.tb{width:248px;max-width:none;padding:14px 16px 13px;display:grid;row-gap:6px;font-weight:400}
+.tt51.tb.ck{padding-left:32px}
 .tt51h,.tt51g{font-size:12px;line-height:16px;font-weight:500;color:color-mix(in srgb,var(--card) 62%,transparent)}
 .tt51h{margin-bottom:2px}
 .tt51r{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
-.tt51r span{position:relative}.tt51r span svg{position:absolute;left:-17px;top:3px}
+.tt51r span{position:relative;color:var(--card)}.tt51r span svg{position:absolute;left:-17px;top:3px}
 .tt51r b{font-weight:600;font-variant-numeric:tabular-nums}
-.tt51r span{color:var(--card)}
 .tt51g{margin-top:3px;padding-top:9px;margin-bottom:2px;border-top:1px solid color-mix(in srgb,var(--card) 16%,transparent)}
 .tt51a{position:absolute;width:12px;height:12px;background:var(--ink);transform:rotate(45deg);border-radius:2px;top:-5px}
 .tt51[data-up="1"] .tt51a{top:auto;bottom:-5px}
-.ei51[data-tip]::after{display:none}
 </style>
 </body></html>
