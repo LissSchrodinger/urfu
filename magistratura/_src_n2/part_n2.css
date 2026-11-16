@@ -117,10 +117,12 @@ main.n2 #programs.pl{padding:140px 0 120px!important}
 .vbig{box-shadow:0 40px 120px -40px rgba(0,0,0,.6)}
 main.n2 .fin{margin-top:0}
 .fin::before{content:"";position:absolute;left:0;right:0;top:-1px;height:calc(var(--u)*120);z-index:2;background:var(--pg);clip-path:polygon(0 0,100% 0,100% 40%,64% 100%,0 20%);pointer-events:none}
-main.n2 .fin{overflow:hidden!important;clip-path:inset(0)}
+main.n2 .fin{overflow:visible!important;clip-path:inset(0 -20px -4000px -20px)}
 /* срезы кадров — тонко (17.11) */
 .kb{background:var(--pg)}
 .kb .kw .pg{fill:var(--pg)}
 .kb .kw polyline{vector-effect:non-scaling-stroke}
 .kb .kw{overflow:visible;inset:-3px 0;height:calc(100% + 6px)}
 .kb .kbin{inset:2px 0}
+/* видео без увеличения при наведении (17.11) — остаётся только блик-грань */
+.vt:hover img,.vbig:hover img{transform:none!important}
