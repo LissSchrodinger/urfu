@@ -104,15 +104,22 @@
 .scrim2{position:fixed!important;z-index:40}
 .frame>.sp{position:fixed!important;z-index:60}
 .hwrap [data-theme-btn]{display:none}
-.hwrap.onhero:not(.open){background:transparent!important;box-shadow:none}
-.hwrap.onhero:not(.open) .logo,.hwrap.onhero:not(.open) .top1 button,.hwrap.onhero:not(.open) .ib{color:#fff}
-.hwrap.onhero:not(.open) .logo path[fill="#E50046"]{fill:#fff}
-.hwrap.onhero:not(.open) .top1 button:hover{color:#fff;opacity:.8}
-.hwrap.onhero:not(.open) .top1 button.cur::after{background:#fff}
-.hwrap.onhero:not(.open) .ib:hover{background:rgba(255,255,255,.14)}
-.hwrap.onhero:not(.open) .cab{background:#fff;color:var(--v0)}
-.hwrap.onhero:not(.open) .bell i{box-shadow:none}
+.hwrap.onhero:not(.open):not(.shut){background:transparent!important;box-shadow:none}
+.hwrap.onhero:not(.open):not(.shut) .logo,.hwrap.onhero:not(.open):not(.shut) .top1 button,.hwrap.onhero:not(.open):not(.shut) .ib{color:#fff}
+.hwrap.onhero:not(.open):not(.shut) .logo path[fill="#E50046"]{fill:#fff}
+.hwrap.onhero:not(.open):not(.shut) .top1 button:hover{color:#fff;opacity:.8}
+.hwrap.onhero:not(.open):not(.shut) .top1 button.cur::after{background:#fff}
+.hwrap.onhero:not(.open):not(.shut) .ib:hover{background:rgba(255,255,255,.14)}
+.hwrap.onhero:not(.open):not(.shut) .cab{background:#fff;color:var(--v0)}
+.hwrap.onhero:not(.open):not(.shut) .bell i{box-shadow:none}
 
 @keyframes draw{to{stroke-dashoffset:0}}@keyframes fadein{to{opacity:1}}
 .a0{background:radial-gradient(120% 100% at 0% 0%,#ffe066 0%,transparent 62%),radial-gradient(110% 100% at 100% 0%,#ff6f91 0%,transparent 64%),#ffc93c}
 .hwrap button:focus:not(:focus-visible){outline:none}
+
+/* v14: без скругления снизу; без рывка при открытии/закрытии над первым экраном */
+.hwrap,.mclip{border-radius:0!important}
+.hwrap.shut{background:var(--card)!important;box-shadow:var(--lift)}
+.hwrap .logo,.hwrap .ib,.hwrap .cab,.hwrap .top1 button{transition:color .3s,background .3s,opacity .2s}
+.scrim2{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(20,20,24,.28)!important}
+.hwrap{will-change:background}
