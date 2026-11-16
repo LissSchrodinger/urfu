@@ -72,3 +72,49 @@
 #faq .pfan{left:0;bottom:0}
 .sl{width:16px!important;height:18px!important;transform:none!important;border-radius:0!important;background:conic-gradient(from 0deg at 0% 100%,#FF875C 0 24deg,#6E6DC5 24deg 52deg,#4D22C4 52deg 74deg,#FF9F7E 74deg 90deg,transparent 90deg)!important}
 .sl.v{background:conic-gradient(from 0deg at 0% 100%,#4D22C4 0 24deg,#8f8cf0 24deg 52deg,#FF875C 52deg 74deg,#6E6DC5 74deg 90deg,transparent 90deg)!important}
+
+/* ===== v11 (16.11, 22:10) ===== */
+/* лучи первого экрана уходят под панель «Магистратура или СпВО» */
+.top{overflow:visible}
+.top>svg.rays{height:auto}
+.p1,#programs.pl{position:relative;z-index:3}
+/* убраны: веера в углах, огранённые метки, полоса со слоганом */
+.pfan,.sl,.slg{display:none!important}
+#programs{margin-bottom:120px!important}
+/* кристаллы — разными цветами */
+.cry{filter:drop-shadow(0 0 10px rgba(255,255,255,.08))}
+/* наведение на строки программ — светлые оттенки по очереди */
+.pl .t51 tbody tr:nth-child(3n+1):hover,.pl .rw:nth-child(3n+1):hover{background:#ebe6ff!important}
+.pl .t51 tbody tr:nth-child(3n+2):hover,.pl .rw:nth-child(3n+2):hover{background:#ffe8dc!important}
+.pl .t51 tbody tr:nth-child(3n):hover,.pl .rw:nth-child(3n):hover{background:#ffe3ee!important}
+.pl .t51 tbody tr:hover .t51x,.pl .rw:hover .t51x{color:#141416}
+/* ничего не нашлось — без подложки */
+.pl .empty{background:none!important;padding:48px 0;text-align:left}
+/* видео — наведение как в таблице: на всю ширину, без скруглений, содержимое с отступом */
+.vl a{margin:0;padding:22px 20px;border-radius:0;border-bottom:1px solid rgba(255,255,255,.14)}
+.vl a:after{display:none}
+.vl{border-top:1px solid rgba(255,255,255,.14)}
+.vl a:hover:not(.on){background:rgba(255,255,255,.06)}
+/* финал: лучи под FAQ и до низа подвала, без затемнения снизу */
+.fin{overflow:visible;padding-bottom:300px}
+.fin:after{display:none!important}
+#faq{position:relative;z-index:3}
+.ft{position:relative;z-index:1}
+/* фильтры: чекбоксы внутри списка */
+.ddp button{justify-content:flex-start;gap:12px}
+.ddp .cbx{flex:none;width:18px;height:18px;border-radius:5px;box-shadow:inset 0 0 0 1.5px #c9c6dc;display:grid;place-items:center;transition:background .15s,box-shadow .15s}
+.ddp button[aria-selected=true]{color:#141416;font-weight:400}
+.ddp button[aria-selected=true] .cbx{background:#4D22C4;box-shadow:none}
+.ddp .ddr{color:#4D22C4!important;font-weight:500!important;border-top:1px solid #eeecf6!important;border-radius:0 0 9px 9px!important;margin-top:4px}
+/* выбранное — плашками над списком */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.chips[hidden]{display:none}
+.chp{display:inline-flex;align-items:center;height:36px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1.5px #4D22C4;color:#141416;font:500 14px/20px Golos}
+.chp button{all:unset;cursor:pointer;box-sizing:border-box;height:100%;display:inline-flex;align-items:center}
+.chp .chl{padding:0 4px 0 14px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block!important;line-height:36px}
+.chp .chx{padding:0 12px 0 8px;color:#6a6a72}
+.chx:hover{color:#4D22C4}
+.chl:hover{color:#4D22C4}
+.chp button:focus-visible{outline:2px solid #4D22C4;outline-offset:2px;border-radius:8px}
+.chr{all:unset;cursor:pointer;height:36px;padding:0 8px;font:500 14px/36px Golos;color:#4D22C4}
+.chr:hover{text-decoration:underline;text-underline-offset:4px}

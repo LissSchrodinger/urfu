@@ -1,18 +1,19 @@
+const $=s=>document.querySelector(s);const $$=s=>document.querySelector(s)._v;
 
 /* ===== данные: masters.urfu.ru/programs/list, 16.11.2026 ===== */
 const PROGS=%PROGS%;
 const AREAS=[['Инженерные науки',['07','08','12','13','14','15','18','19','20','22','23','27','28','29']],['Информационные технологии',['02','09','10','11']],['Естественные науки и математика',['01','03','04','05','06','21']],['Социогуманитарные науки и технологии',['37','39','40','41','42','43','44','45','46','47','49','50','51','54','58']],['Экономика и управление',['38']],['Юриспруденция',['40']]];
 PROGS.forEach(p=>{p.bud=p.F.reduce((s,f)=>s+f.b,0);p.paid=p.F.reduce((s,f)=>s+f.k,0);const pr=p.F.map(f=>f.p).filter(x=>x>0);p.price=pr.length?Math.min(...pr):0;p.forms=p.F.map(f=>f.f);p.pre=p.c.slice(0,2)});
 const LV={'М':'Магистратура','СВ':'Специализированное высшее'};
-const S={l:'',a:-1,q:'',i:'',f:'',b:false,v:'table',n:9};
-const $=s=>document.querySelector(s);
+const S={l:'',a:$$('#fa'),q:'',i:$$('#fi'),f:$$('#ff'),b:false,v:'table',n:9};
+
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const hl=t=>{if(!S.q)return esc(t);const i=t.toLowerCase().indexOf(S.q.toLowerCase());return i<0?esc(t):esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+S.q.length))+'</mark>'+esc(t.slice(i+S.q.length))};
 const rub=n=>n?'от '+n.toLocaleString('ru-RU').replace(/,/g,' ')+' ₽':'—';
-function pass(p,skip){return (skip==='l'||!S.l||p.l===S.l)&&(skip==='a'||S.a<0||AREAS[S.a][1].includes(p.pre))&&(!S.i||p.i===S.i)&&(!S.f||p.forms.includes(S.f))&&(!S.b||p.bud>0)&&
+function pass(p,skip){return (skip==='l'||!S.l||p.l===S.l)&&(skip==='a'||!S.a.size||[...S.a].some(i=>AREAS[+i][1].includes(p.pre)))&&(!S.i.size||S.i.has(p.i))&&(!S.f.size||p.forms.some(x=>S.f.has(x)))&&(!S.b||p.bud>0)&&
  (!S.q||(p.n+' '+p.c+' '+p.d).toLowerCase().includes(S.q.toLowerCase()))}
 const fi=$('#fi');[...new Map(PROGS.map(p=>[p.i,p.I]))].sort((x,y)=>x[0].localeCompare(y[0])).forEach(([k,v])=>fi.insertAdjacentHTML('beforeend',`<option value="${k}">${esc(v)}</option>`));
-const fa=$('#fa');fa.innerHTML='<option value="-1">Все области</option>'+AREAS.map((a,i)=>`<option value="${i}">${a[0]}</option>`).join('');fa.onchange=e=>{S.a=+e.target.value;S.n=9;draw()};
+const fa=$('#fa');fa.innerHTML='<option value="-1">Все области</option>'+AREAS.map((a,i)=>`<option value="${i}">${a[0]}</option>`).join('');fa.onchange=()=>{S.n=9;draw()};
 const go=p=>window.open('https://masters.urfu.ru/programs/'+p.id,'_blank','noopener');
 const ty=p=>`<span class="k25l">${LV[p.l]}</span>`;
 const EXT='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
@@ -22,7 +23,7 @@ const facts=p=>`<dl class="fx"><div><dt>Бюджет</dt><dd>${p.bud}</dd></div>
 function draw(){
  const all=PROGS.filter(p=>pass(p));
  document.querySelectorAll('#lvl button').forEach(b=>{b.classList.toggle('on',b.dataset.l===S.l);b.querySelector('i').textContent=PROGS.filter(p=>pass(p,'l')&&(!b.dataset.l||p.l===b.dataset.l)).length});
- $('#fa').value=S.a;$('#fi').value=S.i;$('#ff').value=S.f;window.ddSync&&ddSync();
+ window.ddSync&&ddSync();chips();
  const rows=all.slice(0,S.n);
  $('#cnt').textContent=all.length?`${all.length} ${pl(all.length)}`:'';
  const ls=$('#ls');
@@ -34,15 +35,27 @@ function draw(){
  $('#more').innerHTML=rest>0?`<button class="btn wl" id="mb">Показать ещё ${Math.min(9,rest)}</button>`:'';
  if(rest>0)$('#mb').onclick=()=>{S.n+=9;draw()};
 }
+function chips(){const c=$('#chips');if(!c)return;const it=[];
+ const add=(sel,set,lab)=>[...set].forEach(v=>{const o=[...sel.options].find(x=>x.value===v);it.push({t:lab?lab(v):(o?o.text:v),sel,set,v})});
+ add($('#fa'),S.a);add($('#fi'),S.i);add($('#ff'),S.f);
+ if(S.b)it.push({t:'Есть бюджет',b:1});
+ const X='<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 2l6 6M8 2 2 8"/></svg>';
+ c.innerHTML=it.map((x,k)=>`<span class="chp" data-c="${k}"><button type="button" class="chl" title="${esc(x.t)}">${esc(x.t)}</button><button type="button" class="chx" aria-label="Убрать: ${esc(x.t)}">${X}</button></span>`).join('')+(it.length>1?'<button type="button" class="chr">Сбросить всё</button>':'');
+ c.hidden=!it.length;
+ c.querySelectorAll('.chp').forEach(e=>{const x=it[+e.dataset.c];
+  e.querySelector('.chx').onclick=ev=>{ev.stopPropagation();if(x.b){tb()}else{x.set.delete(x.v);S.n=9;draw()}};
+  e.querySelector('.chl').onclick=ev=>{ev.stopPropagation();if(x.b)return;x.sel._dd.open()}});
+ const r=c.querySelector('.chr');if(r)r.onclick=()=>{S.a.clear();S.i.clear();S.f.clear();if(S.b){S.b=false;fb.classList.remove('on');fb.setAttribute('aria-checked',false)}S.n=9;draw()};
+}
 function pl(n){const a=n%10,b=n%100;return a===1&&b!==11?'программа':a>=2&&a<=4&&(b<12||b>14)?'программы':'программ'}
 document.querySelectorAll('#lvl button').forEach(b=>b.onclick=()=>{S.l=b.dataset.l;S.n=9;draw()});
-document.querySelectorAll('#ar button').forEach(b=>b.onclick=()=>{S.a=+b.dataset.a;S.n=9;draw()});
+document.querySelectorAll('#ar button').forEach(b=>b.onclick=()=>{S.a.clear();if(+b.dataset.a>=0)S.a.add(b.dataset.a);S.n=9;draw()});
 const hq=$('#hq');if(hq){hq.closest('form').onsubmit=e=>{e.preventDefault();S.q=hq.value.trim();$('#q').value=S.q;S.n=9;draw();$('#programs').scrollIntoView({behavior:'smooth'})}}
-document.querySelectorAll('[data-hq]').forEach(b=>b.onclick=()=>{S.a=+b.dataset.hq;S.n=9;draw();$('#programs').scrollIntoView({behavior:'smooth'})});
+document.querySelectorAll('[data-hq]').forEach(b=>b.onclick=()=>{S.a.clear();S.a.add(b.dataset.hq);S.n=9;draw();$('#programs').scrollIntoView({behavior:'smooth'})});
 document.querySelectorAll('[data-to]').forEach(a=>a.addEventListener('click',()=>{S.l=a.dataset.to;S.n=9;draw()}));
 $('#q').oninput=e=>{S.q=e.target.value.trim();S.n=9;draw()};
-fi.onchange=e=>{S.i=e.target.value;S.n=9;draw()};
-$('#ff').onchange=e=>{S.f=e.target.value;S.n=9;draw()};
+fi.onchange=()=>{S.n=9;draw()};
+$('#ff').onchange=()=>{S.n=9;draw()};
 const fb=$('#fb');const tb=()=>{S.b=!S.b;fb.classList.toggle('on',S.b);fb.setAttribute('aria-checked',S.b);S.n=9;draw()};fb.onclick=tb;fb.onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tb()}};
 document.querySelectorAll('#vw button').forEach(b=>b.onclick=()=>{S.v=b.dataset.v;document.querySelectorAll('#vw button').forEach(x=>x.classList.toggle('on',x===b));draw()});
 draw();
@@ -51,7 +64,7 @@ document.querySelectorAll('#fin button').forEach(b=>b.onclick=()=>{document.quer
 document.querySelectorAll('#vl a').forEach((a,i)=>a.onclick=()=>{document.querySelectorAll('#vl a').forEach(x=>x.classList.toggle('on',x===a));$('#vb img').src='img/v'+(i+1)+'.jpg';$('#vb img').alt=a.textContent});
 $('#nM').textContent=PROGS.filter(p=>p.l==='М').length;$('#nS').textContent=PROGS.filter(p=>p.l==='СВ').length;
 const nW=f=>PROGS.filter(p=>p.forms.includes(f)).length;$('#wk').textContent=`Учишься без отрыва от работы: заочно — ${nW('Заочная')} программы, очно-заочно — ${nW('Очно-заочная')}`;
-document.querySelectorAll('[data-f=w]').forEach(a=>a.addEventListener('click',()=>{S.f='Заочная';$('#ff').value='Заочная';S.n=9;draw()}));
+document.querySelectorAll('[data-f=w]').forEach(a=>a.addEventListener('click',()=>{S.f.clear();S.f.add('Заочная');S.n=9;draw()}));
 
 const RV=[
  ['Магистратура — это возможность расти быстрее и качественнее.','Юлия Толмачева','Программа «Развитие бизнеса: стратегии, проекты, финансы»','Эта программа привлекла меня учебным планом, который сочетает в себе крепкую теоретическую базу и проектное обучение, позволяющее прорабатывать реальные задачи бизнеса. Процесс обучения мне удается гармонично сочетать с работой в компании: каждое задание выполняю в плоскости своей сферы деятельности и сразу же применяю полученные результаты на практике. Мне нравится, что для обучения привлекаются практикующие специалисты, которые дают конструктивную обратную связь. Это позволяет чувствовать себя частью рынка, а не смотрящим на него со стороны. Магистратура — это возможность расти быстрее и качественнее. Она развивает меня как личность, учит исследовать огромные массивы данных, находить решение сложных задач и создавать новое.'],
@@ -75,7 +88,7 @@ const FQ=[
  ['Кому подойдет специализированное высшее?',['Тем, кто уже понимает, для какой профессиональной задачи ему нужны дополнительные знания. Например, это может быть специалист, который хочет углубиться в конкретную отрасль, заняться исследованиями или перейти к управлению командами и проектами.']],
  ['Можно ли после специализированного высшего поступить в аспирантуру?',['Да. После окончания любой из программ специализированного высшего образования можно продолжить обучение в аспирантуре.']]];
 
-$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===1?' op':''}"><button aria-expanded="${i===1}"><span class="n">0${i+1}</span>${f[0]}<span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${t}</p>`).join('')}</div></div></div>`).join('');
+$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===0?' op':''}"><button aria-expanded="${i===0}"><span class="n">0${i+1}</span>${f[0]}<span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${t}</p>`).join('')}</div></div></div>`).join('');
 document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.parentNode.classList.toggle('op');b.setAttribute('aria-expanded',o)});{const f=document.querySelector('.fi');if(f){f.classList.add('op');f.querySelector('button').setAttribute('aria-expanded',true)}}
 
 /* финал: мягкое свечение и грани */
