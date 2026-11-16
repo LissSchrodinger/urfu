@@ -8,7 +8,9 @@ const wEl=document.getElementById('word'),lEl=document.getElementById('lead');
 window.LEADFIX=(QS.get('lead')||'fix')!=='swap';
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const lines=h=>h.split('<br>');
-function layer(h,chars){const d=document.createElement('span');d.className='ly';
+/* v20: у слоя всегда есть clip-path и свой слой отрисовки — текст не перерисовывается иначе в начале и в конце смены (давало рывок) */
+const PFULL='polygon(-30% 0,160% 0,130% 100%,-60% 100%)';
+function layer(h,chars){const d=document.createElement('span');d.className='ly';d.style.clipPath=PFULL;
   d.innerHTML=lines(h).map(t=>'<span class="ln"><span class="li">'+(chars?t.split(/(\s+)/).map(w=>/^\s+$/.test(w)?w:'<span class="wd">'+[...w].map(c=>'<i class="ch">'+c+'</i>').join('')+'</span>').join(''):t)+'</span></span>').join('');return d}
 function mount(el,h){el.innerHTML='';el.classList.add('stk');el.appendChild(layer(h,true))}
 mount(wEl,SL[0][0]);mount(lEl,SL[0][1]);
