@@ -122,3 +122,5 @@ main.n2 .fin{overflow:hidden!important;clip-path:inset(0)}
 .kb{background:var(--pg)}
 .kb .kw .pg{fill:var(--pg)}
 .kb .kw polyline{vector-effect:non-scaling-stroke}
+.kb .kw{overflow:visible;inset:-3px 0;height:calc(100% + 6px)}
+.kb .kbin{inset:2px 0}
