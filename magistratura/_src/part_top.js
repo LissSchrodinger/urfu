@@ -13,41 +13,35 @@ const UP=200;const fit=()=>{const fr=f.getBoundingClientRect(),w=fr.width,k=1440
   const py=(a.getBoundingClientRect().bottom-fr.top+UP+84)*k;g.setAttribute('transform',`translate(${720-495} ${(py-408).toFixed(1)})`);const u=(UP/h*100).toFixed(1);s.style.webkitMaskImage=s.style.maskImage=`linear-gradient(transparent 0,#000 ${u}%)`};
 fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(f);if(ft)new ResizeObserver(fit).observe(ft)})();
 
-/* v12. Анимация как в окне программы каталога (rays.js, режим LD), чуть ярче:
-   L — грани ловят свет: к курсору светлеют, от курсора темнеют (оттенок граней, а не стыки);
-   D — глубина слоями: грани сдвигаются на 6/4 px, свечение точки — на 20/13 px;
-   плюс мягкое пятно света скользит за курсором и подсвечивает оттенок грани (soft-light). */
-(()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const NS='http://www.w3.org/2000/svg';const P={x:495,y:408};
-const LIT=.16,SHADE=.12;
-document.querySelectorAll('svg.rays,svg.rays3').forEach((s,si)=>{const paths=[...s.querySelectorAll('path')];if(!paths.length)return;const host=paths[0].parentNode;
-  const defs=s.querySelector('defs');const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
-  defs.insertAdjacentHTML('beforeend',`<filter id="rb${si}" x="-100%" y="-100%" width="300%" height="300%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="46"/></filter>
-   <radialGradient id="rgw${si}"><stop offset="0" stop-color="#FF875C" stop-opacity=".55"/><stop offset=".35" stop-color="#FF9F7E" stop-opacity=".3"/><stop offset=".7" stop-color="#c77ac8" stop-opacity=".08"/><stop offset="1" stop-color="#c77ac8" stop-opacity="0"/></radialGradient>
-   <radialGradient id="rgs${si}"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".45" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`);
-  const gF=el('g',{});host.insertBefore(gF,paths[0]);
-  const F=paths.map(p=>{gF.appendChild(p);const m=p.getAttribute('d').match(/-?[\d.]+/g).map(Number);const a=Math.atan2(m[5]-m[1],m[4]-m[0]);
-    const hi=p.cloneNode();hi.setAttribute('fill','#fff');hi.setAttribute('opacity',0);const lo=p.cloneNode();lo.setAttribute('fill','#14093f');lo.setAttribute('opacity',0);return {a,hi,lo,v:0,t:0}});
-  F.forEach(f=>gF.appendChild(f.hi));F.forEach(f=>gF.appendChild(f.lo));
-  const spot=el('ellipse',{rx:420,ry:340,fill:`url(#rgs${si})`,opacity:0,style:'mix-blend-mode:soft-light'});gF.appendChild(spot);
-  const gG=el('g',{});const glow=el('ellipse',{cx:P.x,cy:P.y,rx:360,ry:230,fill:`url(#rgw${si})`,filter:`url(#rb${si})`});gG.appendChild(glow);host.appendChild(gG);
-  const st={px:0,py:0,tpx:0,tpy:0,sx:P.x,sy:P.y,tsx:P.x,tsy:P.y,so:0,tso:0};let raf=0;
-  const lr=(a,b,k)=>a+(b-a)*k;
-  const tick=()=>{raf=0;let more=false;const k=.06;const ch=(a,b)=>{if(Math.abs(b-a)>.001)more=true};
-    ['px','py','so'].forEach(n=>{const t='t'+n;st[n]=lr(st[n],st[t],k);ch(st[n],st[t])});
-    ['sx','sy'].forEach(n=>{const t='t'+n;st[n]=lr(st[n],st[t],.09);if(Math.abs(st[t]-st[n])>.5)more=true});
-    F.forEach(f=>{f.v=lr(f.v,f.t,k);ch(f.v,f.t);f.hi.setAttribute('opacity',(Math.max(0,f.v)*LIT).toFixed(3));f.lo.setAttribute('opacity',(Math.max(0,-f.v)*SHADE).toFixed(3))});
-    gF.setAttribute('transform',`translate(${(st.px*6).toFixed(2)} ${(st.py*4).toFixed(2)})`);gG.setAttribute('transform',`translate(${(st.px*20).toFixed(2)} ${(st.py*13).toFixed(2)})`);
-    spot.setAttribute('cx',st.sx.toFixed(1));spot.setAttribute('cy',st.sy.toFixed(1));spot.setAttribute('opacity',st.so.toFixed(3));
+/* v13. Переливы цвета по граням: грани стоят на месте, без пятна за курсором.
+   У каждой грани два цветовых слоя вдоль неё (от точки к краю): тёплый (коралл → розовый) и холодный (бирюза → лаванда).
+   Грани в сторону курсора плавно уходят в тёплый оттенок, противоположные — в холодный; соседние смешиваются — цвет перетекает. */
+(()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const NS='http://www.w3.org/2000/svg';const P={x:495,y:408},L=1500;
+const WARM=['#FF875C','#ff8fb3'],COOL=['#55E0EC','#8f8cf0'],KW=.34,KC=.26;
+document.querySelectorAll('svg.rays,svg.rays3').forEach((s,si)=>{const paths=[...s.querySelectorAll('path')];if(!paths.length)return;const host=paths[0].parentNode;const defs=s.querySelector('defs');
+  const F=paths.map((p,i)=>{const m=p.getAttribute('d').match(/-?[\d.]+/g).map(Number);const a=Math.atan2(m[5]-m[1],m[4]-m[0]);
+    const x2=(P.x+Math.cos(a)*L).toFixed(1),y2=(P.y+Math.sin(a)*L).toFixed(1);
+    const g=(id,c)=>`<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${P.x}" y1="${P.y}" x2="${x2}" y2="${y2}"><stop offset="0" stop-color="${c[0]}" stop-opacity=".9"/><stop offset=".45" stop-color="${c[1]}" stop-opacity=".55"/><stop offset="1" stop-color="${c[1]}" stop-opacity="0"/></linearGradient>`;
+    defs.insertAdjacentHTML('beforeend',g(`pw${si}_${i}`,WARM)+g(`pc${si}_${i}`,COOL));
+    const w=p.cloneNode();w.setAttribute('fill',`url(#pw${si}_${i})`);w.setAttribute('opacity',0);w.style.mixBlendMode='soft-light';
+    const c=p.cloneNode();c.setAttribute('fill',`url(#pc${si}_${i})`);c.setAttribute('opacity',0);c.style.mixBlendMode='soft-light';
+    return {a,w,c,v:0,t:0}});
+  const last=paths[paths.length-1];F.slice().reverse().forEach(f=>{last.after(f.c);last.after(f.w)});
+  let raf=0;const tick=()=>{raf=0;let more=false;
+    F.forEach(f=>{f.v+=(f.t-f.v)*.035;if(Math.abs(f.t-f.v)>.002)more=true;f.w.setAttribute('opacity',(Math.max(0,f.v)*KW/.34).toFixed(3));f.c.setAttribute('opacity',(Math.max(0,-f.v)*KC/.26).toFixed(3))});
     if(more)raf=requestAnimationFrame(tick)};
   const go=()=>{if(!raf)raf=requestAnimationFrame(tick)};
-  const off=()=>{F.forEach(f=>f.t=0);st.tpx=st.tpy=0;st.tso=0;go()};
-  addEventListener('pointermove',e=>{const r=s.getBoundingClientRect();if(e.clientY<r.top-80||e.clientY>r.bottom+80){off();return}
+  addEventListener('pointermove',e=>{const r=s.getBoundingClientRect();if(e.clientY<r.top-80||e.clientY>r.bottom+80){F.forEach(f=>f.t=0);go();return}
     const m=host.getScreenCTM();if(!m)return;const q=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());const ca=Math.atan2(q.y-P.y,q.x-P.x);
-    F.forEach(f=>f.t=Math.cos(ca-f.a));
-    st.tpx=Math.max(-1,Math.min(1,(e.clientX-innerWidth/2)/(innerWidth*.5)));st.tpy=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.bottom)/2)/(r.height*.6)));
-    st.tsx=q.x;st.tsy=q.y;st.tso=.75;go()},{passive:true});
-  document.addEventListener('pointerleave',off);
+    F.forEach(f=>{const c=Math.cos(ca-f.a);f.t=c>0?Math.pow(c,1.6):-Math.pow(-c,1.6)});go()},{passive:true});
+  document.addEventListener('pointerleave',()=>{F.forEach(f=>f.t=0);go()});
 })})();
+
+/* наведение на программы — как в каталоге: заливка кругом от точки входа курсора, уходит к точке выхода */
+(()=>{const S='.pl .t51 tbody tr,.pl .rw';const set=(el,e,cl)=>{const r=el.getBoundingClientRect();let x=e.clientX-r.left,y=e.clientY-r.top;if(cl){x=Math.min(Math.max(x,0),r.width);y=Math.min(Math.max(y,0),r.height)}
+  el.style.setProperty('--mx',x+'px');el.style.setProperty('--my',y+'px');el.style.setProperty('--rw',Math.hypot(r.width,r.height)*1.05+'px')};
+document.addEventListener('pointerover',e=>{const el=e.target.closest&&e.target.closest(S);if(!el||el.contains(e.relatedTarget))return;set(el,e)},true);
+document.addEventListener('pointerout',e=>{const el=e.target.closest&&e.target.closest(S);if(!el||el.contains(e.relatedTarget))return;set(el,e,1)},true)})();
 
 /* «Есть диплом»: фото от своего верха до низа подписей треков */
 (()=>{const ph=document.querySelector('.dipA .ph'),im=ph&&ph.querySelector('img'),tk=document.querySelector('.dipA .tks');if(!im||!tk)return;

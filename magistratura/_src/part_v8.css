@@ -13,7 +13,6 @@
 .panel.p1{border-radius:32px 32px 0 0;padding-bottom:40px}
 #programs.pl{margin:0 20px!important;border-radius:0 0 32px 32px!important;padding-top:80px!important}
 /* наведение на строку — заметно темнее сиреневой панели */
-.pl .t51 tbody tr:hover,.pl .rw:hover{background:color-mix(in srgb,#4D22C4 12%,#fff)!important}
 .pl .t51 tbody tr:hover .t51x,.pl .rw:hover .t51x{color:#4D22C4}
 /* «Как поступить»: стрелки — цветом текста и одной толщины, подчёркивание пунктиром и только под текстом */
 .sp4 .ln a:after{content:"";flex:none;width:16px;height:16px;margin-top:3px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center/16px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center/16px no-repeat;opacity:.7;transition:opacity .2s}
@@ -70,8 +69,6 @@
 .pfan{position:absolute;width:560px;height:560px;z-index:0;pointer-events:none;opacity:.9}
 #compare .pfan{right:0;top:0}
 #faq .pfan{left:0;bottom:0}
-.sl{width:16px!important;height:18px!important;transform:none!important;border-radius:0!important;background:conic-gradient(from 0deg at 0% 100%,#FF875C 0 24deg,#6E6DC5 24deg 52deg,#4D22C4 52deg 74deg,#FF9F7E 74deg 90deg,transparent 90deg)!important}
-.sl.v{background:conic-gradient(from 0deg at 0% 100%,#4D22C4 0 24deg,#8f8cf0 24deg 52deg,#FF875C 52deg 74deg,#6E6DC5 74deg 90deg,transparent 90deg)!important}
 
 /* ===== v11 (16.11, 22:10) ===== */
 /* лучи первого экрана уходят под панель «Магистратура или СпВО» */
@@ -79,14 +76,11 @@
 .top>svg.rays{height:auto}
 .p1,#programs.pl{position:relative;z-index:3}
 /* убраны: веера в углах, огранённые метки, полоса со слоганом */
-.pfan,.sl,.slg{display:none!important}
+.pfan,.slg{display:none!important}
 #programs{margin-bottom:120px!important}
 /* кристаллы — разными цветами */
 .cry{filter:drop-shadow(0 0 10px rgba(255,255,255,.08))}
 /* наведение на строки программ — светлые оттенки по очереди */
-.pl .t51 tbody tr:nth-child(3n+1):hover,.pl .rw:nth-child(3n+1):hover{background:#ebe6ff!important}
-.pl .t51 tbody tr:nth-child(3n+2):hover,.pl .rw:nth-child(3n+2):hover{background:#ffe8dc!important}
-.pl .t51 tbody tr:nth-child(3n):hover,.pl .rw:nth-child(3n):hover{background:#ffe3ee!important}
 .pl .t51 tbody tr:hover .t51x,.pl .rw:hover .t51x{color:#141416}
 /* ничего не нашлось — без подложки */
 .pl .empty{background:none!important;padding:48px 0;text-align:left}
@@ -129,8 +123,26 @@
 .cg dl{display:contents}
 .cg>div>p{margin-bottom:28px}
 /* наведение на строки — прозрачнее */
-.pl .t51 tbody tr:nth-child(3n+1):hover,.pl .rw:nth-child(3n+1):hover{background:#f4f1ff!important}
-.pl .t51 tbody tr:nth-child(3n+2):hover,.pl .rw:nth-child(3n+2):hover{background:#fff3ec!important}
-.pl .t51 tbody tr:nth-child(3n):hover,.pl .rw:nth-child(3n):hover{background:#fff0f5!important}
 /* «подай документы» — белым */
 .fin .h1{color:#fff!important;background:none!important;-webkit-text-fill-color:#fff!important;filter:none!important}
+
+
+/* ===== v13 (16.11, 22:30) ===== */
+/* косые черты у «Магистратура» и «СпВО» — вернули */
+.seg .sl{height:14px;margin-right:8px}
+.cg h3 .sl{height:20px;vertical-align:-3px}
+/* «Как поступить»: стрелка сразу после текста, коралловая */
+.sp4 .ln a{justify-content:flex-start;width:max-content;max-width:100%}
+html .sp4 .ln a:after{background:var(--co)!important;opacity:1}
+/* отзыв — мягкое раскрытие, как в FAQ */
+.rmain .fullw{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .45s cubic-bezier(.4,0,.2,1),opacity .35s}
+.rmain .fullw>div{overflow:hidden}
+.rmain .full{display:block!important}
+.rmain.op .fullw{grid-template-rows:1fr;opacity:1}
+/* наведение на программы — как в каталоге: круг от точки входа курсора */
+@property --hr{syntax:'<length>';inherits:false;initial-value:0px}
+.pl .t51 tbody tr,.pl .rw{--hc:#f4f1ff;background:#fff radial-gradient(circle at var(--mx,50%) var(--my,50%),var(--hc) var(--hr),transparent calc(var(--hr) + .5px)) no-repeat!important;transition:--hr .6s cubic-bezier(.4,0,.2,1)!important}
+.pl .t51 tbody tr:nth-child(3n+2),.pl .rw:nth-child(3n+2){--hc:#fff3ec}
+.pl .t51 tbody tr:nth-child(3n),.pl .rw:nth-child(3n){--hc:#fff0f5}
+.pl .t51 tbody tr:hover,.pl .rw:hover{--hr:var(--rw,1600px)}
+@media (prefers-reduced-motion:reduce){.pl .t51 tbody tr,.pl .rw{transition:none!important}}

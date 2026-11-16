@@ -74,7 +74,7 @@ const RV=[
 const AV={'Юлия Толмачева':'img/a_tolm.jpg','Владимир Давыдик':'img/a_dav.jpg','Мария Кремешкова':'img/a_krem.jpg'};const ini=n=>`<img src="${AV[n]}" alt="">`;
 let ri=0;
 function drawRv(){const m=RV[ri],o=[RV[(ri+1)%3],RV[(ri+2)%3]];
- $('#rm').className='rmain';$('#rm').innerHTML=`<div class="qm">«</div><q>${m[0]}</q><p class="full">${m[3]}</p><button>Читать полностью</button><div class="who"><span class="av">${ini(m[1])}</span><div><b>${m[1]}</b><span>${m[2]}</span></div></div>`;
+ $('#rm').className='rmain';$('#rm').innerHTML=`<div class="qm">«</div><q>${m[0]}</q><div class="fullw"><div><p class="full">${m[3]}</p></div></div><button>Читать полностью</button><div class="who"><span class="av">${ini(m[1])}</span><div><b>${m[1]}</b><span>${m[2]}</span></div></div>`;
  $('#rm button').onclick=e=>{const r=$('#rm');r.classList.toggle('op');e.target.textContent=r.classList.contains('op')?'Свернуть':'Читать полностью'};
  $('#rsd').innerHTML=o.map(r=>`<div class="rs" data-i="${RV.indexOf(r)}"><q>${r[0]}</q><div class="who"><span class="av">${ini(r[1])}</span><div><b>${r[1]}</b><span>${r[2]}</span></div></div></div>`).join('');
  document.querySelectorAll('.rs').forEach(e=>e.onclick=()=>{ri=+e.dataset.i;drawRv()})}
