@@ -23,11 +23,20 @@ const Q=[
  {k:'b',t:'Нужны бюджетные места?',o:()=>[[1,'Да, только с бюджетом',seats({...W,b:1})],[0,'Неважно','']]}];
 const ico='<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="pkg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF875C"/><stop offset="1" stop-color="#a29ff5"/></linearGradient></defs><path d="M12 12 2 4M12 12l9-7M12 12l10 5M12 12l-4 10M12 12 2 15" stroke="url(#pkg)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="12" cy="12" r="2.2" fill="#FF875C"/></svg>';
 document.body.insertAdjacentHTML('beforeend',`<button type="button" class="pkf" id="pkf" aria-haspopup="dialog">${ico}Подобрать программу <small>4 вопроса</small></button>
-<div class="pk" id="pk" hidden><div class="pkb" role="dialog" aria-modal="true" aria-label="Подбор программы">
+<div class="pk" id="pk" hidden><div class="pkb" role="dialog" aria-modal="true" aria-label="Подбор программы"><svg class="pkrays" id="pkrays" aria-hidden="true"></svg>
 <div class="pkt"><div class="pkd" id="pksp"></div><div class="pka"><button id="pkbk" hidden>← Назад</button><button class="pkx" id="pkx" aria-label="Закрыть">×</button></div></div>
 <div class="pkq"><div id="pkqa"></div><div class="pkn" aria-live="polite"><b id="pkn">${P.length}</b><span id="pknl"></span></div></div>
 </div></div>`);
 const g=i=>document.getElementById(i),pk=g('pk');
+// тонкие лучи из точки слева снизу (за краем окна)
+const rays=()=>{const sv=g('pkrays'),bx=sv.parentNode,W=bx.clientWidth,H=bx.clientHeight;if(!W)return;const ox=-W*.06,oy=H*1.12;
+ let h=`<defs><linearGradient id="pkrl" gradientUnits="userSpaceOnUse" x1="${ox}" y1="${oy}" x2="${W}" y2="0"><stop offset="0" stop-color="#FF875C" stop-opacity=".55"/><stop offset=".45" stop-color="#c77ac8" stop-opacity=".22"/><stop offset="1" stop-color="#a29ff5" stop-opacity="0"/></linearGradient><radialGradient id="pkrg" cx="${ox}" cy="${oy}" r="${W*.55}" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF875C" stop-opacity=".22"/><stop offset="1" stop-color="#FF875C" stop-opacity="0"/></radialGradient></defs><circle cx="${ox}" cy="${oy}" r="${W*.55}" fill="url(#pkrg)"/>`;
+ const A=[-8,-14,-21,-27,-34,-42,-51,-61,-72];const L=Math.hypot(W,H)*1.2;
+ A.forEach((a,i)=>{const r=a*Math.PI/180,x=ox+Math.cos(r)*L,y=oy+Math.sin(r)*L;
+  if(i%3===1){const r2=A[i+1]*Math.PI/180;h+=`<polygon points="${ox},${oy} ${x},${y} ${ox+Math.cos(r2)*L},${oy+Math.sin(r2)*L}" fill="url(#pkrl)" opacity=".09"/>`}
+  h+=`<line x1="${ox}" y1="${oy}" x2="${x}" y2="${y}" stroke="url(#pkrl)" stroke-width="1" opacity="${i%2?.55:.8}"/>`});
+ sv.setAttribute('viewBox',`0 0 ${W} ${H}`);sv.innerHTML=h};
+new ResizeObserver(rays).observe(pk.querySelector('.pkb'));
 function num(to){const el=g('pkn'),from=+el.textContent||0,t0=performance.now();const go=t=>{const k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);el.textContent=Math.round(from+(to-from)*e);if(k<1)requestAnimationFrame(go)};
  matchMedia('(prefers-reduced-motion:reduce)').matches?el.textContent=to:requestAnimationFrame(go);g('pknl').textContent=pl(to)+' '+vb(to)}
 function render(){g('pksp').innerHTML=Q.map((_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('');g('pkbk').hidden=step===0;
