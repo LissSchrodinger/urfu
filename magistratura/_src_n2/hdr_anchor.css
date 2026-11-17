@@ -1,7 +1,7 @@
 :root{--page:#f4f4f5;--card:#ffffff;--sunk:#ebebed;--ink2:#3d3d44;--muted:#6a6a72;--line:#dcdce0;--shadow:0 12px 32px rgba(20,20,22,.10);--lift:0 28px 70px -12px rgba(20,20,30,.28),0 6px 18px -6px rgba(20,20,30,.12);--lv1:#f5c400;--lv2:#4D22C4;--lv3:#2a9a72;--brand:#e50046;--link:#d6003f;--font:Golos,system-ui,sans-serif}
 /* 17.11 шапка лендинга: логотип + якорная навигация по разделам. Прежняя шапка каталога — в _hdr_katalog/ */
 .ah{position:fixed;left:0;right:0;top:0;z-index:50;height:72px;background:rgba(244,242,251,.82);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);transition:background .35s}
-.ahi{height:100%;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:0 var(--pad);max-width:1440px;margin:0 auto;box-sizing:border-box}
+.ahi{height:100%;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:0 var(--pad);box-sizing:border-box}
 .ahi>a{display:flex;color:#141416}
 .ah .logo{height:32px;width:auto;display:block}
 .ah .logo path{transition:fill .35s}

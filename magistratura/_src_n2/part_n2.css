@@ -166,3 +166,8 @@ main.n2 .zf::after{content:"";position:absolute;left:0;right:0;bottom:-2px;heigh
 .zv .vt:not(.big){aspect-ratio:16/9}
 .zv .vt.big{aspect-ratio:auto}
 .zh .slz span{width:max-content}
+/* 17.11 контент не шире 1200 px (вариант Б): поля = большее из 96/1440 ширины окна и (окно − 1200)/2; фоны и кадры — во всю ширину */
+:root{--pad:max(calc(100vw*96/1440),calc((100vw - 1200px)/2))}
+.hM .t1{left:calc(var(--pad) - var(--u)*5)}
+.hM .bar{left:var(--pad);right:var(--pad)}
+.zh2 .zh{flex-wrap:wrap;row-gap:24px}
