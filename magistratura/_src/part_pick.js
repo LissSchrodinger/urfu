@@ -22,7 +22,7 @@ const Q=[
  {k:'f',t:'Как удобнее учиться?',o:()=>[['Очная','Очная'],['Очно-заочная','Очно-заочная'],['Заочная','Заочная'],['','Неважно']].map(([v,t])=>[v,t,v?price({...W,f:v},v):''])},
  {k:'b',t:'Нужны бюджетные места?',o:()=>[[1,'Да, только с бюджетом',seats({...W,b:1})],[0,'Неважно','']]}];
 const ico='<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="pkg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF875C"/><stop offset="1" stop-color="#a29ff5"/></linearGradient></defs><path d="M12 12 2 4M12 12l9-7M12 12l10 5M12 12l-4 10M12 12 2 15" stroke="url(#pkg)" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="12" cy="12" r="2.2" fill="#FF875C"/></svg>';
-document.body.insertAdjacentHTML('beforeend',`<button type="button" class="pkf" id="pkf" aria-haspopup="dialog">${ico}Подобрать программу <small>4 вопроса</small></button>
+document.body.insertAdjacentHTML('beforeend',`<button type="button" class="pkf" id="pkf" aria-haspopup="dialog">Подобрать программу <small>4 вопроса</small></button>
 <div class="pk" id="pk" hidden><div class="pkb" role="dialog" aria-modal="true" aria-label="Подбор программы"><svg class="pkrays" id="pkrays" aria-hidden="true"></svg>
 <div class="pkt"><div class="pkd" id="pksp"></div><div class="pka"><button id="pkbk" hidden>← Назад</button><button class="pkx" id="pkx" aria-label="Закрыть">×</button></div></div>
 <div class="pkq"><div id="pkqa"></div><div class="pkn" aria-live="polite"><b id="pkn">${P.length}</b><span id="pknl"></span></div></div>

@@ -52,3 +52,4 @@
 .pkn b{font-size:clamp(64px,10vh,96px)}
 /* 17.11: оверлей темнее и с размытием */
 .pk{background:rgba(12,6,40,.7);backdrop-filter:blur(12px) saturate(.8);-webkit-backdrop-filter:blur(12px) saturate(.8)}
+.pkf{padding:0 22px}
