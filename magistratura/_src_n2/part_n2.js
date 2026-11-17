@@ -1,5 +1,3 @@
-/* 17.11 масштаб подписи сравнения: ?sd=a|b|c */
-(()=>{const m=/[?&]sd=([abc])/.exec(location.search);document.documentElement.classList.add('sd'+(m?m[1]:'b'))})();
 /* n2: видео — выбор ролика миниатюрой */
 (()=>{const s=document.getElementById('vsel'),b=document.getElementById('vbig');if(!s||!b)return;const im=b.querySelector('img');
  const T=['Учёный','Инженер','Продюсер'];
