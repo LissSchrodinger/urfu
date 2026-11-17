@@ -79,7 +79,7 @@ html .zh2 .sp4 .ln a:after{background:#4D22C4!important}
 /* --- отзывы: светлые, редакционно --- */
 main.n2 .zr .rvg{border-top:2px solid var(--ink2);border-bottom:1px solid var(--li);grid-template-columns:minmax(0,1fr) 400px}
 main.n2 .zr .rmain{padding:64px 80px 64px 0}
-main.n2 .zr .rmain .qm{color:#4D22C4}
+main.n2 .zr .rmain .qm{color:#FF875C}
 main.n2 .zr .rmain q{font:400 40px/52px Golos;letter-spacing:-.015em;color:var(--ink2);max-width:820px}
 main.n2 .zr .rmain .full{color:var(--mu);font:400 17px/27px Golos;max-width:760px;margin-top:24px}
 main.n2 .zr .rmain button{color:#4D22C4}
@@ -166,8 +166,8 @@ main.n2 .zf::after{content:"";position:absolute;left:0;right:0;bottom:-2px;heigh
 .zv .vt:not(.big){aspect-ratio:16/9}
 .zv .vt.big{aspect-ratio:auto}
 .zh .slz span{width:max-content}
-/* 17.11 контент не шире 1200 px (вариант Б): поля = большее из 96/1440 ширины окна и (окно − 1200)/2; фоны и кадры — во всю ширину */
-:root{--pad:max(calc(100vw*96/1440),calc((100vw - 1200px)/2))}
+/* 18.11 сетка как у каталога: контент не шире 1360 px, поля не меньше 40 (было 1200 и 96/1440, решение 17.11 отменено); фоны и кадры — во всю ширину */
+:root{--pad:max(40px,calc((100vw - 1360px)/2))}
 .hM .t1{left:calc(var(--pad) - var(--u)*5)}
 .hM .bar{left:var(--pad);right:var(--pad)}
 .zh2 .zh{flex-wrap:wrap;row-gap:24px}
