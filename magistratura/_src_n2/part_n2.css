@@ -147,3 +147,7 @@ main.n2 .zf::after{content:"";position:absolute;left:0;right:0;bottom:-2px;heigh
 .pl .t51 .t51n{margin-top:0}
 .pl .t51 td.t51l{padding-top:17px}
 .pl .t51 td.t51d{padding-top:17px!important}.pl .t51 td.t51i{padding-top:19px!important}
+/* 17.11 поля страницы шире: 72 → 96 при 1440 (Василиса: «блоки размазаны по экрану») */
+:root{--pad:calc(100vw*96/1440)}
+.hM .t1{left:calc(var(--u)*91)}
+.hM .bar{left:calc(var(--u)*96);right:calc(var(--u)*96)}
