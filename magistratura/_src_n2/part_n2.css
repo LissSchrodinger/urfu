@@ -142,3 +142,8 @@ main.n2 .fin{overflow:visible!important;clip-path:inset(0 -20px -4000px -20px)}
 /* полоска на границе FAQ и финала (сглаживание края clip-path) — закрыта полосой цвета страницы */
 main.n2 .zf{position:relative;z-index:3}
 main.n2 .zf::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;background:var(--pg);pointer-events:none}
+
+/* 17.11 таблица программ: уровень — отдельным столбцом (Василиса: «это же таблица») */
+.pl .t51 .t51n{margin-top:0}
+.pl .t51 td.t51l{padding-top:17px}
+.pl .t51 td.t51d{padding-top:17px!important}.pl .t51 td.t51i{padding-top:19px!important}
