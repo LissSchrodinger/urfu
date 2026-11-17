@@ -13,7 +13,7 @@ const PFULL='polygon(-30% 0,160% 0,130% 100%,-60% 100%)';
 function layer(h,chars){const d=document.createElement('span');d.className='ly';d.style.clipPath=PFULL;
   d.innerHTML=lines(h).map(t=>'<span class="ln"><span class="li">'+(chars?t.split(/(\s+)/).map(w=>/^\s+$/.test(w)?w:'<span class="wd">'+[...w].map(c=>'<i class="ch">'+c+'</i>').join('')+'</span>').join(''):t)+'</span></span>').join('');return d}
 function mount(el,h){el.innerHTML='';el.classList.add('stk');el.appendChild(layer(h,true))}
-mount(wEl,SL[0][0]);mount(lEl,SL[0][1]);
+mount(wEl,SL[0][0]);if(lEl)mount(lEl,SL[0][1]); /* 17.11: подпись слева убрана по итогам созвона */
 const EIN='cubic-bezier(.22,.8,.24,1)',EOUT='cubic-bezier(.6,0,.8,.3)',EW='cubic-bezier(.7,0,.25,1)';
 function swap(el,h,delay){
   /* добить прошлую смену: оставить только последний слой, без хвостов анимаций */
@@ -46,6 +46,6 @@ function swap(el,h,delay){
 }
 let k=0;
 function step(){k=(k+1)%SL.length;
-  if(RM){mount(wEl,SL[k][0]);if(!window.LEADFIX)mount(lEl,SL[k][1]);return}
-  swap(wEl,SL[k][0],0);if(!window.LEADFIX)swap(lEl,SL[k][1],120)}
+  if(RM){mount(wEl,SL[k][0]);if(lEl&&!window.LEADFIX)mount(lEl,SL[k][1]);return}
+  swap(wEl,SL[k][0],0);if(lEl&&!window.LEADFIX)swap(lEl,SL[k][1],120)}
 if(!/static/.test(location.search))window.HT=setInterval(step,4000);
