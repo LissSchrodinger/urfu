@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Сравнение программ · показ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<script>try{const t=new URLSearchParams(location.search).get('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+/* УрФУ · tokens.css — ядро ДС + тема каталога. Версия 1.2 (18.11.2026: gray/90 #1A1A1F → #1D1D22, + surface/control, border/secondary — обводка контролов).
+   Решения: 02-resheniya.md, «Общее», 18.11 (шкалы, 11 серых).
+   Уровни: Primitive (сырые значения) → Semantic (роли, Light/Dark).
+   В компонентах — только семантика (--color-*, --spacing-*, --radius-*, --text-*, --effect-*).
+   Примитивы (--p-*) в компонентах не используются. */
+
+/* ───────── PRIMITIVE ───────── */
+:root{
+  /* нейтральные — 11 ступеней + white (gray/15 — промежуточная, решение 18.11) */
+  --p-white:#FFFFFF;
+  --p-gray-10:#F5F5F7; --p-gray-15:#ECECF0; --p-gray-20:#E3E3E7; --p-gray-30:#C9C9D0;
+  --p-gray-40:#9A9AA3; --p-gray-50:#6A6A72; --p-gray-60:#3D3D44; --p-gray-70:#2F2F37;
+  --p-gray-80:#232329; --p-gray-90:#1D1D22; --p-gray-100:#141416;
+
+  /* прозрачные нейтральные (для поверх-медиа, наведения, теней) */
+  --p-white-a6:rgb(255 255 255/.06); --p-white-a35:rgb(255 255 255/.35); --p-white-a55:rgb(255 255 255/.55);
+  --p-white-a60:rgb(255 255 255/.6);  --p-white-a72:rgb(255 255 255/.72);
+  --p-gray-100-a8:rgb(20 20 22/.08);  --p-gray-100-a16:rgb(20 20 22/.16);
+  --p-gray-100-a22:rgb(20 20 22/.22); --p-gray-100-a32:rgb(20 20 22/.32); --p-gray-100-a72:rgb(20 20 22/.72);
+  --p-gray-15-a8:rgb(236 236 240/.08); --p-gray-90-a72:rgb(29 29 34/.72); --p-gray-15-a16:rgb(236 236 240/.16);
+  --p-black-a8:rgb(0 0 0/.08); --p-black-a18:rgb(0 0 0/.18); --p-black-a45:rgb(0 0 0/.45);
+  --p-black-a70:rgb(0 0 0/.7); --p-black-a80:rgb(0 0 0/.8);
+  --p-ink-a8:rgb(20 20 30/.08); --p-ink-a10:rgb(20 20 22/.10); --p-ink-a12:rgb(20 20 30/.12);
+  --p-ink-a28:rgb(20 20 30/.28); --p-ink-a35:rgb(20 20 40/.35);
+  --p-white-a22:rgb(255 255 255/.22); --p-gray-100-a30:rgb(20 20 22/.3); --p-black-a78:rgb(0 0 0/.78);
+
+  /* сине-серые тени (как в каталоге-телефоне) */
+  --p-navy-a8:rgb(40 52 92/.08); --p-navy-a30:rgb(40 52 92/.3);
+
+  /* абрикос — бакалавриат, путь «Первое высшее» */
+  --p-apricot-20:#FFE3C8; --p-apricot-50:#FF9A3C; --p-apricot-90:#8A4200;
+  --p-apricot-50-a10:rgb(255 154 60/.10); --p-apricot-50-a12:rgb(255 154 60/.12); --p-apricot-50-a30:rgb(255 154 60/.30);
+  /* алый — фигура пути, окно 10071 */
+  --p-scarlet-50:#FF4D5E;
+  /* пурпур — специалитет */
+  --p-magenta-20:#F3D0EE; --p-magenta-50:#C93DB5; --p-magenta-90:#6E1563;
+  --p-magenta-50-a10:rgb(201 61 181/.10); --p-magenta-50-a12:rgb(201 61 181/.12); --p-magenta-50-a30:rgb(201 61 181/.30);
+  /* приглушённый алый — базовое высшее */
+  --p-rose-20:#FBE6E7; --p-rose-50:#E58A91; --p-rose-90:#8A333C;
+  --p-rose-50-a10:rgb(229 138 145/.10); --p-rose-50-a12:rgb(229 138 145/.12); --p-rose-50-a30:rgb(229 138 145/.30);
+  /* персик / коралл — магистратура */
+  --p-peach-20:#FFD9C7; --p-peach-50:#FF875C; --p-peach-90:#7A3214;
+  --p-peach-50-a10:rgb(255 135 92/.10); --p-peach-50-a12:rgb(255 135 92/.12); --p-peach-50-a30:rgb(255 135 92/.30);
+  /* фиолетовый — путь «Есть диплом», СпВО */
+  --p-violet-20:#D3CDFA; --p-violet-50:#6E6DC5; --p-violet-70:#4D22C4; --p-violet-90:#33177F;
+  --p-violet-50-a10:rgb(110 109 197/.10); --p-violet-50-a12:rgb(110 109 197/.12); --p-violet-50-a30:rgb(110 109 197/.30);
+  /* зелёный — путь «Хочу в науку», статус «успех» */
+  --p-green-30:#5FD0A3; --p-green-50:#2A9A72; --p-green-70:#1E7D5B;
+  --p-green-50-a22:rgb(42 154 114/.22);
+  --p-teal-50:#2B8FB3;
+  /* жёлтый — предупреждение */
+  --p-yellow-30:#F2C94C; --p-yellow-80:#8A6100;
+  /* малиновый — ссылки страницы программы */
+  --p-raspberry-40:#FF7AA0; --p-raspberry-50:#FF5C86; --p-raspberry-70:#D6003F;
+}
+
+/* ───────── SEMANTIC · Light ───────── */
+:root{
+  color-scheme:light;
+  /* фон и поверхности */
+  --color-bg-primary:var(--p-gray-15);          /* фон страницы */
+  --color-surface-primary:var(--p-white);       /* карточки, строки, плитки */
+  --color-surface-secondary:var(--p-gray-10);   /* панель фильтров */
+  --color-surface-elevated:var(--p-white);      /* шторки, поповеры, хедер */
+  --color-surface-tertiary:var(--p-gray-20);    /* плашки экзаменов, чипы */
+  --color-surface-sunken:var(--p-gray-15);      /* подложка сегмента */
+  --color-surface-selected:var(--p-white);      /* активная кнопка сегмента */
+  --color-surface-inverse:var(--p-gray-100);    /* залитая кнопка, подсказка */
+  --color-surface-hover:var(--p-gray-100-a8);   /* наведение на нейтральный контрол */
+  --color-surface-glass:var(--p-white-a72);     /* плавающие слои со стеклом */
+  --color-surface-control:var(--p-gray-15);      /* кнопка-плашка на панели («Добавить предмет»); тёмная — белый 6 % поверх панели */
+  --color-surface-raised:var(--p-white);        /* приподнятая плашка на карточке (тёмная — светлее карточки) */
+  --color-surface-contrast:var(--p-gray-100);   /* тёмная секция страницы программы */
+  --color-surface-contrast-raised:var(--p-gray-100); /* постер на тёмном */
+  --color-shape-on-contrast:var(--p-gray-70);   /* фигура на тёмном постере */
+  --color-surface-on-media:var(--p-white);      /* белая плашка поверх фото/цвета — в обеих темах */
+  --color-surface-hover-on-media:var(--p-white-a22);
+  --color-overlay-soft:var(--p-gray-100-a16);   /* затемнение под меню */
+  --color-overlay-primary:var(--p-gray-100-a30);/* затемнение под шторкой */
+  --color-overlay-media:var(--p-black-a78);     /* градиент под текстом на фото */
+  /* текст */
+  --color-text-primary:var(--p-gray-100);
+  --color-text-secondary:var(--p-gray-60);
+  --color-text-tertiary:var(--p-gray-50);
+  --color-text-inverse:var(--p-gray-15);        /* на surface-inverse */
+  --color-text-on-accent:var(--p-gray-100);     /* на цвете пути (тёмная галочка, кнопка) */
+  --color-text-on-media:var(--p-white);         /* в цветном окне программы */
+  --color-text-on-media-secondary:var(--p-white-a72);
+  --color-text-link:var(--p-raspberry-70);
+  --color-text-link-on-contrast:var(--p-raspberry-40);   /* ссылка в тёмной секции */
+  --color-text-on-accent-secondary:var(--p-gray-100-a72);
+  --color-text-on-tint-secondary:var(--p-gray-100-a72);  /* на заливке цветом пути (тёмная — без заливки) */
+  /* линии */
+  --color-border-primary:var(--p-gray-20);      /* разделители, рамки полей */
+  --color-border-secondary:var(--p-gray-20);    /* обводка контролов-обводок (чипы «и одно из»); в тёмной заметнее линии */
+  --color-border-on-media:var(--p-white-a55);
+  --color-border-image:var(--p-black-a8);       /* рамка флага, картинки */
+  /* статусы */
+  --color-text-success:var(--p-green-70);
+  --color-text-warning:var(--p-yellow-80);
+
+  /* тема каталога: пути (цвет пути ставит JS в --pc; токены — источник) */
+  --color-path-first:var(--p-apricot-50);
+  --color-path-diploma:var(--p-violet-70);
+  --color-path-science:var(--p-green-50);
+  /* уровни: ярлык (bg + text) и наведение на строку/плитку */
+  --color-level-bachelor-accent:var(--p-apricot-50); --color-level-bachelor-bg:var(--p-apricot-20); --color-level-bachelor-text:var(--p-apricot-90); --color-level-bachelor-hover:var(--p-apricot-50-a10);
+  --color-level-specialist-accent:var(--p-magenta-50); --color-level-specialist-bg:var(--p-magenta-20); --color-level-specialist-text:var(--p-magenta-90); --color-level-specialist-hover:var(--p-magenta-50-a10);
+  --color-level-basic-accent:var(--p-rose-50); --color-level-basic-bg:var(--p-rose-20); --color-level-basic-text:var(--p-rose-90); --color-level-basic-hover:var(--p-rose-50-a10);
+  --color-level-master-accent:var(--p-peach-50); --color-level-master-bg:var(--p-peach-20); --color-level-master-text:var(--p-peach-90); --color-level-master-hover:var(--p-peach-50-a10);
+  --color-level-spvo-accent:var(--p-violet-50); --color-level-spvo-bg:var(--p-violet-20); --color-level-spvo-text:var(--p-violet-90); --color-level-spvo-hover:var(--p-violet-50-a10);
+  --color-level-phd-accent:var(--p-green-50); --color-level-phd-bg:var(--p-green-50-a22); --color-level-phd-text:var(--p-gray-100);
+
+  --color-surface-switch-off:var(--p-gray-30); /* дорожка выключенного переключателя */
+  --color-scroll-edge:var(--p-navy-a8);        /* тень у края прокрутки вбок */
+  /* эффекты */
+  --effect-shadow-sticky:0 16px 32px -16px var(--p-navy-a30); /* под прилипшей шапкой */
+  --effect-shadow-s:0 1px 4px var(--p-ink-a8);
+  --effect-shadow-m:0 12px 32px var(--p-ink-a10);
+  --effect-shadow-l:0 28px 70px -12px var(--p-ink-a28),0 6px 18px -6px var(--p-ink-a12);
+  --effect-shadow-field:0 18px 40px -24px var(--p-ink-a35);
+  --effect-shadow-hover:0 6px 24px var(--p-ink-a8);
+  --effect-noise-blend:multiply; --effect-noise-opacity:1;
+  /* доля цвета пути в заливке (число; в Figma — непрозрачность цвета пути) */
+  --tint-hover-subtle:5%; --tint-selected:10%; --tint-hover:10%;
+  --tint-card-hover:20%; --tint-soft:25%; --tint-strong:55%;
+}
+
+/* ───────── SEMANTIC · Dark ───────── */
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --color-bg-primary:var(--p-gray-100);
+  --color-surface-primary:var(--p-gray-80);
+  --color-surface-secondary:var(--p-gray-90);
+  --color-surface-elevated:var(--p-gray-90);
+  --color-surface-tertiary:var(--p-gray-60);
+  --color-surface-sunken:var(--p-gray-70);
+  --color-surface-selected:var(--p-gray-60);
+  --color-surface-inverse:var(--p-gray-15);
+  --color-surface-hover:var(--p-gray-15-a8);
+  --color-surface-glass:var(--p-gray-90-a72);
+  --color-surface-control:var(--p-white-a6);
+  --color-surface-raised:var(--p-gray-70);
+  --color-surface-contrast:var(--p-gray-80);
+  --color-surface-contrast-raised:var(--p-gray-70);
+  --color-shape-on-contrast:var(--p-gray-60);
+  --color-text-on-tint-secondary:var(--p-gray-40);
+  --color-text-primary:var(--p-gray-15);
+  --color-text-secondary:var(--p-gray-30);
+  --color-text-tertiary:var(--p-gray-40);
+  --color-text-inverse:var(--p-gray-100);
+  --color-text-link:var(--p-raspberry-50);
+  --color-border-primary:var(--p-gray-70);
+  --color-border-secondary:var(--p-gray-60);
+  --color-text-success:var(--p-green-30);
+  --color-text-warning:var(--p-yellow-30);
+  --color-path-diploma:var(--p-violet-50);
+  --color-level-bachelor-bg:var(--p-apricot-50-a30); --color-level-bachelor-text:var(--p-gray-15); --color-level-bachelor-hover:var(--p-apricot-50-a12);
+  --color-level-specialist-bg:var(--p-magenta-50-a30); --color-level-specialist-text:var(--p-gray-15); --color-level-specialist-hover:var(--p-magenta-50-a12);
+  --color-level-basic-bg:var(--p-rose-50-a30); --color-level-basic-text:var(--p-gray-15); --color-level-basic-hover:var(--p-rose-50-a12);
+  --color-level-master-bg:var(--p-peach-50-a30); --color-level-master-text:var(--p-gray-15); --color-level-master-hover:var(--p-peach-50-a12);
+  --color-level-spvo-bg:var(--p-violet-50-a30); --color-level-spvo-text:var(--p-gray-15); --color-level-spvo-hover:var(--p-violet-50-a12);
+  --color-level-phd-text:var(--p-gray-15);
+  --color-surface-switch-off:var(--p-gray-60);
+  --color-scroll-edge:var(--p-black-a18);
+  --effect-shadow-m:0 12px 32px var(--p-black-a45);
+  --effect-shadow-sticky:0 16px 32px -16px var(--p-black-a70);
+  --effect-shadow-l:0 28px 70px -10px var(--p-black-a70),0 0 0 1px var(--p-white-a6);
+  --effect-shadow-field:0 18px 40px -24px var(--p-black-a80);
+  --effect-noise-blend:screen; --effect-noise-opacity:.6;
+  --tint-hover-subtle:7%; --tint-selected:16%; --tint-hover:12%;
+  --tint-card-hover:0%; --tint-soft:0%; --tint-strong:0%;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  color-scheme:dark;
+  --color-bg-primary:var(--p-gray-100);
+  --color-surface-primary:var(--p-gray-80);
+  --color-surface-secondary:var(--p-gray-90);
+  --color-surface-elevated:var(--p-gray-90);
+  --color-surface-tertiary:var(--p-gray-60);
+  --color-surface-sunken:var(--p-gray-70);
+  --color-surface-selected:var(--p-gray-60);
+  --color-surface-inverse:var(--p-gray-15);
+  --color-surface-hover:var(--p-gray-15-a8);
+  --color-surface-glass:var(--p-gray-90-a72);
+  --color-surface-control:var(--p-white-a6);
+  --color-surface-raised:var(--p-gray-70);
+  --color-surface-contrast:var(--p-gray-80);
+  --color-surface-contrast-raised:var(--p-gray-70);
+  --color-shape-on-contrast:var(--p-gray-60);
+  --color-text-on-tint-secondary:var(--p-gray-40);
+  --color-text-primary:var(--p-gray-15);
+  --color-text-secondary:var(--p-gray-30);
+  --color-text-tertiary:var(--p-gray-40);
+  --color-text-inverse:var(--p-gray-100);
+  --color-text-link:var(--p-raspberry-50);
+  --color-border-primary:var(--p-gray-70);
+  --color-border-secondary:var(--p-gray-60);
+  --color-text-success:var(--p-green-30);
+  --color-text-warning:var(--p-yellow-30);
+  --color-path-diploma:var(--p-violet-50);
+  --color-level-bachelor-bg:var(--p-apricot-50-a30); --color-level-bachelor-text:var(--p-gray-15); --color-level-bachelor-hover:var(--p-apricot-50-a12);
+  --color-level-specialist-bg:var(--p-magenta-50-a30); --color-level-specialist-text:var(--p-gray-15); --color-level-specialist-hover:var(--p-magenta-50-a12);
+  --color-level-basic-bg:var(--p-rose-50-a30); --color-level-basic-text:var(--p-gray-15); --color-level-basic-hover:var(--p-rose-50-a12);
+  --color-level-master-bg:var(--p-peach-50-a30); --color-level-master-text:var(--p-gray-15); --color-level-master-hover:var(--p-peach-50-a12);
+  --color-level-spvo-bg:var(--p-violet-50-a30); --color-level-spvo-text:var(--p-gray-15); --color-level-spvo-hover:var(--p-violet-50-a12);
+  --color-level-phd-text:var(--p-gray-15);
+  --color-surface-switch-off:var(--p-gray-60);
+  --color-scroll-edge:var(--p-black-a18);
+  --effect-shadow-m:0 12px 32px var(--p-black-a45);
+  --effect-shadow-sticky:0 16px 32px -16px var(--p-black-a70);
+  --effect-shadow-l:0 28px 70px -10px var(--p-black-a70),0 0 0 1px var(--p-white-a6);
+  --effect-shadow-field:0 18px 40px -24px var(--p-black-a80);
+  --effect-noise-blend:screen; --effect-noise-opacity:.6;
+  --tint-hover-subtle:7%; --tint-selected:16%; --tint-hover:12%;
+  --tint-card-hover:0%; --tint-soft:0%; --tint-strong:0%;
+}}
+
+/* ───────── DIMENSION ───────── */
+:root{
+  /* отступы: шаг 2 до 12, дальше 4; раскладка 36…96 */
+  --spacing-0:0; --spacing-2:2px; --spacing-4:4px; --spacing-6:6px; --spacing-8:8px; --spacing-10:10px;
+  --spacing-12:12px; --spacing-16:16px; --spacing-20:20px; --spacing-24:24px; --spacing-28:28px; --spacing-32:32px;
+  --spacing-36:36px; --spacing-40:40px; --spacing-48:48px; --spacing-64:64px; --spacing-72:72px; --spacing-96:96px;
+  /* скругления */
+  --radius-2:2px; --radius-6:6px; --radius-8:8px; --radius-12:12px; --radius-16:16px; --radius-20:20px; --radius-24:24px; --radius-full:999px;
+  /* текст: семейство + стили text/<role>/<size> (кегль / строка), интерлиньяж кратен 4 */
+  --font-family-base:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --text-caption-s:12px/16px var(--font-family-base);
+  --text-body-s:14px/20px var(--font-family-base);
+  --text-body-m:16px/24px var(--font-family-base);
+  --text-title-s:18px/24px var(--font-family-base);
+  --text-title-m:20px/28px var(--font-family-base);
+  --text-title-l:24px/32px var(--font-family-base);
+  --text-heading-s:32px/40px var(--font-family-base);
+  --text-heading-m:40px/48px var(--font-family-base);
+  --text-heading-l:56px/60px var(--font-family-base);
+  --text-display-m:72px/72px var(--font-family-base);
+  --text-display-l:96px/88px var(--font-family-base);
+  --text-label-m:14px/20px var(--font-family-base);
+}
+/* ───────── КОМПОНЕНТЫ · сравнение программ ───────── */
+:root{--pc:var(--color-path-first);--col-label:216px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-bg-primary);color:var(--color-text-primary);font:var(--text-body-s);-webkit-font-smoothing:antialiased;transition:background .3s}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--color-text-primary);outline-offset:2px}
+/* шапка — из показа каталога v72: логотип, язык, тема */
+.hA{position:relative;z-index:30;height:72px;display:flex;align-items:center;gap:var(--spacing-20);padding:0 var(--spacing-40);max-width:1440px;margin-inline:auto}
+.logo{display:block;height:40px;width:auto;color:var(--color-text-primary);flex:0 0 auto}
+.hA .r{display:flex;align-items:center;gap:var(--spacing-2);margin-left:auto;margin-right:-11px}
+.hib{height:40px;min-width:40px;padding:0 var(--spacing-10);border-radius:var(--radius-12);display:inline-flex;align-items:center;justify-content:center;gap:var(--spacing-6);font:500 var(--text-body-s);color:var(--color-text-secondary);transition:background .2s,color .2s}
+.hib:hover,.hib[aria-expanded=true]{background:var(--color-surface-sunken);color:var(--color-text-primary)}
+.hib svg{flex:0 0 auto}
+.lang{position:relative}
+.lang .hib svg{transition:transform .3s}
+.lang .hib[aria-expanded=true] svg{transform:rotate(180deg)}
+.lp{position:absolute;top:calc(100% + var(--spacing-8));right:0;min-width:168px;background:var(--color-surface-elevated);border-radius:var(--radius-12);padding:var(--spacing-6);box-shadow:var(--effect-shadow-m);z-index:6;animation:up .3s cubic-bezier(.2,.7,.2,1)}
+.lp button{display:flex;justify-content:space-between;align-items:center;width:100%;padding:9px var(--spacing-12);border-radius:var(--radius-8);font:500 var(--text-body-s);text-align:left}
+.lp button:hover{background:var(--color-surface-sunken)}
+.lp button svg{visibility:hidden}
+.lp button[aria-selected=true] svg{visibility:visible}
+@keyframes up{from{opacity:0;transform:translateY(6px)}}
+.sun{display:none}
+:root[data-theme="dark"] .sun{display:block}
+:root[data-theme="dark"] .moon{display:none}
+@media (prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .sun{display:block}
+:root:not([data-theme="light"]) .moon{display:none}
+}
+/* страница */
+.page{max-width:1440px;margin:0 auto;padding:var(--spacing-8) var(--spacing-40) var(--spacing-96)}
+.crumbs{display:flex;gap:var(--spacing-8);color:var(--color-text-tertiary);margin-bottom:var(--spacing-24)}
+.crumbs a:hover{color:var(--color-text-primary)}
+h1{font:500 var(--text-heading-m);margin:0 0 var(--spacing-24);letter-spacing:-.01em}
+.bar{display:flex;margin-bottom:var(--spacing-12)}
+/* сегмент — как переключатель вида в каталоге (.seg3) */
+.seg{display:flex;padding:var(--spacing-4);gap:var(--spacing-2);border-radius:var(--radius-12);background:var(--color-surface-hover);max-width:100%;overflow-x:auto;scrollbar-width:none}
+.seg button{height:40px;padding:0 var(--spacing-16);border-radius:var(--radius-8);font-weight:500;color:var(--color-text-tertiary);display:flex;align-items:center;gap:var(--spacing-8);white-space:nowrap;transition:background .25s,color .25s}
+.seg button i{font-style:normal;font-weight:400}
+.seg button[aria-pressed=true]{background:var(--color-surface-selected);color:var(--color-text-primary);box-shadow:var(--effect-shadow-s)}
+.seg button:disabled{cursor:default;opacity:.55}
+/* контролы */
+.sw{display:flex;align-items:center;gap:var(--spacing-12);min-height:32px;font-weight:500;cursor:pointer;user-select:none}
+.sw input,.ck input{position:absolute;opacity:0}
+.sw span{flex:none;width:40px;height:24px;border-radius:var(--radius-8);background:var(--color-surface-switch-off);position:relative;transition:background .3s}
+.sw span::after{content:"";position:absolute;left:2px;top:2px;width:20px;height:20px;border-radius:var(--radius-6);background:var(--color-surface-on-media);transition:transform .3s}
+.sw input:checked+span{background:var(--pc)}
+.sw input:checked+span::after{transform:translateX(16px)}
+.sw input:focus-visible+span,.ck input:focus-visible+span{outline:2px solid var(--color-text-primary);outline-offset:2px}
+.btn{height:40px;padding:0 var(--spacing-12);border-radius:var(--radius-12);font-weight:500;display:inline-flex;align-items:center;gap:var(--spacing-8);background:var(--color-surface-sunken);white-space:nowrap;transition:background .2s}
+.btn:hover,.ib:hover:not(:disabled){background:var(--color-surface-tertiary)}
+.btn b{font-weight:400;color:var(--color-text-tertiary);font-variant-numeric:tabular-nums}
+.ib{width:40px;height:40px;border-radius:var(--radius-12);background:var(--color-surface-sunken);display:grid;place-items:center;transition:background .2s}
+.ib:disabled{opacity:.35;cursor:default}
+.nav{display:flex;gap:var(--spacing-8);visibility:hidden}
+.many .nav{visibility:visible}
+.pop-wrap{position:relative}
+.pop{position:absolute;left:0;top:var(--spacing-48);z-index:40;width:320px;padding:var(--spacing-20);border-radius:var(--radius-20);background:var(--color-surface-elevated);box-shadow:var(--effect-shadow-l)}
+.pop h3{font:500 var(--text-caption-s);color:var(--color-text-tertiary);margin:var(--spacing-20) 0 var(--spacing-8)}
+.pop h3:first-child{margin-top:0}
+.ck{display:flex;align-items:center;gap:var(--spacing-12);min-height:32px;cursor:pointer}
+.ck span{flex:none;width:20px;height:20px;border-radius:var(--radius-6);box-shadow:inset 0 0 0 1.5px var(--color-text-tertiary);display:grid;place-items:center;color:var(--color-text-on-accent);transition:background .2s,box-shadow .2s}
+.ck span svg{opacity:0}
+.ck input:checked+span{background:var(--pc);box-shadow:none}
+.ck input:checked+span svg{opacity:1}
+.pop .reset{margin-top:var(--spacing-20);height:40px;width:100%;border-radius:var(--radius-12);background:var(--color-surface-sunken);font-weight:500}
+.pop .reset:disabled{color:var(--color-text-tertiary);cursor:default}
+/* поиск программы */
+.add{left:auto;right:0;top:calc(100% + var(--spacing-8));width:400px}
+.add input{width:100%;height:48px;padding:0 var(--spacing-16);border-radius:var(--radius-12);border:0;box-shadow:inset 0 0 0 1px var(--color-border-primary);font:var(--text-body-m);color:inherit;background:var(--color-surface-primary);outline:0}
+.add input::placeholder{color:var(--color-text-tertiary)}
+.add input::-webkit-search-cancel-button{display:none}
+.add input:focus{box-shadow:inset 0 0 0 2px var(--color-text-primary)}
+.add ul{list-style:none;margin:var(--spacing-12) calc(-1*var(--spacing-8)) 0;padding:0;max-height:264px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--color-border-primary) transparent}
+.add li button{display:block;width:100%;text-align:left;padding:var(--spacing-8);border-radius:var(--radius-12)}
+.add li button:hover{background:var(--color-surface-hover)}
+.add li small{display:block;font:var(--text-caption-s);color:var(--color-text-tertiary)}
+.add li b{font-weight:500}
+.add p{margin:var(--spacing-12) 0 0;color:var(--color-text-tertiary)}
+.add .more{display:inline-flex;gap:var(--spacing-6);margin-top:var(--spacing-16);font-weight:500}
+.add .more:hover span{text-decoration:underline;text-underline-offset:4px}
+/* таблица */
+.g{display:grid;grid-template-columns:var(--col-label) minmax(0,1fr);column-gap:var(--spacing-24)}
+.cw{position:relative;min-width:0;margin-right:calc(-1*var(--spacing-28))}
+.head .cw::before,.card::before{content:"";position:absolute;top:0;bottom:0;width:20px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:1;background:linear-gradient(90deg,var(--color-scroll-edge),transparent)}
+.head .cw::before{left:0}
+.card::before{left:calc(var(--spacing-28) + var(--col-label) + var(--spacing-24))}
+.hs .head .cw::before,.hs .card::before{opacity:1}
+.head .cw{margin-top:calc(-1*var(--spacing-20));margin-bottom:calc(-1*var(--spacing-20));border-radius:0 var(--radius-20) var(--radius-20) 0;overflow:hidden}
+.head .cols{padding-top:var(--spacing-20);padding-bottom:var(--spacing-20)}
+.cols{display:grid;grid-template-columns:var(--tpl);column-gap:var(--spacing-24);overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;padding-right:var(--spacing-28)}
+.cols::-webkit-scrollbar{display:none}
+.stick{position:sticky;top:0;z-index:20;background:var(--color-bg-primary);padding:var(--spacing-12) 0 var(--spacing-8);transition:background .3s}
+.stick::after{content:"";position:absolute;left:0;right:0;top:100%;height:20px;pointer-events:none;opacity:0;background:radial-gradient(circle at 20px 20px,transparent 19.5px,var(--color-bg-primary) 20px) left top/20px 20px no-repeat,radial-gradient(circle at 0 20px,transparent 19.5px,var(--color-bg-primary) 20px) right top/20px 20px no-repeat}
+.stick.stuck::after{opacity:1}
+.head{position:relative;background:var(--color-surface-primary);border-radius:var(--radius-20);padding:var(--spacing-20) var(--spacing-28);transition:box-shadow .3s}
+.stuck .head{box-shadow:var(--effect-shadow-sticky)}
+.ctl{display:flex;flex-direction:column;align-items:flex-start;gap:var(--spacing-12)}
+.pc{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding-right:var(--spacing-32);min-width:0}
+.lv{height:24px;padding:0 var(--spacing-8);border-radius:var(--radius-8);font:600 var(--text-caption-s);line-height:24px;margin-bottom:var(--spacing-12);background:var(--color-level-bachelor-bg);color:var(--color-level-bachelor-text)}
+.pc small{font:var(--text-body-s);color:var(--color-text-tertiary);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:var(--spacing-6)}
+.pc b{font:500 var(--text-title-s);min-height:72px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.pc a{margin-top:var(--spacing-12);font-weight:500;display:inline-flex;gap:var(--spacing-6);min-height:24px;align-items:center}
+.pc a:hover span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.rm{position:absolute;right:0;top:calc(-1*var(--spacing-8));width:40px;height:40px;border-radius:var(--radius-12);display:grid;place-items:center;color:var(--color-text-tertiary);transition:background .2s,color .2s}
+.rm:hover{background:var(--color-surface-hover);color:var(--color-text-primary)}
+.slot{width:56px;height:56px;border-radius:var(--radius-12);background:var(--color-surface-sunken);display:grid;place-items:center;color:var(--color-text-secondary);transition:background .2s}
+.slot:hover{background:var(--color-surface-tertiary)}
+.card{background:var(--color-surface-primary);border-radius:var(--radius-20);padding:var(--spacing-20) var(--spacing-28) var(--spacing-8);margin-top:var(--spacing-8);overflow:hidden;position:relative}
+.stick+.card{margin-top:0}
+.card h2{font:500 var(--text-body-m);margin:0 0 var(--spacing-8)}
+.row{border-top:1px solid var(--color-border-primary)}
+.row:first-of-type{border-top:0}
+.lb,.row .cols{padding-top:var(--spacing-16);padding-bottom:var(--spacing-16)}
+.lb{color:var(--color-text-tertiary)}
+.lb em{display:block;font-style:normal;font:var(--text-caption-s);margin-top:var(--spacing-4)}
+.v{font-weight:500;min-width:0}
+.v .big{font:500 var(--text-title-l);display:block}
+.v small{display:block;font:var(--text-caption-s);font-weight:400;color:var(--color-text-tertiary);margin-top:var(--spacing-4)}
+.v ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--spacing-4)}
+.v li{display:flex;justify-content:space-between;gap:var(--spacing-12);max-width:240px}
+.v li span{font-weight:400;color:var(--color-text-secondary);font-variant-numeric:tabular-nums}
+.v.na{color:var(--color-text-tertiary);font-weight:400}
+.note{display:flex;align-items:center;gap:var(--spacing-12);padding:var(--spacing-20) var(--spacing-28) 0;color:var(--color-text-tertiary)}
+.note button{font-weight:500;color:var(--color-text-primary)}
+.note button:hover{text-decoration:underline;text-underline-offset:4px}
+.empty{padding:var(--spacing-64) var(--spacing-28);color:var(--color-text-tertiary)}
+[hidden]{display:none!important}
+@media(max-width:1023px){
+  .hA{padding:0 var(--spacing-16)}
+  .hA .r{margin-right:calc(-1*var(--spacing-10))}
+  .page{padding:var(--spacing-8) var(--spacing-16) var(--spacing-96)}
+  h1{font:500 var(--text-heading-s)}
+  .g{grid-template-columns:minmax(0,1fr)}
+  .cw{margin-right:calc(-1*var(--spacing-20))}
+  .cols{padding-right:var(--spacing-20)}
+  .head .cw{margin-top:0;margin-bottom:calc(-1*var(--spacing-20));border-radius:0}
+  .head .cols{padding-top:var(--spacing-8)}
+  .head,.card{padding-left:var(--spacing-20);padding-right:var(--spacing-20)}
+  .stick{position:static}
+  .stick::after{display:none}
+  .ctl{flex-direction:row;align-items:center;flex-wrap:wrap;margin-bottom:var(--spacing-20)}
+  .nav{display:none}
+  .lb{padding-bottom:0}
+  .row .cols{padding-top:var(--spacing-8)}
+  .pop{max-width:calc(100vw - 72px)}
+  .add{right:0;left:0;width:auto}
+  .card::before{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head>
+<body>
+<header class="hA">
+  <a href="https://urfu.ru/ru/" target="_blank" rel="noopener" aria-label="УрФУ, главная страница"><svg class="logo" viewBox="0 0 94 32" fill="none" aria-hidden="true"><g><path fill-rule="evenodd" clip-rule="evenodd" d="M0.582031 1.42784C3.00975 1.42784 4.03686 3.12024 5.12623 4.93714L14.059 20.2543C14.4792 21.0208 14.8955 21.9429 14.8838 22.8066C14.8527 25.0592 11.927 25.884 10.1762 25.9696C8.8962 26.0319 7.62787 25.7323 6.48793 25.2187L5.77595 26.133C6.19224 27.8993 7.82629 30.0469 10.075 30.0314C13.9812 30.0041 16.0315 26.4326 17.5994 23.5224L20.5057 18.134L12.067 3.66103C11.2889 2.36547 12.5689 1.42395 13.9267 1.41617L14.238 0.217873H0.893277L0.582031 1.42006V1.42784Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M76.4866 8.35307V2.14371H75.2222L72.6622 6.37666V2.14371H71.4094V8.35307H72.6739L75.2183 4.13958V8.35307H76.4827H76.4866ZM72.3159 0.988208C73.2691 1.70796 74.623 1.70796 75.5762 0.988208L75.0588 0.225655C74.374 0.723649 73.522 0.723649 72.8334 0.225655L72.3159 0.988208Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M35.5967 6.29496V4.15125C35.5967 2.80122 34.877 2.03477 33.5386 2.03477C33.0329 2.03477 32.1653 2.23708 31.8112 2.52499C31.6984 2.33435 31.5817 2.13204 31.321 2.03477L30.5234 2.77009C30.8269 2.9724 30.8347 3.36924 30.8347 3.54432V10.3567H32.1264V8.18578C32.5154 8.37641 33.134 8.45423 33.4375 8.45423C34.6474 8.45423 35.5967 7.69556 35.5967 6.29496ZM34.2973 6.42724C34.2973 6.96803 33.7565 7.29873 33.2663 7.29873C32.8617 7.29873 32.387 7.13532 32.1341 6.96024V3.61435C32.422 3.32255 33.0017 3.15915 33.3441 3.15915C33.8343 3.15915 34.3012 3.51319 34.3012 4.05398V6.42724H34.2973Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M47.2405 8.35696V2.13204H42.9764V5.9876C42.9764 6.7696 42.4862 7.42322 41.8053 7.44267C41.4902 7.45045 41.0039 7.24036 41.0039 6.75793V4.13568C41.0039 2.8479 40.3191 2.03088 38.8718 2.03088C37.8875 2.03088 37.1211 2.44717 36.7048 2.87514L37.3857 3.71161C37.8136 3.29532 38.4322 3.13191 38.7474 3.13191C39.1753 3.13191 39.7161 3.32255 39.7161 3.90225V4.56365H38.6579C37.1444 4.56365 36.5142 5.52462 36.5142 6.53228C36.5142 7.53994 37.0472 8.45034 38.5723 8.45034C39.0391 8.45034 39.6383 8.21301 40.0079 7.85119C40.6226 8.40754 41.1906 8.50869 41.8404 8.48924C43.3071 8.44255 44.2486 7.65277 44.2097 5.94091V3.19416H45.9838V8.35307H47.2444L47.2405 8.35696ZM39.7083 6.92523C39.401 7.32207 38.8407 7.43878 38.4128 7.36097C38.0821 7.30261 37.8058 6.96803 37.7981 6.61009C37.7903 6.151 38.0782 5.65301 38.7551 5.65301H39.7083V6.92523Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M64.2934 8.36085L61.9863 5.07331L64.1416 2.14371H62.6749L61.0564 4.57921H60.2627V2.13204H58.9983V8.36085H60.2394L60.2511 5.64523H61.0408L62.8188 8.36085H64.2934Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M48.5483 8.36863V2.12815H49.84V4.24073H50.7504C52.2638 4.24073 53.0653 5.1628 53.0536 6.22493C53.042 7.28705 52.2911 8.36474 50.7699 8.36474H48.5522L48.5483 8.36863ZM49.8361 7.29094H50.9216C51.4896 7.29094 51.7192 6.66845 51.7192 6.25216C51.7192 5.83587 51.4818 5.31064 50.9021 5.31064H49.8361V7.29483V7.29094Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M58.1773 7.65666L57.6482 6.71903C56.9168 7.23647 56.4772 7.38821 56.1114 7.38821C55.594 7.38821 55.0804 7.12365 55.0804 6.58286V4.1707C55.0804 3.61435 55.594 3.22529 56.1893 3.22529C56.5666 3.22529 57.0841 3.45094 57.4615 3.85556L58.1307 3.00742C57.6755 2.45106 57.0335 2.05033 56.0375 2.05033C54.7653 2.05033 53.7771 2.83234 53.7771 4.18237V6.51672C53.7771 7.83951 54.8003 8.46201 56.0609 8.46201C57.1074 8.46201 57.8155 7.9679 58.1773 7.66444V7.65666Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M70.1021 8.35307V2.14371H68.8377L66.2777 6.38055V2.14371H65.0249V8.35307H66.2777H66.2932L68.8377 4.13957V8.35307H70.1021Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M30.4958 0.225655H29.0524L27.9397 3.92948C27.9202 3.99951 27.893 4.07344 27.8774 4.14347C27.8619 4.21739 27.8463 4.27964 27.8385 4.33021C27.8307 4.38079 27.8269 4.40802 27.8269 4.41192C27.8269 4.41192 27.823 4.38468 27.8152 4.3341C27.8074 4.28353 27.7918 4.22128 27.7763 4.15125C27.7607 4.08122 27.7413 4.0073 27.714 3.94116L26.0683 0.225655H24.6016L27.2394 6.01872L27.0721 6.43891C26.862 6.90188 26.3056 7.41544 25.3096 7.45824L25.4692 8.46201C26.932 8.49313 27.893 7.84729 28.2665 6.75793L30.5036 0.225655H30.4958Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M93.4105 18.8849V12.6755H92.146L89.586 16.9084V12.6755H88.3333V18.8849H89.5977L92.1421 14.6714V18.8849H93.4066H93.4105ZM89.2436 11.5161C90.1968 12.2359 91.5508 12.2359 92.504 11.5161L91.9865 10.7536C91.3018 11.2515 90.4497 11.2515 89.7611 10.7536L89.2436 11.5161Z" fill="currentColor"/><path d="M87.0254 12.6755H85.761V18.8849H87.0254V12.6755Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M80.5596 18.916V12.6755H81.8512V14.7881H82.7655C84.279 14.7881 85.0804 15.7102 85.0687 16.7723C85.0571 17.8344 84.3062 18.9121 82.785 18.9121H80.5673L80.5596 18.916ZM81.8512 17.8383H82.9367C83.5047 17.8383 83.7343 17.2158 83.7343 16.7995C83.7343 16.3832 83.4969 15.858 82.9173 15.858H81.8512V17.8422V17.8383Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.896 16.8267V14.683C31.896 13.333 31.2736 12.5666 29.9391 12.5666C29.5773 12.5666 29.1882 12.6716 28.912 12.835V11.664H27.6203V12.835C27.348 12.6716 26.955 12.5666 26.5932 12.5666C25.2548 12.5666 24.6362 13.3369 24.6362 14.683V16.8267C24.6362 18.2274 25.4844 18.986 26.6943 18.986C26.9978 18.986 27.4841 18.8382 27.6203 18.7176V20.8885H28.912V18.7176C29.0481 18.8382 29.5345 18.986 29.8379 18.986C31.0479 18.986 31.896 18.2274 31.896 16.8267ZM27.6203 14.0722V14.08V14.0878V14.0956V14.1033V14.1111V14.1189V14.1267V14.1345V14.1422V14.15V14.1578V14.1656V14.1734V14.1812V14.1889V14.1967V14.2045V14.2123V14.2201V14.2278V14.2356V14.2434V14.2512V14.259V14.2667V14.2745V17.5154C27.4958 17.706 27.274 17.8578 26.8694 17.8578C26.3792 17.8578 25.9357 17.5309 25.9357 16.9863V14.613C25.9357 14.0722 26.3014 13.7182 26.7916 13.7182C27.134 13.7182 27.5114 13.9088 27.6164 14.0995L27.6203 14.0722ZM30.5927 16.9629C30.5927 17.5037 30.1531 17.8344 29.659 17.8344C29.2543 17.8344 29.0326 17.6866 28.9081 17.492V14.259V14.2512V14.2434V14.2356V14.2278V14.2201V14.2123V14.2045V14.1967V14.1889V14.1812V14.1734V14.1656V14.1578V14.15V14.1422V14.1345V14.1267V14.1189V14.1111V14.1033V14.0956V14.0878V14.08V14.0722V14.0644V14.0567V14.0489C29.0131 13.8582 29.3944 13.6676 29.7329 13.6676C30.2231 13.6676 30.5888 14.0216 30.5888 14.5624V16.9357L30.5927 16.9629Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M37.6773 18.1612L37.1326 17.1886C36.514 17.6943 35.9109 17.8578 35.4091 17.8578C34.7905 17.8578 34.3158 17.5154 34.3158 16.8501V16.2743H37.545V14.7609C37.545 13.1852 36.5451 12.5782 35.3507 12.5782C33.9773 12.5782 33.0164 13.2824 33.0164 14.8348V16.9046C33.0164 18.2896 33.9268 18.986 35.3118 18.986C36.3311 18.986 36.9497 18.6553 37.6812 18.1651L37.6773 18.1612ZM36.2378 14.434V15.2083H34.3119V14.5235C34.3119 13.9672 34.7905 13.652 35.3429 13.652C35.6853 13.652 36.2378 13.8777 36.2378 14.434Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M43.7392 17.8383V12.6755H39.4751V16.107C39.4751 16.889 39.016 17.815 38.3313 17.8344H38.2107V20.4061H39.4401V18.9004H43.1829V20.4061H44.4434V17.8344H43.7353L43.7392 17.8383ZM40.2027 17.8383C40.5178 17.492 40.7162 16.8306 40.7046 16.1537V13.7415H42.4787V17.8383H40.2027Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M79.2562 18.8849V12.6755H77.9878V15.1032H75.4317V12.6755H74.179V18.8849H75.4317V16.1653H77.9878V18.8849H79.2562Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M55.784 16.8384V14.6947C55.784 13.3447 55.0642 12.5782 53.7259 12.5782C53.2201 12.5782 52.3525 12.7805 51.9985 13.0684C51.8856 12.8778 51.7689 12.6755 51.5083 12.5782L50.7107 13.3136C51.0142 13.5159 51.0219 13.9127 51.0219 14.0878V20.9002H52.3136V18.7292C52.7027 18.9199 53.3213 18.9977 53.6247 18.9977C54.8347 18.9977 55.784 18.239 55.784 16.8384ZM54.4807 16.9746C54.4807 17.5154 53.9399 17.8461 53.4497 17.8461C53.045 17.8461 52.5704 17.6827 52.3175 17.5037V14.1578C52.6093 13.866 53.1851 13.7026 53.5275 13.7026C54.0177 13.7026 54.4846 14.0567 54.4846 14.5974V16.9707L54.4807 16.9746Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M67.425 18.9004V12.6755H63.161V16.5311C63.161 17.3131 62.6708 17.9667 61.9899 17.9861C61.6748 17.9939 61.1885 17.7838 61.1885 17.3014V14.6791C61.1885 13.3914 60.5037 12.5743 59.0564 12.5743C58.0721 12.5743 57.3057 12.9906 56.8894 13.4186L57.5702 14.2551C57.9982 13.8388 58.6168 13.6754 58.9319 13.6754C59.3599 13.6754 59.9007 13.866 59.9007 14.4457V15.1071H58.8424C57.329 15.1071 56.6987 16.0681 56.6987 17.0757C56.6987 18.0834 57.2317 18.9938 58.7568 18.9938C59.2237 18.9938 59.8229 18.7565 60.1925 18.3946C60.8072 18.951 61.3752 19.0522 62.0249 19.0327C63.4917 18.986 64.4332 18.1962 64.3943 16.4844V13.7376H66.1684V18.8965H67.4289L67.425 18.9004ZM59.8968 17.4726C59.4221 18.0873 58.006 18.169 57.9865 17.1574C57.9787 16.6984 58.2666 16.2004 58.9436 16.2004H59.8968V17.4726Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M68.7322 18.916V12.6755H70.0239V14.7881H70.9342C72.4477 14.7881 73.2491 15.7102 73.2375 16.7723C73.2258 17.8344 72.4749 18.9121 70.9537 18.9121H68.7361L68.7322 18.916ZM70.0239 17.8383H71.1093C71.6773 17.8383 71.9069 17.2158 71.9069 16.7995C71.9069 16.3832 71.6696 15.858 71.0899 15.858H70.0239V17.8422V17.8383Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M49.937 18.1612L49.3924 17.1886C48.7738 17.6943 48.1707 17.8578 47.6688 17.8578C47.0502 17.8578 46.5756 17.5154 46.5756 16.8501V16.2743H49.8048V14.7609C49.8048 13.1852 48.8049 12.5782 47.6105 12.5782C46.2371 12.5782 45.2761 13.2824 45.2761 14.8348V16.9046C45.2761 18.2896 46.1865 18.986 47.5716 18.986C48.5909 18.986 49.2095 18.6553 49.9409 18.1651L49.937 18.1612ZM48.4975 14.434V15.2083H46.5717V14.5235C46.5717 13.9672 47.0502 13.652 47.6027 13.652C47.9451 13.652 48.4975 13.8777 48.4975 14.434Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M29.9624 23.2229H28.5579L27.2857 28.0511C27.2857 28.0511 27.2974 27.6854 27.1457 27.1679L26.0641 23.2229L24.6362 23.2345C24.6362 23.2345 26.3014 28.4985 26.6905 29.4167C26.4998 30.2298 26.0563 30.7745 25.1148 30.864L25.2354 31.8055C26.6632 31.8055 27.4764 31.0351 27.772 30.0858L29.9624 23.2229Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M35.8448 29.4322V23.2229H34.5804V25.6506H32.0204V23.2229H30.7715V29.4322H32.0204V26.7127H34.5804V29.4322H35.8448Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M42.2295 29.4322V23.2229H40.9651L38.4051 27.4597V23.2229H37.1523V29.4322H38.4051H38.4168L40.9651 25.2187V29.4322H42.2295Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M43.5369 29.4322V23.2229H45.7545C47.2796 23.2229 47.7542 24.1527 47.7348 24.8608C47.7115 25.5689 47.3185 25.9268 46.9761 26.1058C47.3574 26.2108 48.0305 26.6894 48.0305 27.5842C48.0305 28.479 47.3652 29.4322 45.844 29.4322H43.5369ZM44.8246 24.3005V25.6428H45.7506C46.2681 25.6428 46.4081 25.2926 46.4042 24.9814C46.4042 24.6702 46.2058 24.3005 45.7701 24.3005H44.8208H44.8246ZM44.8246 28.3545H45.9101C46.4781 28.3545 46.7077 27.8993 46.7077 27.4869C46.7077 27.0706 46.4704 26.701 45.8907 26.701H44.8246V28.3545Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M71.7898 23.2229V24.2889H73.3577V29.4478H73.4394H74.6182H74.7V24.2889H76.2717V23.2229H71.7898Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M82.1045 23.2229V24.2889H83.6724V29.4478H83.7541H84.9368H85.0185V24.2889H86.5864V23.2229H82.1045Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M70.8526 29.4322V23.2229H69.5882L67.0282 27.4597V23.2229H65.7754V29.4322H67.0282H67.0398L69.5882 25.2187V29.4322H70.8526Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M59.4376 27.3741V25.2304C59.4376 23.8804 58.7178 23.1139 57.3795 23.1139C56.8737 23.1139 56.0061 23.3162 55.652 23.6041C55.5392 23.4135 55.4225 23.2112 55.1618 23.1139L54.3643 23.8492C54.6677 24.0516 54.6755 24.4484 54.6755 24.6235V31.4359H55.9672V29.2649C56.3562 29.4556 56.9748 29.5334 57.2783 29.5334C58.4883 29.5334 59.4376 28.7747 59.4376 27.3741ZM58.1342 27.5064C58.1342 28.0472 57.5934 28.3779 57.1032 28.3779C56.6986 28.3779 56.224 28.2145 55.9711 28.0355V24.6896C56.2629 24.3978 56.8387 24.2344 57.181 24.2344C57.6712 24.2344 58.1381 24.5884 58.1381 25.1292V27.5025L58.1342 27.5064Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M64.9544 28.7202L64.4253 27.7826C63.6939 28.3001 63.2543 28.4518 62.8885 28.4518C62.3711 28.4518 61.8575 28.1872 61.8575 27.6464V25.2343C61.8575 24.6779 62.3711 24.2889 62.9664 24.2889C63.3437 24.2889 63.8612 24.5145 64.2386 24.9192L64.9078 24.071C64.4526 23.5147 63.8106 23.1139 62.8146 23.1139C61.5424 23.1139 60.5542 23.8959 60.5542 25.246V27.5803C60.5542 28.9031 61.5774 29.5256 62.838 29.5256C63.8845 29.5256 64.5887 29.0315 64.9544 28.728V28.7202Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M81.5982 28.6969L81.0535 27.7243C80.4349 28.23 79.8318 28.3934 79.33 28.3934C78.7114 28.3934 78.2367 28.055 78.2367 27.3858V26.81H81.4659V25.2965C81.4659 23.7208 80.4699 23.1139 79.2716 23.1139C77.8982 23.1139 76.9373 23.822 76.9373 25.3705V27.4364C76.9373 28.8214 77.8476 29.5178 79.2327 29.5178C80.2559 29.5178 80.8706 29.1871 81.6021 28.6969H81.5982ZM80.1587 24.9697V25.744H78.2328V25.0592C78.2328 24.5029 78.7114 24.1877 79.2638 24.1877C79.6062 24.1877 80.1587 24.4173 80.1587 24.9697Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M53.6133 28.6969L53.0686 27.7243C52.45 28.23 51.847 28.3934 51.3451 28.3934C50.7265 28.3934 50.2518 28.055 50.2518 27.3858V26.81H53.481V25.2965C53.481 23.7208 52.4811 23.1139 51.2867 23.1139C49.9134 23.1139 48.9524 23.822 48.9524 25.3705V27.4364C48.9524 28.8214 49.8628 29.5178 51.2478 29.5178C52.2711 29.5178 52.8858 29.1871 53.6172 28.6969H53.6133ZM52.1738 24.9697V25.744H50.248V25.0592C50.248 24.5029 50.7265 24.1877 51.279 24.1877C51.6213 24.1877 52.1738 24.4173 52.1738 24.9697Z" fill="currentColor"/></g></svg></a>
+  <div class="r"><div class="lang"><button class="hib" type="button" data-lang aria-haspopup="listbox" aria-expanded="false"><span id="lgc">RU</span><svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="lp" role="listbox" hidden><button type="button" role="option" aria-selected="true" data-lc="RU">Русский<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7.2l2.6 2.6L11 4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" role="option" aria-selected="false" data-lc="EN">English<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7.2l2.6 2.6L11 4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" role="option" aria-selected="false" data-lc="中文">中文<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7.2l2.6 2.6L11 4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div><button class="hib" type="button" data-theme-btn aria-label="Сменить тему" title="Сменить тему"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><g class="moon"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></g><g class="sun"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></g></svg></button></div>
+</header>
+<div class="page">
+  <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Каталог программ</a><span>/</span><span>Сравнение</span></nav>
+  <h1>Сравнение</h1>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Путь">
+      <button type="button" aria-pressed="true">Первое высшее <i id="cnt">3</i></button>
+      <button type="button" aria-pressed="false" disabled>Есть диплом <i>0</i></button>
+      <button type="button" aria-pressed="false" disabled>Хочу в науку <i>0</i></button>
+    </div>
+  </div>
+  <div id="tbl"></div>
+</div>
+<script>
+// Данные реальные: план приёма 2026, перечень вступительных испытаний 2026, приказ о стоимости № 1122/03 (urfu.ru), проходной 2025 — gsem.urfu.ru.
+const P=[
+ {id:10071,n:'Мировая экономика и международный бизнес',c:'38.03.01 Экономика',inst:'ИнЭУ',
+  must:[['Математика',40],['Русский язык',40]],opt:[['География',40],['Иностранный язык',40],['Информатика',46],['История',40],['Обществознание',45]],
+  b:[8,1,1,8],paid:118,cost:390000,disc:331500,thr:250,form:'Очная',term:'4 года',lang:'Русский, частично английский',pass:283,href:'../#p10071'},
+ {id:1,n:'Международный и корпоративный менеджмент',c:'38.03.02 Менеджмент',inst:'ИнЭУ',
+  must:[['Математика',40],['Русский язык',40]],opt:[['Иностранный язык',40],['Информатика',46],['История',40],['Обществознание',45]],
+  b:[14,2,2,0],paid:110,cost:300000,disc:255000,thr:250,form:'Очная',term:'4 года',lang:'Русский',pass:null},
+ {id:2,n:'Государственное и муниципальное управление',c:'38.03.04 Государственное и муниципальное управление',inst:'ИнЭУ',
+  must:[['Обществознание',45],['Русский язык',40]],opt:[['Иностранный язык',40],['История',40],['Математика',40]],
+  b:[4,2,2,8],paid:64,cost:300000,disc:255000,thr:250,form:'Очная',term:'4 года',lang:'Русский',pass:null},
+ {id:3,n:'Менеджмент в энергетике и высокотехнологичных отраслях',c:'38.03.02 Менеджмент',inst:'ИнЭУ',
+  must:[['Математика',40],['Русский язык',40]],opt:[['Иностранный язык',40],['Информатика',46],['История',40],['Обществознание',45]],
+  b:[8,1,1,0],paid:60,cost:275000,disc:233800,thr:250,form:'Очная',term:'4 года',lang:'Русский',pass:null},
+ {id:4,n:'Социология управления и организаций',c:'39.03.01 Социология',inst:'ИнЭУ',
+  must:[['Обществознание',45],['Русский язык',40]],opt:[['Иностранный язык',40],['История',40],['Математика',40]],
+  b:[24,3,3,0],paid:90,cost:246000,disc:209100,thr:235,form:'Очная',term:'4 года',lang:'Русский',pass:null},
+ {id:5,n:'Промышленный менеджмент и инвестиционно-строительный бизнес',c:'38.03.02 Менеджмент',inst:'ИнЭУ',
+  must:[['Математика',40],['Русский язык',40]],opt:[['Иностранный язык',40],['Информатика',46],['История',40],['Обществознание',45]],
+  b:[8,1,1,0],paid:79,cost:300000,disc:255000,thr:250,form:'Очная',term:'4 года',lang:'Русский',pass:null}
+];
+const rub=n=>n.toLocaleString('ru-RU').replace(/,/g,' ')+' ₽';
+const list=a=>'<ul>'+a.map(([s,m])=>`<li>${s}<span>${m}</span></li>`).join('')+'</ul>';
+const QN=['основные','особая квота','отдельная квота','целевая квота'];
+const G=[
+ {t:'Поступление',r:[
+  {k:'must',l:'Обязательные экзамены',e:'минимальный балл ЕГЭ',f:p=>list(p.must),q:p=>JSON.stringify(p.must)},
+  {k:'opt',l:'И один на выбор',e:'минимальный балл ЕГЭ',f:p=>list(p.opt),q:p=>JSON.stringify(p.opt)},
+  {k:'pass',l:'Проходной балл на бюджет',e:'2025 год',f:p=>p.pass?`<span class="big">${p.pass}</span>`:null,q:p=>p.pass},
+  {k:'bud',l:'Бюджетные места',f:p=>{const s=p.b.reduce((a,b)=>a+b,0);return `<span class="big">${s}</span><small>${p.b.map((x,i)=>x?QN[i]+' '+x:'').filter(Boolean).join(' · ')}</small>`},q:p=>p.b.join()},
+  {k:'paid',l:'Платные места',f:p=>`<span class="big">${p.paid}</span>`,q:p=>p.paid}]},
+ {t:'Стоимость',r:[
+  {k:'cost',l:'В год',f:p=>`<span class="big">${rub(p.cost)}</span>`,q:p=>p.cost},
+  {k:'disc',l:'Со скидкой за баллы',f:p=>`<span class="big">${rub(p.disc)}</span><small>при сумме баллов ЕГЭ от ${p.thr}</small>`,q:p=>p.disc+'/'+p.thr}]},
+ {t:'Учёба',r:[
+  {k:'form',l:'Форма и срок',f:p=>p.form+' · '+p.term,q:p=>p.form+p.term},
+  {k:'lang',l:'Язык',f:p=>p.lang,q:p=>p.lang},
+  {k:'inst',l:'Институт',f:p=>p.inst,q:p=>p.inst}]}
+];
+const KEY='urfu-cmp-first-v1';
+let st={diff:false,off:[]},sel=[10071,1,2],sx=0,adding=false,q='';
+const TOTAL=G.reduce((a,g)=>a+g.r.length,0);
+try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&Array.isArray(s.off))st={diff:!!s.diff,off:s.off}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const $=id=>document.getElementById(id);
+const X='<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg>';
+const CK='<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2l2.4 2.4 4.6-5"/></svg>';
+const AR=d=>`<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d<0?'M8.5 3L4.5 7l4 4':'M5.5 3l4 4-4 4'}"/></svg>`;
+const mobile=()=>matchMedia('(max-width:1023px)').matches;
+function render(){
+  const ps=sel.map(i=>P.find(p=>p.id==i)),rest=P.filter(p=>!sel.includes(p.id)),many=ps.length>4;
+  $('cnt').textContent=ps.length;
+  const t=$('tbl'),slot=rest.length>0;
+  t.style.setProperty('--tpl',`repeat(${Math.max(ps.length,1)},minmax(${many||mobile()?248:220}px,1fr))${slot?' 56px':''}`);
+  t.classList.toggle('many',many);
+  const open=!!document.querySelector('#pop:not([hidden])'),sp=slot?'<span></span>':'';
+  let same=0,h=`<div class="stick" id="stick"><div class="g head"><div class="ctl"><label class="sw"><input type="checkbox" id="diff" ${st.diff?'checked':''}><span></span>Только различия</label><div class="pop-wrap"><button type="button" class="btn" id="cfg" aria-expanded="${open}" aria-controls="pop"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 4.5h7M12.5 4.5H14M2 11.5h1.5M7 11.5h7"/><circle cx="10.75" cy="4.5" r="1.75"/><circle cx="5.25" cy="11.5" r="1.75"/></svg>Строки <b>${TOTAL-st.off.length} из ${TOTAL}</b></button><div class="pop" id="pop" ${open?'':'hidden'}></div></div><div class="nav"><button type="button" class="ib" data-go="-1" aria-label="Предыдущие программы">${AR(-1)}</button><button type="button" class="ib" data-go="1" aria-label="Следующие программы">${AR(1)}</button></div></div><div class="cw"><div class="cols">${ps.map(p=>`<div class="pc"><span class="lv">Бакалавриат</span><small>${p.c}</small><b>${p.n}</b><a href="${p.href||'#'}"><span>Открыть программу</span>→</a><button type="button" class="rm" data-rm="${p.id}" aria-label="Убрать из сравнения: ${p.n}">${X}</button></div>`).join('')}${slot?`<button type="button" class="slot" data-add aria-label="Добавить программу" aria-expanded="${adding}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M7 2v10M2 7h10"/></svg></button>`:''}</div></div><div class="pop add" id="add" ${adding&&slot?'':'hidden'}></div></div></div>`;
+  if(!ps.length){t.innerHTML=h+'<div class="empty">В этом пути пока нет программ для сравнения.</div>';after(open);return}
+  for(const g of G){
+    let rows='';
+    for(const r of g.r){
+      if(st.off.includes(r.k))continue;
+      const eq=ps.length>1&&ps.every(p=>String(r.q(p))===String(r.q(ps[0])));
+      if(st.diff&&eq){same++;continue}
+      rows+=`<div class="g row"><div class="lb">${r.l}${r.e?`<em>${r.e}</em>`:''}</div><div class="cw"><div class="cols">${ps.map(p=>{const v=r.f(p);return v==null?'<div class="v na">Нет данных</div>':`<div class="v">${v}</div>`}).join('')}${sp}</div></div></div>`;
+    }
+    if(rows)h+=`<section class="card"><h2>${g.t}</h2>${rows}</section>`;
+  }
+  if(st.diff&&same)h+=`<div class="note">Скрыто одинаковых строк: ${same}<button type="button" data-all>Показать</button></div>`;
+  t.innerHTML=h;after(open);
+}
+function after(open){
+  if(open)pop();if(adding)addPop();
+  const cs=document.querySelectorAll('.cols'),max=cs[0]?cs[0].scrollWidth-cs[0].clientWidth:0;
+  sx=Math.min(sx,Math.max(max,0));cs.forEach(c=>c.scrollLeft=sx);edges();stuck();
+}
+function edges(){
+  const c=document.querySelector('.cols');if(!c)return;const max=c.scrollWidth-c.clientWidth,t=$('tbl');
+  t.classList.toggle('hs',c.scrollLeft>1);t.classList.toggle('he',c.scrollLeft<max-1);
+  const b=document.querySelectorAll('[data-go]');if(b[0]){b[0].disabled=c.scrollLeft<=1;b[1].disabled=c.scrollLeft>=max-1}
+}
+let lock=false;
+document.addEventListener('scroll',e=>{
+  const c=e.target;if(!c.classList||!c.classList.contains('cols')||lock)return;
+  lock=true;sx=c.scrollLeft;document.querySelectorAll('.cols').forEach(o=>{if(o!==c)o.scrollLeft=sx});edges();lock=false;
+},true);
+function stuck(){const e=$('stick');if(e)e.classList.toggle('stuck',scrollY>0&&e.getBoundingClientRect().top<=0&&getComputedStyle(e).position==='sticky')}
+addEventListener('scroll',stuck,{passive:true});
+addEventListener('resize',()=>render());
+function pop(){
+  $('pop').innerHTML=G.map(g=>`<h3>${g.t}</h3>`+g.r.map(r=>`<label class="ck"><input type="checkbox" data-k="${r.k}" ${st.off.includes(r.k)?'':'checked'}><span>${CK}</span>${r.l}</label>`).join('')).join('')+`<button type="button" class="reset" ${st.off.length?'':'disabled'}>Показать все строки</button>`;
+}
+function addList(){
+  const w=q.trim().toLowerCase(),r=P.filter(p=>!sel.includes(p.id)&&(!w||(p.n+' '+p.c).toLowerCase().includes(w)));
+  $('addl').innerHTML=r.length?'<ul>'+r.map(p=>`<li><button type="button" data-pick="${p.id}"><small>${p.c}</small><b>${p.n}</b></button></li>`).join('')+'</ul>':'<p>Ничего не нашлось</p>';
+}
+function addPop(){
+  $('add').innerHTML=`<input type="search" id="addq" placeholder="Название или код программы" aria-label="Поиск программы" autocomplete="off"><div id="addl"></div><a class="more" href="../"><span>Выбрать в каталоге</span>→</a>`;
+  $('addq').value=q;addList();
+}
+const closeAdd=()=>{if(adding){adding=false;q='';const a=$('add');if(a)a.hidden=true}};
+// шапка: язык и тема — как в показе каталога
+const lgb=document.querySelector('[data-lang]'),lgp=document.querySelector('.lp');
+const closeLang=()=>{lgp.hidden=true;lgb.setAttribute('aria-expanded','false')};
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-theme-btn]')){const r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark';return}
+  if(e.target.closest('[data-lang]')){const o=lgp.hidden;lgp.hidden=!o;lgb.setAttribute('aria-expanded',o);return}
+  const lc=e.target.closest('[data-lc]');if(lc){lgp.querySelectorAll('[data-lc]').forEach(b=>b.setAttribute('aria-selected',b===lc));$('lgc').textContent=lc.dataset.lc==='中文'?'中文':lc.dataset.lc;closeLang();lgb.focus();return}
+  if(!lgp.hidden&&!e.target.closest('.lang'))closeLang();
+  const rm=e.target.closest('[data-rm]');if(rm){sel=sel.filter(i=>i!=rm.dataset.rm);render();return}
+  const pk=e.target.closest('[data-pick]');if(pk){sel.push(+pk.dataset.pick);adding=false;q='';sx=1e6;render();return}
+  if(e.target.closest('[data-add]')){adding=!adding;q='';render();if(adding)$('addq').focus();return}
+  const go=e.target.closest('[data-go]');if(go){document.querySelector('.cols').scrollBy({left:go.dataset.go*272,behavior:'smooth'});return}
+  if(e.target.closest('[data-all]')){st.diff=false;save();render();return}
+  if(e.target.closest('.reset')){st.off=[];save();render();return}
+  if(e.target.closest('#cfg')){const o=$('pop').hidden;if(o)pop();$('pop').hidden=!o;$('cfg').setAttribute('aria-expanded',o);return}
+  if(!e.target.closest('#pop')&&!$('pop').hidden){$('pop').hidden=true;$('cfg').setAttribute('aria-expanded',false)}
+  if(!e.target.closest('#add'))closeAdd();
+  if(e.target.closest('a[href="#"]'))e.preventDefault();
+});
+document.addEventListener('input',e=>{if(e.target.id==='addq'){q=e.target.value;addList()}});
+document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(!lgp.hidden){closeLang();lgb.focus()}else if(adding){closeAdd();const b=document.querySelector('[data-add]');if(b)b.focus()}else if(!$('pop').hidden){$('pop').hidden=true;$('cfg').setAttribute('aria-expanded',false);$('cfg').focus()}});
+document.addEventListener('change',e=>{if(e.target.id==='diff'){st.diff=e.target.checked;save();render();$('diff').focus();return}const k=e.target.dataset.k;if(!k)return;st.off=e.target.checked?st.off.filter(x=>x!==k):[...st.off,k];save();render();const c=document.querySelector(`#pop [data-k="${k}"]`);if(c)c.focus()});
+render();
+
+</script>
+</body></html>
