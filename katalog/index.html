@@ -1113,7 +1113,8 @@ mark{color:inherit;border-radius:var(--radius-6);padding:1px var(--spacing-4);ma
 /* панель над списком: счётчик + «Фильтры», липкая; чипы ниже; переключателя вида нет */
 .cat{margin-top:var(--spacing-32)}
 .cat[data-fv=C] .cbody{display:block}
-.cat .tb{position:sticky;top:0;z-index:5;margin-inline:calc(-1*var(--spacing-16));padding:var(--spacing-8) var(--spacing-16);background:var(--color-bg-primary);flex-wrap:wrap;row-gap:var(--spacing-8)}
+.cat .tb{position:sticky;top:0;z-index:5;margin-inline:calc(-1*var(--spacing-16));padding:var(--spacing-8) var(--spacing-16);background:transparent;transition:background-color .3s;flex-wrap:wrap;row-gap:var(--spacing-8)}
+.cat .tb.stuck{background:var(--color-surface-glass);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px)}
 .cat .tb .cn{order:1;font-size:18px;line-height:24px;margin-right:auto}
 .cat .tb .fall{order:2;margin:0}
 .cat .tb .fall:not(.has) b{display:none}
@@ -2132,4 +2133,4 @@ const h=location.hash.match(/^#p(\d+)$/);if(h)open(h[1]);
 
 
 
-<script>(()=>{const dw=document.getElementById('drawer'),b=document.getElementById('dwb');if(!dw||!b)return;const f=()=>{dw.classList.toggle('sc-t',b.scrollTop>1);dw.classList.toggle('sc-b',b.scrollTop+b.clientHeight<b.scrollHeight-1)};b.addEventListener('scroll',f,{passive:true});new ResizeObserver(f).observe(b);new MutationObserver(f).observe(b,{childList:true,subtree:true,attributes:true});})()</script></body></html>
+<script>(()=>{const dw=document.getElementById('drawer'),b=document.getElementById('dwb');if(!dw||!b)return;const f=()=>{dw.classList.toggle('sc-t',b.scrollTop>1);dw.classList.toggle('sc-b',b.scrollTop+b.clientHeight<b.scrollHeight-1)};b.addEventListener('scroll',f,{passive:true});new ResizeObserver(f).observe(b);new MutationObserver(f).observe(b,{childList:true,subtree:true,attributes:true});})()</script><script>(()=>{const t=document.querySelector('.cat .tb');if(!t)return;new IntersectionObserver(([e])=>t.classList.toggle('stuck',e.intersectionRatio<1&&e.boundingClientRect.top<=0&&matchMedia('(max-width:767px)').matches),{rootMargin:'-1px 0px 0px 0px',threshold:[1]}).observe(t)})()</script></body></html>
