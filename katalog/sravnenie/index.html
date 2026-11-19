@@ -296,12 +296,8 @@ h1{font:500 var(--text-heading-m);margin:0 0 var(--spacing-24);letter-spacing:-.
 .sw input:checked+span::after{transform:translateX(16px)}
 .sw input:focus-visible+span,.ck input:focus-visible+span{outline:2px solid var(--color-text-primary);outline-offset:2px}
 .btn{height:40px;padding:0 var(--spacing-12);border-radius:var(--radius-12);font-weight:500;display:inline-flex;align-items:center;gap:var(--spacing-8);background:var(--color-surface-sunken);white-space:nowrap;transition:background .2s}
-.btn:hover,.ib:hover:not(:disabled){background:var(--color-surface-tertiary)}
+.btn:hover{background:var(--color-surface-tertiary)}
 .btn b{font-weight:400;color:var(--color-text-tertiary);font-variant-numeric:tabular-nums}
-.ib{width:40px;height:40px;border-radius:var(--radius-12);background:var(--color-surface-sunken);display:grid;place-items:center;transition:background .2s}
-.ib:disabled{opacity:.35;cursor:default}
-.nav{display:flex;gap:var(--spacing-8);visibility:hidden}
-.many .nav{visibility:visible}
 .pop-wrap{position:relative}
 .pop{position:absolute;left:0;top:var(--spacing-48);z-index:40;width:320px;padding:var(--spacing-20);border-radius:var(--radius-20);background:var(--color-surface-elevated);box-shadow:var(--effect-shadow-l)}
 .pop h3{font:500 var(--text-caption-s);color:var(--color-text-tertiary);margin:var(--spacing-20) 0 var(--spacing-8)}
@@ -388,7 +384,6 @@ h1{font:500 var(--text-heading-m);margin:0 0 var(--spacing-24);letter-spacing:-.
   .stick{position:static}
   .stick::after{display:none}
   .ctl{flex-direction:row;align-items:center;flex-wrap:wrap;margin-bottom:var(--spacing-20)}
-  .nav{display:none}
   .lb{padding-bottom:0}
   .row .cols{padding-top:var(--spacing-8)}
   .pop{max-width:calc(100vw - 72px)}
@@ -462,7 +457,6 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
 const $=id=>document.getElementById(id);
 const X='<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg>';
 const CK='<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.2l2.4 2.4 4.6-5"/></svg>';
-const AR=d=>`<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d<0?'M8.5 3L4.5 7l4 4':'M5.5 3l4 4-4 4'}"/></svg>`;
 const mobile=()=>matchMedia('(max-width:1023px)').matches;
 function render(){
   const ps=sel.map(i=>P.find(p=>p.id==i)),rest=P.filter(p=>!sel.includes(p.id)),many=ps.length>4;
@@ -471,7 +465,7 @@ function render(){
   t.style.setProperty('--tpl',`repeat(${Math.max(ps.length,1)},minmax(${many||mobile()?248:220}px,1fr))${slot?' 56px':''}`);
   t.classList.toggle('many',many);
   const open=!!document.querySelector('#pop:not([hidden])'),sp=slot?'<span></span>':'';
-  let same=0,h=`<div class="stick" id="stick"><div class="g head"><div class="ctl"><label class="sw"><input type="checkbox" id="diff" ${st.diff?'checked':''}><span></span>Только различия</label><div class="pop-wrap"><button type="button" class="btn" id="cfg" aria-expanded="${open}" aria-controls="pop"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 4.5h7M12.5 4.5H14M2 11.5h1.5M7 11.5h7"/><circle cx="10.75" cy="4.5" r="1.75"/><circle cx="5.25" cy="11.5" r="1.75"/></svg>Строки <b>${TOTAL-st.off.length} из ${TOTAL}</b></button><div class="pop" id="pop" ${open?'':'hidden'}></div></div><div class="nav"><button type="button" class="ib" data-go="-1" aria-label="Предыдущие программы">${AR(-1)}</button><button type="button" class="ib" data-go="1" aria-label="Следующие программы">${AR(1)}</button></div></div><div class="cw"><div class="cols">${ps.map(p=>`<div class="pc"><span class="lv">Бакалавриат</span><small>${p.c}</small><b>${p.n}</b><a href="${p.href||'#'}">Открыть</a><button type="button" class="rm" data-rm="${p.id}" aria-label="Убрать из сравнения: ${p.n}">${X}</button></div>`).join('')}${slot?`<button type="button" class="slot" data-add aria-label="Добавить программу" aria-expanded="${adding}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M7 2v10M2 7h10"/></svg></button>`:''}</div></div><div class="pop add" id="add" ${adding&&slot?'':'hidden'}></div></div></div>`;
+  let same=0,h=`<div class="stick" id="stick"><div class="g head"><div class="ctl"><label class="sw"><input type="checkbox" id="diff" ${st.diff?'checked':''}><span></span>Только различия</label><div class="pop-wrap"><button type="button" class="btn" id="cfg" aria-expanded="${open}" aria-controls="pop"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 4.5h7M12.5 4.5H14M2 11.5h1.5M7 11.5h7"/><circle cx="10.75" cy="4.5" r="1.75"/><circle cx="5.25" cy="11.5" r="1.75"/></svg>Строки <b>${TOTAL-st.off.length} из ${TOTAL}</b></button><div class="pop" id="pop" ${open?'':'hidden'}></div></div></div><div class="cw"><div class="cols">${ps.map(p=>`<div class="pc"><span class="lv">Бакалавриат</span><small>${p.c}</small><b>${p.n}</b><a href="${p.href||'#'}">Открыть</a><button type="button" class="rm" data-rm="${p.id}" aria-label="Убрать из сравнения: ${p.n}">${X}</button></div>`).join('')}${slot?`<button type="button" class="slot" data-add aria-label="Добавить программу" aria-expanded="${adding}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M7 2v10M2 7h10"/></svg></button>`:''}</div></div><div class="pop add" id="add" ${adding&&slot?'':'hidden'}></div></div></div>`;
   if(!ps.length){t.innerHTML=h+'<div class="empty">В этом пути пока нет программ для сравнения.</div>';after(open);return}
   for(const g of G){
     let rows='';
@@ -500,7 +494,6 @@ function placeAdd(){
 function edges(){
   const c=document.querySelector('.cols');if(!c)return;const max=c.scrollWidth-c.clientWidth,t=$('tbl');
   t.classList.toggle('hs',c.scrollLeft>1);t.classList.toggle('he',c.scrollLeft<max-1);
-  const b=document.querySelectorAll('[data-go]');if(b[0]){b[0].disabled=c.scrollLeft<=1;b[1].disabled=c.scrollLeft>=max-1}
   placeAdd();
 }
 let lock=false;
@@ -534,7 +527,6 @@ document.addEventListener('click',e=>{
   const rm=e.target.closest('[data-rm]');if(rm){sel=sel.filter(i=>i!=rm.dataset.rm);render();return}
   const pk=e.target.closest('[data-pick]');if(pk){sel.push(+pk.dataset.pick);adding=false;q='';sx=1e6;render();return}
   if(e.target.closest('[data-add]')){adding=!adding;q='';render();if(adding)$('addq').focus();return}
-  const go=e.target.closest('[data-go]');if(go){document.querySelector('.cols').scrollBy({left:go.dataset.go*272,behavior:'smooth'});return}
   if(e.target.closest('[data-all]')){st.diff=false;save();render();return}
   if(e.target.closest('.reset')){st.off=[];save();render();return}
   if(e.target.closest('#cfg')){const o=$('pop').hidden;if(o)pop();$('pop').hidden=!o;$('cfg').setAttribute('aria-expanded',o);return}
