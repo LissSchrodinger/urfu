@@ -20,7 +20,7 @@
   --p-gray-100-a22:rgb(20 20 22/.22); --p-gray-100-a32:rgb(20 20 22/.32); --p-gray-100-a72:rgb(20 20 22/.72);
   --p-gray-15-a8:rgb(236 236 240/.08); --p-gray-90-a72:rgb(29 29 34/.72); --p-gray-15-a16:rgb(236 236 240/.16);
   --p-black-a8:rgb(0 0 0/.08); --p-black-a18:rgb(0 0 0/.18); --p-black-a45:rgb(0 0 0/.45);
-  --p-black-a70:rgb(0 0 0/.7); --p-black-a80:rgb(0 0 0/.8);
+  --p-black-a70:rgb(0 0 0/.7); --p-navy-a30:rgb(40 52 92/.3); --p-black-a80:rgb(0 0 0/.8);
   --p-ink-a8:rgb(20 20 30/.08); --p-ink-a10:rgb(20 20 22/.10); --p-ink-a12:rgb(20 20 30/.12);
   --p-ink-a28:rgb(20 20 30/.28); --p-ink-a35:rgb(20 20 40/.35);
   --p-white-a22:rgb(255 255 255/.22); --p-gray-100-a30:rgb(20 20 22/.3); --p-black-a78:rgb(0 0 0/.78);
@@ -114,6 +114,7 @@
   --effect-shadow-m:0 12px 32px var(--p-ink-a10);
   --effect-shadow-l:0 28px 70px -12px var(--p-ink-a28),0 6px 18px -6px var(--p-ink-a12);
   --effect-shadow-field:0 18px 40px -24px var(--p-ink-a35);
+  --effect-shadow-sticky:0 16px 32px -16px var(--p-navy-a30); --effect-shadow-sticky-up:0 -16px 32px -16px var(--p-navy-a30); /* края прокрутки шторки */
   --effect-shadow-hover:0 6px 24px var(--p-ink-a8);
   --effect-noise-blend:multiply; --effect-noise-opacity:1;
   /* доля цвета пути в заливке (число; в Figma — непрозрачность цвета пути) */
@@ -158,7 +159,7 @@
   --color-level-phd-text:var(--p-gray-15);
   --effect-shadow-m:0 12px 32px var(--p-black-a45);
   --effect-shadow-l:0 28px 70px -10px var(--p-black-a70),0 0 0 1px var(--p-white-a6);
-  --effect-shadow-field:0 18px 40px -24px var(--p-black-a80);
+  --effect-shadow-field:0 18px 40px -24px var(--p-black-a80); --effect-shadow-sticky:0 16px 32px -16px var(--p-black-a70); --effect-shadow-sticky-up:0 -16px 32px -16px var(--p-black-a70);
   --effect-noise-blend:screen; --effect-noise-opacity:.6;
   --tint-hover-subtle:7%; --tint-selected:16%; --tint-hover:12%;
   --tint-card-hover:0%; --tint-soft:0%; --tint-strong:0%;
@@ -199,7 +200,7 @@
   --color-level-phd-text:var(--p-gray-15);
   --effect-shadow-m:0 12px 32px var(--p-black-a45);
   --effect-shadow-l:0 28px 70px -10px var(--p-black-a70),0 0 0 1px var(--p-white-a6);
-  --effect-shadow-field:0 18px 40px -24px var(--p-black-a80);
+  --effect-shadow-field:0 18px 40px -24px var(--p-black-a80); --effect-shadow-sticky:0 16px 32px -16px var(--p-black-a70); --effect-shadow-sticky-up:0 -16px 32px -16px var(--p-black-a70);
   --effect-noise-blend:screen; --effect-noise-opacity:.6;
   --tint-hover-subtle:7%; --tint-selected:16%; --tint-hover:12%;
   --tint-card-hover:0%; --tint-soft:0%; --tint-strong:0%;
@@ -1083,6 +1084,73 @@ mark{color:inherit;border-radius:var(--radius-6);padding:1px var(--spacing-4);ma
 .k25l[data-lvn="Базовое высшее"]{--lvh:var(--color-level-basic-accent);--lvb:var(--color-level-basic-bg);--lvk:var(--color-level-basic-text)}
 .t4 .tr:has(.k25l[data-lvn="Базовое высшее"]),
 .kd:has(.k25l[data-lvn="Базовое высшее"]){--lvh:var(--color-level-basic-accent)}
+/* ───────── Телефон <768 (шаги 1–6, согласованы 19.11). Шкала разработки 1440·1280·1024·768·375, поля 16 ───────── */
+.dwr{display:none}
+@keyframes trm{from{transform:translateY(16px);opacity:0}}
+@keyframes dwup{from{transform:translateY(100%)}to{transform:none}}
+@media (max-width:767px){
+/* каркас и хедер */
+.frame,.frame.f2,.frame.f3{min-width:0}
+.frame .hA{height:56px;padding:0 var(--spacing-16)}
+.hA .r{margin-right:calc(-1*var(--spacing-8))}
+.frame .k2{padding:var(--spacing-24) var(--spacing-16) var(--spacing-64)}
+/* шапка каталога: тег, заголовок, фигура, пути строками, поиск */
+.frame .k2 .h16{height:auto;display:flex;flex-direction:column;padding-top:var(--spacing-64)}
+.fig16{left:auto;right:-90px;top:var(--spacing-24);width:300px;height:300px}
+.h16 .yr3{position:relative;left:0;top:0;align-self:flex-start;height:26px;font-size:12px}
+.h16 .t16{position:relative;top:0;margin-top:var(--spacing-16);font-size:40px;line-height:.92}
+.h16 .t16 span + span{margin:var(--spacing-8) 0 0 var(--spacing-32)}
+.pt16{position:relative;top:0;right:auto;width:100%;height:auto;margin-top:var(--spacing-32);grid-template-columns:1fr;gap:var(--spacing-6)}
+.pc16{height:auto;min-height:0;padding:var(--spacing-12) var(--spacing-16);border-radius:var(--radius-16);display:flex;flex-direction:column;gap:var(--spacing-2);align-items:flex-start}
+.pc16 .pn{font-size:18px;line-height:24px}
+.pc16 .pn br{display:none}
+.pc16 .pl{position:static;display:block;font-size:12px;line-height:16px;margin:0}
+.pc16 .pl span{display:inline}
+.pc16 .pl span + span::before{content:" · "}
+.h16 .bsearch{position:relative;top:0;margin-top:var(--spacing-12);height:56px;padding:0 var(--spacing-16) 0 var(--spacing-6)}
+.h16 .bsearch .sq{width:44px;height:44px}
+.h16 .bsearch input{font-size:16px}
+/* панель над списком: счётчик + «Фильтры», липкая; чипы ниже; переключателя вида нет */
+.cat{margin-top:var(--spacing-32)}
+.cat[data-fv=C] .cbody{display:block}
+.cat .tb{position:sticky;top:0;z-index:5;margin-inline:calc(-1*var(--spacing-16));padding:var(--spacing-8) var(--spacing-16);background:var(--color-bg-primary);flex-wrap:wrap;row-gap:var(--spacing-8)}
+.cat .tb .cn{order:1;font-size:18px;line-height:24px;margin-right:auto}
+.cat .tb .fall{order:2;margin:0}
+.cat .tb .fall:not(.has) b{display:none}
+.cat .tb .seg3{display:none}
+.cat .tb .chips3{order:4;flex-basis:100%}
+.cat .tb .chips3:empty{display:none}
+/* шторка фильтров снизу */
+.drawer{top:auto;left:0;right:0;bottom:0;width:100%;height:calc(100dvh - var(--spacing-48));border-radius:var(--radius-24) var(--radius-24) 0 0;background:var(--color-bg-primary);-webkit-backdrop-filter:none;backdrop-filter:none;animation:dwup .4s cubic-bezier(.2,.8,.2,1) both}
+.drawer::before{content:"";position:absolute;z-index:3;top:var(--spacing-8);left:50%;width:36px;height:4px;margin-left:-18px;border-radius:var(--radius-full);background:var(--color-border-primary)}
+.dwh{padding:var(--spacing-20) var(--spacing-8) var(--spacing-8) var(--spacing-16);border-radius:var(--radius-24) var(--radius-24) 0 0}
+.dwh h4{font-size:20px;line-height:28px}
+.dwb{padding:var(--spacing-8) var(--spacing-16) var(--spacing-16)}
+.dwf{display:flex;flex-direction:column-reverse;gap:var(--spacing-4);padding:var(--spacing-12) var(--spacing-16) calc(var(--spacing-12) + env(safe-area-inset-bottom,0px))}
+.dwf .btn3{width:100%;height:48px;flex:none}
+.dwr{display:block;height:44px;padding:0 var(--spacing-20);border-radius:var(--radius-12);background:transparent;color:var(--color-text-primary);font:500 var(--text-label-m)}
+.dwr:disabled{color:var(--color-text-tertiary);cursor:default}
+/* тень на краях прокрутки шторки (классы sc-t / sc-b ставит скрипт) */
+.dwh,.dwf{position:relative;z-index:2;background:var(--color-bg-primary);transition:box-shadow .2s}
+.drawer.sc-t .dwh{box-shadow:var(--effect-shadow-sticky)}
+.drawer.sc-b .dwf{box-shadow:var(--effect-shadow-sticky-up)}
+/* список: всегда плитка в одну колонку, поля 16; зона нажатия «Сравнить» 44 */
+.k25 .k25c{padding:var(--spacing-16)}
+.k25 .cmpb{position:relative}
+.k25 .cmpb::after{content:"";position:absolute;inset:calc(-1*var(--spacing-4))}
+/* шаг 5: строка экзаменов — одна зона нажатия ≥44 на табличку «i» */
+.k25 .eg51{position:relative;cursor:pointer}
+.k25 .eg51::after{content:"";position:absolute;inset:calc(-1*var(--spacing-10)) calc(-1*var(--spacing-8))}
+.tt51{max-width:calc(100vw - var(--spacing-24))}
+/* ячейка «Институт» — зона нажатия на подсказку с полным названием; сокращение — точечным подчёркиванием */
+.k25 div:has(> .ti){position:relative;cursor:pointer}
+.k25 .ti [data-tip]{text-decoration:underline dotted;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--color-text-tertiary)}
+/* шаг 6: плашка сравнения — плавающая, по полям 16, непрозрачная, зоны нажатия 44 */
+.tray{left:var(--spacing-16);right:var(--spacing-16);transform:none;bottom:calc(var(--spacing-16) + env(safe-area-inset-bottom,0px));gap:var(--spacing-8);padding:0 var(--spacing-6) 0 var(--spacing-16);background:var(--color-surface-elevated);-webkit-backdrop-filter:none;backdrop-filter:none;animation-name:trm}
+.tray .tgo{margin-left:auto;height:44px}
+.tray .tx{width:44px;height:44px}
+.k2:has(.tray:not([hidden])) .cat,body:has(#tray:not([hidden])) .cat{padding-bottom:var(--spacing-96)}
+}
 </style><script>
 /* v51 (Василиса 12.11): предметы ЕГЭ — тремя буквами во всех видах; полный список с баллами — по «i». Третий вид — таблица. */
 const SH51={'Русский язык':'Рус','Математика':'Мат','Информатика':'Инф','Физика':'Физ','Обществознание':'Общ','История':'Ист','Иностранный язык':'ИнЯ','Химия':'Хим','Биология':'Био','География':'Гео','Литература':'Лит','Творческое':'Твр'};
@@ -1141,7 +1209,7 @@ function T51b(rows,h){const sch=rows.some(x=>x.p.g==='school');
   </section>
 </div>
 <div class="dws" id="dws" hidden></div>
-<aside class="drawer" id="drawer" hidden aria-label="Фильтры"><div class="dwh"><h4>Фильтры</h4><button type="button" class="ib" data-dwx aria-label="Закрыть"><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"/></svg></button></div><div class="dwb" id="dwb"></div><div class="dwf"><button type="button" class="btn3" id="dwgo" data-dwx></button></div></aside>
+<aside class="drawer" id="drawer" hidden aria-label="Фильтры"><div class="dwh"><h4>Фильтры</h4><button type="button" class="ib" data-dwx aria-label="Закрыть"><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"/></svg></button></div><div class="dwb" id="dwb"></div><div class="dwf"><button type="button" class="dwr" data-freset>Сбросить</button><button type="button" class="btn3" id="dwgo" data-dwx></button></div></aside>
 <div class="tray" id="tray" hidden><span>Сравнение</span><b>0</b><button type="button" class="tgo">Сравнить</button><button type="button" class="tx" data-cmpx aria-label="Очистить сравнение" data-tip="Очистить"><svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"/></svg></button></div>
 <template id="sp">
   <div class="sp" role="dialog" aria-label="Поиск">
@@ -1311,7 +1379,7 @@ function draw2(){if(window.preDraw)preDraw();
   f2.querySelectorAll('.lvls').forEach(e=>e.innerHTML=chips());
   const sg=f2.querySelector('.segp');if(sg){sg.querySelectorAll('button').forEach((b,i)=>{b.classList.toggle('on',i===cp);b.querySelector('i').textContent=fmt(sum(i))});
   const on=sg.querySelector('button.on'),th=sg.querySelector('.th');th.style.left=on.offsetLeft+'px';th.style.width=on.offsetWidth+'px'}
-  const TT=['Первое<br>высшее','Есть<br>диплом','Хочу<br>в науку'];
+  const TT=['Первое <br>высшее','Есть <br>диплом','Хочу <br>в науку'];
   f2.querySelector('.pt16').innerHTML=PATHS.map((p,i)=>`<button type="button" class="pc16 ${i===cp?'on':''}" data-tile="${i}" aria-pressed="${i===cp}" style="--pc:${p.c};--tn:${['#ffeedd','#e7e4f6','#d6ece3'][i]}"><span class="pn">${TT[i]}</span><span class="pl">${p.lv.map(([n,c],j)=>`<span class="${i===cp&&offs.has(j)?'off':''}">${n}</span>`).join('')}</span></button>`).join('');
   const ptEl=f2.querySelector('.pt');if(ptEl)ptEl.textContent=PATHS[cp].n.toLowerCase();
   const vb=f2.querySelector('.vB');vb.style.setProperty('--pc',PATHS[cp].c);vb.style.setProperty('--tc',PATHS[cp].tc);drawFig();
@@ -1743,7 +1811,7 @@ const fbtn=(k,t,inner)=>`<div class="fbw" data-fbw="${k}"><button type="button" 
 const cat=$('#cat'),side=$('#side'),fbar=$('#fbar'),dwb=$('#dwb'),bq=$('#bq');
 function build(){side.innerHTML=fbar.innerHTML=dwb.innerHTML='';const eg=cp===0;
   const stack=(eg?`<div class="fcard">${group('ege','Экзамены ЕГЭ','')}</div>`:'')+(PATHS[cp].lv.length>1?`<div class="fcard">${group('lv','Уровень',PATHS[cp].lv.map((l,j)=>`<button type="button" class="fo" role="checkbox" aria-checked="true" data-lvx="${j}"><i class="cb"></i><span>${l[0]}&nbsp;<em></em></span></button>`).join(''))}</div>`:'')+`<div class="fcard">${GR.map(([k,t,vs])=>group(k,t,vs.map(v=>opt(k,v)).join(''))).join('')}</div>`;
-  if(S.fv==='A')side.innerHTML=stack;else if(S.fv==='C')dwb.innerHTML=stack;
+  const fvx=matchMedia('(max-width:767px)').matches?'C':S.fv;cat.dataset.fv=fvx;if(!window.__mq){window.__mq=1;matchMedia('(max-width:767px)').addEventListener('change',()=>build())}if(fvx==='A')side.innerHTML=stack;else if(fvx==='C')dwb.innerHTML=stack;
   else fbar.innerHTML=(eg?fbtn('ege','Экзамены ЕГЭ',''):'')+GR.map(([k,t,vs])=>fbtn(k,t,vs.map(v=>opt(k,v)).join(''))).join('');
   if(!eg&&S.pop==='ege')S.pop=null;drawEge();sync();fin()}
 function drawEge(){const el=$('#egeb');if(!el)return;
@@ -1757,12 +1825,12 @@ function sync(){
   $('#yr3').textContent='Набор '+S.year;
   const eg=egeSt();
   $$('[data-gb]').forEach(b=>{const k=b.dataset.gb;b.classList.toggle('nt',k==='year'&&S.year==='2026');b.textContent=k==='year'?S.year:k==='ege'?(eg?EXS.filter(exOn).length:''):k==='lv'?'':(S.f[k].length||'')});
-  const tot=Object.values(S.f).reduce((a,x)=>a+x.length,0)+(S.year!=='2026')+(eg?1:0);$('#fall b').textContent=tot;
+  const tot=Object.values(S.f).reduce((a,x)=>a+x.length,0)+(S.year!=='2026')+(eg?1:0);$('#fall b').textContent=tot;$('#fall').classList.toggle('has',tot>0);
   const ch=[];for(const [k] of GR){if(k==='year'){if(S.year!=='2026')ch.push(`<span class="fchip">Набор ${S.year}<button type="button" data-unf="year" aria-label="Убрать фильтр «Набор»">${XI}</button></span>`)}else S.f[k].forEach(v=>ch.push(`<span class="fchip"${k==='inst'?` data-tip="${INSTN[v]}"`:''}>${v}<button type="button" data-unf="${k}" data-v="${v}" aria-label="Убрать ${v}">${XI}</button></span>`))}
   if(eg)EXS.forEach(x=>{if(S.ex[x]&&S.ex[x].on&&!LOCK.includes(x))ch.push(`<span class="fchip">${x}<button type="button" data-unex="${x}" aria-label="Убрать ${x}">${XI}</button></span>`)}); /* v56 — предметы ЕГЭ чипами, как другие фильтры */
   const any=tot||S.q||offs.size||(cp===0&&Object.keys(S.ex).some(x=>S.ex[x].v));
-  $('#chips').innerHTML=ch.join('')+(any?'<button type="button" class="reset" data-reset>Сбросить всё</button>':'');
-  const rows=rowsFor().filter(r=>!(r.ev&&r.ev[0]>1)),n=rows.length;$('#cn').textContent=n+' '+(eg?plural(n):progW(n));$('#dwgo').textContent='Показать '+rows.length+' '+progW(rows.length);
+  {const r=$('.dwr');if(r)r.disabled=!(tot||offs.size||(cp===0&&Object.keys(S.ex).some(x=>S.ex[x].v)))}$('#chips').innerHTML=ch.join('')+(any?'<button type="button" class="reset" data-reset>Сбросить всё</button>':'');
+  const rows=rowsFor().filter(r=>!(r.ev&&r.ev[0]>1)),n=rows.length;$('#cn').textContent=n+' '+(eg?plural(n):progW(n));$('#dwgo').textContent='Показать '+rows.length+' '+progW(rows.length).replace(/а$/,'у');
   $$('[data-vw]').forEach(b=>{const on=b.dataset.vw===S.view;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
   const st=ev=>{if(!ev||ev[0]===4)return '';const c=ev[0]===0?'ok':ev[0]<=2?'warn':'no';return `<span class="st st-${c}">${ev[0]===0&&!exScored()?'Подходит по твоим предметам':ev[1].replace(/^✓\s*/,'')}</span>`};
   const cb=p=>{const on=S.cmp.includes(p.id);return `<button type="button" class="cmpb" data-cmp="${p.id}" aria-pressed="${on}" data-tip="${on?'Убрать из сравнения':'Сравнить'}" aria-label="${on?'Убрать из сравнения':'Сравнить'}">${CMP}</button>`};
@@ -1775,7 +1843,7 @@ function sync(){
   const ls=$('#ls');
   if(!rows.length)ls.innerHTML=`<div class="empty3"><p>Ничего не нашлось. Попробуй другое название или код направления.</p><button type="button" class="btn3" data-reset>Сбросить всё</button></div>`;
   else if(S.view==='grid')ls.innerHTML=T51(rows,{hl,cb,inst,ege,st});
-  else if(S.view==='table')ls.innerHTML=`<div class="tbl t29 t4">${rows.map(({p,ev})=>`<div class="tr${ev&&ev[0]>1?' dim3':''}"><span class="rp"><i></i></span><div class="r4t"><div class="tn"><small class="k25d">${hl(p.dir)}</small><b>${hl(p.n)}</b></div><div class="r4m"><span class="k25l" data-lvn="${p.lv}">${p.lv}</span>${PL51(ev)||'<span></span>'}${cb(p)}</div></div><div class="r4b">${p.g==='school'?`<div class="r4e">${ege(p)}${st(ev)}</div>`:''}<div class="k25r r4f"><div><span>Бюджет</span><b>${p.bud}</b></div><div><span>Платно</span><b>${p.paid}</b></div><div><span>Институт</span><b class="ti">${inst(p)}</b></div></div></div></div>`).join('')}</div>`;
+  else if(S.view==='table'&&!matchMedia('(max-width:767px)').matches)ls.innerHTML=`<div class="tbl t29 t4">${rows.map(({p,ev})=>`<div class="tr${ev&&ev[0]>1?' dim3':''}"><span class="rp"><i></i></span><div class="r4t"><div class="tn"><small class="k25d">${hl(p.dir)}</small><b>${hl(p.n)}</b></div><div class="r4m"><span class="k25l" data-lvn="${p.lv}">${p.lv}</span>${PL51(ev)||'<span></span>'}${cb(p)}</div></div><div class="r4b">${p.g==='school'?`<div class="r4e">${ege(p)}${st(ev)}</div>`:''}<div class="k25r r4f"><div><span>Бюджет</span><b>${p.bud}</b></div><div><span>Платно</span><b>${p.paid}</b></div><div><span>Институт</span><b class="ti">${inst(p)}</b></div></div></div></div>`).join('')}</div>`;
   else ls.innerHTML=`<div class="grid3 k25" data-kv="B">${rows.map(({p,ev})=>{const r=REQ[p.n+'|'+p.code];let ex='';if(p.g==='school'){if(!r)ex='<span class="k25n">Баллы на 2026 ещё не опубликованы</span>';else{const [a,b]=r.split('|');const nm=x=>x.split(',').map(t=>t.split(':')[0]);ex=nm(a).map(t=>SH51[t]||t).join(', ')+(b?` <span class="k25t" data-tip="${nm(b).join(' / ')}" tabindex="0">+ 1 на выбор</span>`:'')}}
 return `<div class="kd k25c${ev&&ev[0]>1?' dim3':''}"><span class="rp"><i></i></span><div class="k25h"><span class="k25l" data-lvn="${p.lv}">${p.lv}</span>${PL51(ev)}${cb(p)}</div><small class="k25d">${hl(p.dir)}</small><b class="k25ti">${hl(p.n)}</b>${p.g==='school'?`<div class="k25ex">${ege(p)}</div>`:''}${st(ev)}<div class="k25f">${p.g==='school'?`<div class="k25e"><span>Экзамены</span><b>${ex}</b></div>`:''}<div class="k25r"><div><span>Бюджет</span><b>${p.bud}</b></div><div><span>Платно</span><b>${p.paid}</b></div><div><span>Институт</span><b class="ti">${inst(p)}</b></div></div></div></div>`}).join('')}</div>`;
   const tr=$('#tray');tr.hidden=!S.cmp.length;tr.querySelector('b').textContent=S.cmp.length}
@@ -1795,6 +1863,7 @@ document.addEventListener('click',e=>{const t=e.target;let b;
   else if(b=t.closest('.gh[data-g]')){const k=b.dataset.g;S.og[k]=!S.og[k];b.closest('.fg').classList.toggle('open',S.og[k])}
   else if(b=t.closest('.fb[data-fb]')){S.pop=S.pop===b.dataset.fb?null:b.dataset.fb}
   else if(b=t.closest('[data-unf]')){const k=b.dataset.unf;if(k==='year')S.year='2026';else S.f[k]=S.f[k].filter(v=>v!==b.dataset.v);draw2()}
+  else if(t.closest('[data-freset]')){for(const k in S.f)S.f[k]=[];S.year='2026';S.ex={};S.exAdd=false;offs.clear();draw2();drawEge();sync()}
   else if(t.closest('[data-reset]')){S.q='';bq.value='';$('#bx').classList.remove('on');for(const k in S.f)S.f[k]=[];S.year='2026';S.ex={};S.exAdd=false;offs.clear();draw2();drawEge();sync()}
   else if(b=t.closest('[data-vw]')){S.view=b.dataset.vw;sync()}
   else if(b=t.closest('[data-cmp]')){const id=b.dataset.cmp,i=S.cmp.indexOf(id);i<0?S.cmp.push(id):S.cmp.splice(i,1);sync()}
@@ -2043,8 +2112,9 @@ const h=location.hash.match(/^#p(\d+)$/);if(h)open(h[1]);
   tt.style.left=x+'px';tt.style.top=(below?r.bottom+10:r.top-h-10)+'px';tt.dataset.up=below?'0':'1';
   tt.querySelector('.tt51a').style.left=Math.min(Math.max(cx-x-6,10),w-22)+'px'}
  function hide(){if(tt)tt.classList.remove('on');if(cur)cur.removeAttribute('aria-describedby');cur=null}
- document.addEventListener('mouseover',e=>{const b=target(e);if(b&&b!==cur)show(b);else if(!b&&cur)hide()});
- document.addEventListener('focusin',e=>{const b=target(e);if(b)show(b);else hide()});
+ const TCH=matchMedia('(hover:none)');document.addEventListener('click',e=>{if(!TCH.matches)return;const g=e.target.closest&&e.target.closest('.eg51,.k25 div:has(> .ti),.p5p[data-tip]');const b=g&&(g.matches('.p5p')?g:g.querySelector('.ei51,.ti [data-tip]'));if(b){e.preventDefault();e.stopPropagation();if(cur===b)hide();else show(b);return}if(cur&&!(e.target.closest&&e.target.closest('.tt51'))){hide();e.preventDefault();e.stopPropagation()}},true);
+ document.addEventListener('mouseover',e=>{if(TCH.matches)return;const b=target(e);if(b&&b!==cur)show(b);else if(!b&&cur)hide()});
+ document.addEventListener('focusin',e=>{if(TCH.matches)return;const b=target(e);if(b)show(b);else hide()});
  document.addEventListener('focusout',()=>hide());
  document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
  document.addEventListener('click',()=>{if(cur&&!document.contains(cur))hide()});
@@ -2062,4 +2132,4 @@ const h=location.hash.match(/^#p(\d+)$/);if(h)open(h[1]);
 
 
 
-</body></html>
+<script>(()=>{const dw=document.getElementById('drawer'),b=document.getElementById('dwb');if(!dw||!b)return;const f=()=>{dw.classList.toggle('sc-t',b.scrollTop>1);dw.classList.toggle('sc-b',b.scrollTop+b.clientHeight<b.scrollHeight-1)};b.addEventListener('scroll',f,{passive:true});new ResizeObserver(f).observe(b);new MutationObserver(f).observe(b,{childList:true,subtree:true,attributes:true});})()</script></body></html>
