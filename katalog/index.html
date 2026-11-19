@@ -1798,6 +1798,7 @@ document.addEventListener('click',e=>{const t=e.target;let b;
   else if(t.closest('[data-reset]')){S.q='';bq.value='';$('#bx').classList.remove('on');for(const k in S.f)S.f[k]=[];S.year='2026';S.ex={};S.exAdd=false;offs.clear();draw2();drawEge();sync()}
   else if(b=t.closest('[data-vw]')){S.view=b.dataset.vw;sync()}
   else if(b=t.closest('[data-cmp]')){const id=b.dataset.cmp,i=S.cmp.indexOf(id);i<0?S.cmp.push(id):S.cmp.splice(i,1);sync()}
+  else if(t.closest('.tgo')){/* v73 (Василиса 19.11): «Сравнить» ведёт на страницу сравнения; тема переносится */const th=document.documentElement.dataset.theme;location.href='https://lissschrodinger.github.io/urfu/katalog/sravnenie/'+(th?'?theme='+th:'')}
   else if(t.closest('[data-cmpx]')){S.cmp=[];sync()}
   else if(t.closest('#fall')){S.drawer=true}
   else if(t.closest('[data-dwx]')||t.id==='dws'){S.drawer=false}

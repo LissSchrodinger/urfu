@@ -348,8 +348,8 @@ h1{font:500 var(--text-heading-m);margin:0 0 var(--spacing-24);letter-spacing:-.
 .lv{height:24px;padding:0 var(--spacing-8);border-radius:var(--radius-8);font:600 var(--text-caption-s);line-height:24px;margin-bottom:var(--spacing-12);background:var(--color-level-bachelor-bg);color:var(--color-level-bachelor-text)}
 .pc small{font:var(--text-body-s);color:var(--color-text-tertiary);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:var(--spacing-6)}
 .pc b{font:500 var(--text-title-s);min-height:72px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
-.pc a{margin-top:var(--spacing-12);font-weight:500;display:inline-flex;gap:var(--spacing-6);min-height:24px;align-items:center}
-.pc a:hover span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.pc a{margin-top:var(--spacing-12);font-weight:500;display:inline-flex;min-height:24px;align-items:center}
+.pc a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 .rm{position:absolute;right:0;top:calc(-1*var(--spacing-8));width:40px;height:40px;border-radius:var(--radius-12);display:grid;place-items:center;color:var(--color-text-tertiary);transition:background .2s,color .2s}
 .rm:hover{background:var(--color-surface-hover);color:var(--color-text-primary)}
 .slot{width:56px;height:56px;border-radius:var(--radius-12);background:var(--color-surface-sunken);display:grid;place-items:center;color:var(--color-text-secondary);transition:background .2s}
@@ -471,7 +471,7 @@ function render(){
   t.style.setProperty('--tpl',`repeat(${Math.max(ps.length,1)},minmax(${many||mobile()?248:220}px,1fr))${slot?' 56px':''}`);
   t.classList.toggle('many',many);
   const open=!!document.querySelector('#pop:not([hidden])'),sp=slot?'<span></span>':'';
-  let same=0,h=`<div class="stick" id="stick"><div class="g head"><div class="ctl"><label class="sw"><input type="checkbox" id="diff" ${st.diff?'checked':''}><span></span>Только различия</label><div class="pop-wrap"><button type="button" class="btn" id="cfg" aria-expanded="${open}" aria-controls="pop"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 4.5h7M12.5 4.5H14M2 11.5h1.5M7 11.5h7"/><circle cx="10.75" cy="4.5" r="1.75"/><circle cx="5.25" cy="11.5" r="1.75"/></svg>Строки <b>${TOTAL-st.off.length} из ${TOTAL}</b></button><div class="pop" id="pop" ${open?'':'hidden'}></div></div><div class="nav"><button type="button" class="ib" data-go="-1" aria-label="Предыдущие программы">${AR(-1)}</button><button type="button" class="ib" data-go="1" aria-label="Следующие программы">${AR(1)}</button></div></div><div class="cw"><div class="cols">${ps.map(p=>`<div class="pc"><span class="lv">Бакалавриат</span><small>${p.c}</small><b>${p.n}</b><a href="${p.href||'#'}"><span>Открыть программу</span>→</a><button type="button" class="rm" data-rm="${p.id}" aria-label="Убрать из сравнения: ${p.n}">${X}</button></div>`).join('')}${slot?`<button type="button" class="slot" data-add aria-label="Добавить программу" aria-expanded="${adding}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M7 2v10M2 7h10"/></svg></button>`:''}</div></div><div class="pop add" id="add" ${adding&&slot?'':'hidden'}></div></div></div>`;
+  let same=0,h=`<div class="stick" id="stick"><div class="g head"><div class="ctl"><label class="sw"><input type="checkbox" id="diff" ${st.diff?'checked':''}><span></span>Только различия</label><div class="pop-wrap"><button type="button" class="btn" id="cfg" aria-expanded="${open}" aria-controls="pop"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 4.5h7M12.5 4.5H14M2 11.5h1.5M7 11.5h7"/><circle cx="10.75" cy="4.5" r="1.75"/><circle cx="5.25" cy="11.5" r="1.75"/></svg>Строки <b>${TOTAL-st.off.length} из ${TOTAL}</b></button><div class="pop" id="pop" ${open?'':'hidden'}></div></div><div class="nav"><button type="button" class="ib" data-go="-1" aria-label="Предыдущие программы">${AR(-1)}</button><button type="button" class="ib" data-go="1" aria-label="Следующие программы">${AR(1)}</button></div></div><div class="cw"><div class="cols">${ps.map(p=>`<div class="pc"><span class="lv">Бакалавриат</span><small>${p.c}</small><b>${p.n}</b><a href="${p.href||'#'}">Открыть</a><button type="button" class="rm" data-rm="${p.id}" aria-label="Убрать из сравнения: ${p.n}">${X}</button></div>`).join('')}${slot?`<button type="button" class="slot" data-add aria-label="Добавить программу" aria-expanded="${adding}"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M7 2v10M2 7h10"/></svg></button>`:''}</div></div><div class="pop add" id="add" ${adding&&slot?'':'hidden'}></div></div></div>`;
   if(!ps.length){t.innerHTML=h+'<div class="empty">В этом пути пока нет программ для сравнения.</div>';after(open);return}
   for(const g of G){
     let rows='';
@@ -487,14 +487,21 @@ function render(){
   t.innerHTML=h;after(open);
 }
 function after(open){
-  if(open)pop();if(adding)addPop();
+  if(open)pop();if(adding){addPop();placeAdd()}
   const cs=document.querySelectorAll('.cols'),max=cs[0]?cs[0].scrollWidth-cs[0].clientWidth:0;
   sx=Math.min(sx,Math.max(max,0));cs.forEach(c=>c.scrollLeft=sx);edges();stuck();
+}
+// поиск «+» висит под кнопкой «+», правые края совпадают
+function placeAdd(){
+  const a=$('add'),b=document.querySelector('[data-add]'),s=$('stick');if(!a||a.hidden||!b||!s)return;
+  const r=b.getBoundingClientRect(),R=s.getBoundingClientRect();
+  a.style.top=(r.bottom-R.top+8)+'px';a.style.right=mobile()?'':Math.max(R.right-r.right,0)+'px';
 }
 function edges(){
   const c=document.querySelector('.cols');if(!c)return;const max=c.scrollWidth-c.clientWidth,t=$('tbl');
   t.classList.toggle('hs',c.scrollLeft>1);t.classList.toggle('he',c.scrollLeft<max-1);
   const b=document.querySelectorAll('[data-go]');if(b[0]){b[0].disabled=c.scrollLeft<=1;b[1].disabled=c.scrollLeft>=max-1}
+  placeAdd();
 }
 let lock=false;
 document.addEventListener('scroll',e=>{
