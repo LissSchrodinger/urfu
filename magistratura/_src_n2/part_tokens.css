@@ -1,0 +1,97 @@
+/* УрФУ · лендинг магистратуры · токены. Ядро — claude/tokens.css 1.3 (только нужные примитивы); тема лендинга — сиреневая шкала (решение 19.11).
+   В компонентах — только --color-*. Примитивы (--p-*) в компонентах не используются. Тёмной темы у лендинга нет. */
+:root{
+  /* примитивы ядра */
+  --p-white:#FFFFFF;
+  --p-peach-20:#FFD9C7; --p-peach-50:#FF875C; --p-peach-90:#7A3214;
+  --p-violet-20:#D3CDFA; --p-violet-50:#6E6DC5; --p-violet-70:#4D22C4; --p-violet-90:#33177F;
+  --p-raspberry-70:#D6003F;
+  /* тема лендинга: сиреневые серые и индиго (19 оттенков сведены, 19.11) */
+  --p-lilac-10:#F4F2FB; --p-lilac-20:#E2DEF4; --p-lilac-30:#D9D5EF; --p-lilac-35:#B9B3E6; --p-lilac-40:#8F8AA8;
+  --p-lilac-50:#625C88; --p-lilac-60:#55507A;
+  --p-indigo-80:#2A1478; --p-indigo-90:#1D0E5A; --p-indigo-100:#1B1150;
+  /* кампания */
+  --p-peach-10:#FFEADF; --p-peach-40:#FF9A75; --p-violet-10:#E4E0FC; --p-violet-40:#8F8CF0;
+  --p-urfu-red:#E50046;
+  /* прозрачные */
+  --p-white-a6:rgb(255 255 255/.06); --p-white-a12:rgb(255 255 255/.12); --p-white-a14:rgb(255 255 255/.14);
+  --p-white-a22:rgb(255 255 255/.22); --p-white-a55:rgb(255 255 255/.55); --p-white-a60:rgb(255 255 255/.6);
+  --p-white-a72:rgb(255 255 255/.72);
+  --p-indigo-ink-a70:rgb(12 6 40/.7); --p-lilac-10-a82:rgb(244 242 251/.82); --p-indigo-90-a86:rgb(29 14 90/.86);
+}
+:root{
+  /* фон и поверхности */
+  --color-bg-primary:var(--p-lilac-10);
+  --color-surface-primary:var(--p-white);
+  --color-surface-hover:var(--p-lilac-10);        /* наведение на белый контрол */
+  --color-surface-sunken:var(--p-lilac-20);       /* подложка сегмента, страниц */
+  --color-surface-contrast:var(--p-indigo-80);    /* первый экран, финал */
+  --color-surface-contrast-deep:var(--p-indigo-90); /* видео, окно подбора */
+  --color-surface-on-contrast:var(--p-white-a6);  /* плашка на тёмном */
+  --color-surface-on-contrast-hover:var(--p-white-a12);
+  --color-surface-on-contrast-active:var(--p-white-a22);
+  --color-surface-glass:var(--p-lilac-10-a82);
+  --color-surface-glass-contrast:var(--p-indigo-90-a86);
+  --color-overlay-primary:var(--p-indigo-ink-a70);
+  --color-fill-accent:var(--p-violet-70);         /* фиолетовая заливка: бейдж, активный шаг */
+  --color-fill-cta:var(--p-peach-50);             /* коралловая кнопка */
+  --color-fill-cta-hover:var(--p-peach-40);
+  --color-fill-inverse-hover:var(--p-lilac-60);
+  --color-accent-slogan:var(--p-violet-40);       /* плашка у слогана — отдельный акцент (Василиса 19.11) */
+  --color-brand:var(--p-urfu-red);                /* знак логотипа */
+  /* текст */
+  --color-text-primary:var(--p-indigo-100);
+  --color-text-secondary:var(--p-lilac-60);
+  --color-text-tertiary:var(--p-lilac-50);
+  --color-text-disabled:var(--p-lilac-40);
+  --color-text-accent:var(--p-violet-70);
+  --color-text-accent-warm:var(--p-peach-50);     /* даты (контраст 2,4–3,4 — решение 16.11) */
+  --color-text-link:var(--p-raspberry-70);
+  --color-text-on-media:var(--p-white);
+  --color-text-on-media-secondary:var(--p-white-a72);
+  --color-text-on-media-tertiary:var(--p-white-a60);
+  /* линии */
+  --color-border-primary:var(--p-lilac-30);
+  --color-border-hover:var(--p-lilac-35);         /* наведение на фильтр (решение 16.11) */
+  --color-border-control:var(--p-lilac-40);       /* рамка чекбокса, поля — 3 : 1 */
+  --color-border-on-contrast:var(--p-white-a14);
+  --color-border-on-media:var(--p-white-a55);
+  /* уровни */
+  --color-level-master-bg:var(--p-peach-20); --color-level-master-text:var(--p-peach-90); --color-level-master-hover:var(--p-peach-10);
+  --color-level-spvo-bg:var(--p-violet-20);  --color-level-spvo-text:var(--p-violet-90);  --color-level-spvo-hover:var(--p-violet-10);
+}
+/* отступ раздела сверху и снизу: десктоп 160 · малый десктоп 120 · планшет 96 · телефон 72 (19.11; 120 и 160 добавлены в шкалу раскладки) */
+:root{--spacing-section:160px}
+@media (max-width:1279px){:root{--spacing-section:120px}}
+@media (max-width:1023px){:root{--spacing-section:96px}}
+@media (max-width:767px){:root{--spacing-section:72px}}
+
+/* эффекты (шаг 5, 19.11): роли каталога — m выпадающий список, l окно, sticky панель под шапкой; float — своё у лендинга */
+:root{
+  --p-indigo-100-a6:rgb(27 17 80/.06); --p-indigo-100-a28:rgb(27 17 80/.28); --p-indigo-100-a30:rgb(27 17 80/.3);
+  --p-night-a60:rgb(16 8 60/.6); --p-night-a80:rgb(10 4 40/.8);
+  --p-white-a8:rgb(255 255 255/.08); --p-white-a16:rgb(255 255 255/.16);
+  --p-peach-50-a16:rgb(255 135 92/.16); --p-peach-50-a28:rgb(255 135 92/.28); --p-peach-50-a35:rgb(255 135 92/.35);
+  --p-peach-50-a55:rgb(255 135 92/.55); --p-peach-50-a70:rgb(255 135 92/.7); --p-peach-5-a85:rgb(255 236 226/.85);
+  --p-glow-violet-a8:rgb(107 56 242/.08); --p-glow-violet-a14:rgb(107 56 242/.14); --p-glow-violet-a35:rgb(107 56 242/.35);
+  --p-violet-40-a55:rgb(143 140 240/.55); --p-violet-70-a5:rgb(77 34 196/.05); --p-violet-70-a14:rgb(77 34 196/.14);
+  --p-scrim-a72:rgb(26 10 80/.72); --p-scrim-a20:rgb(26 10 80/.2);
+}
+:root{
+  --color-gradient-brand-start:var(--p-violet-70); --color-gradient-brand-end:var(--p-peach-50);
+  --color-gradient-avatar-start:var(--p-violet-50);
+  --color-highlight:var(--p-violet-70-a14);              /* найденное в поиске, светлое */
+  --color-highlight-on-contrast:var(--p-peach-50-a35);   /* то же на тёмном */
+  --color-surface-hover-on-sunken:var(--p-white-a55);/* наведение в сегменте на сиреневой подложке */
+  --color-surface-hover-tint:var(--p-violet-70-a5);      /* наведение на строку отзыва */
+  --effect-shadow-m:0 18px 44px -12px var(--p-indigo-100-a28),0 0 0 1px var(--p-indigo-100-a6);
+  --effect-shadow-sticky:0 24px 40px -24px var(--p-indigo-100-a30);
+  --effect-shadow-l:0 0 0 1px var(--p-white-a8),0 40px 120px -30px var(--p-night-a80);
+  --effect-shadow-float:0 0 0 1px var(--p-white-a16),0 16px 40px -12px var(--p-night-a60);
+  --effect-shadow-float-hover:0 0 0 1px var(--p-peach-50-a70),0 16px 40px -12px var(--p-night-a60);
+  --effect-glow-warm:radial-gradient(closest-side,var(--p-peach-50-a28),var(--p-glow-violet-a14) 55%,transparent);
+  --effect-glow-cool:radial-gradient(closest-side,var(--p-glow-violet-a35),transparent);
+  --effect-glow-picker:radial-gradient(closest-side,var(--p-peach-50-a16),var(--p-glow-violet-a8) 60%,transparent);
+  --effect-scrim-media:linear-gradient(90deg,var(--p-scrim-a72) 0,var(--p-scrim-a20) 42%,transparent 60%);
+  --effect-shimmer:linear-gradient(90deg,transparent,var(--p-peach-50-a55) 30%,var(--p-peach-5-a85) 52%,var(--p-violet-40-a55) 74%,transparent);
+}

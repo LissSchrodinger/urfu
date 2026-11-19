@@ -3,9 +3,9 @@ import os
 D=os.path.dirname(os.path.abspath(__file__))+'/'
 r=lambda f:open(D+f,encoding='utf8').read()
 import re as _r
-RAD={32:24,24:16,20:14,18:12,14:10,12:8,10:7,9:6}
+RAD={}  # 19.11: скругления в исходниках уже итоговые (lend-radius.py)
 def rad(css):return _r.sub(r'(border-radius:)([^;}!]+)',lambda m:m.group(1)+_r.sub(r'\b(\d+)px',lambda n:str(RAD.get(int(n.group(1)),int(n.group(1))))+'px',m.group(2)),css)
-head=rad(r('part_head.html'))+rad(r('part_rest.css'))+rad(r('part_prog.css'))+r('hdr_anchor.css')+rad(r('part_v8.css'))+rad(r('part_v15.css'))+r('part_n2.css')+r('part_pick.css')+r('part_mob.css')+'</style></head><body>'
+head=rad(r('part_head.html'))+r('part_tokens.css')+rad(r('part_rest.css'))+rad(r('part_prog.css'))+r('hdr_anchor.css')+rad(r('part_v8.css'))+rad(r('part_v15.css'))+r('part_n2.css')+r('part_pick.css')+r('part_mob.css')+'</style></head><body>'
 body='<div class="frame"><div class="scrim2"></div>'+r('hdr_anchor.html')+r('part_hero.html')+r('part_rest.html')+'</div>'
 js=r('hdr_anchor.js')+r('part_herojs.js')+r('part_dd.js')+r('part_top.js')+r('part_n2.js')+r('part_rest.js').replace('%PROGS%',json.dumps(json.load(open(D+'progs2.json')),ensure_ascii=False))
 # MENU_CUR: снято 17.11 вместе с шапкой каталога (см. _hdr_katalog/README.md)

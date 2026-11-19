@@ -17,9 +17,10 @@ const fa=$('#fa');fa.innerHTML='<option value="-1">Все области</option
 const go=p=>window.open('https://masters.urfu.ru/programs/'+p.id,'_blank','noopener');
 const ty=p=>`<span class="k25l ${p.l==='М'?'lvm':'lvs'}">${LV[p.l]}</span>`;
 const EXT='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+const z0=n=>n?n:'<span class="z0" aria-label="нет мест">—</span>';
 const inst=p=>`<span data-tip="${esc(p.I)}" tabindex="0">${p.i}</span>`;
 const GO='<span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>';
-const facts=p=>`<dl class="fx"><div><dt>Бюджет</dt><dd>${p.bud}</dd></div><div><dt>Платно</dt><dd>${p.paid}</dd></div><div><dt>Институт</dt><dd class="fi">${inst(p)}</dd></div></dl>`;
+const facts=p=>`<dl class="fx"><div><dt>Бюджет</dt><dd>${z0(p.bud)}</dd></div><div><dt>Платно</dt><dd>${z0(p.paid)}</dd></div><div><dt>Институт</dt><dd class="fi">${inst(p)}</dd></div></dl>`;
 function draw(){
  const all=PROGS.filter(p=>pass(p));
  document.querySelectorAll('#lvl button').forEach(b=>{b.classList.toggle('on',b.dataset.l===S.l);b.querySelector('i').textContent=PROGS.filter(p=>pass(p,'l')&&(!b.dataset.l||p.l===b.dataset.l)).length});
@@ -28,7 +29,7 @@ function draw(){
  $('#cnt').textContent=all.length?`${all.length} ${pl(all.length)}`:'';
  const ls=$('#ls');
  if(!all.length){ls.className='';ls.innerHTML='<div class="empty">Ничего не нашлось. Попробуй изменить фильтры.</div>'}
- else if(S.v==='table'){ls.className='tb';ls.innerHTML=`<table class="t51"><colgroup><col><col style="width:256px"><col style="width:84px"><col style="width:84px"><col style="width:128px"><col style="width:56px"></colgroup><thead><tr><th>Программа</th><th>Уровень</th><th>Бюджет</th><th>Платно</th><th>Институт</th><th><span class="sr">Перейти</span></th></tr></thead><tbody>${rows.map((p,k)=>`<tr data-k="${k}" class="${p.l==='М'?'lvm':'lvs'}"><td><b class="t51n">${hl(p.n)} <span class="cd64" data-tip="${esc(p.c+' '+p.d)}" tabindex="0">${hl(p.c)}</span></b></td><td class="t51l">${ty(p)}</td><td class="t51d">${p.bud}</td><td class="t51d">${p.paid}</td><td class="t51i">${inst(p)}</td><td class="t51x">${EXT}</td></tr>`).join('')}</tbody></table>`}
+ else if(S.v==='table'){ls.className='tb';ls.innerHTML=`<table class="t51"><colgroup><col><col style="width:256px"><col style="width:84px"><col style="width:84px"><col style="width:128px"><col style="width:56px"></colgroup><thead><tr><th>Программа</th><th>Уровень</th><th>Бюджет</th><th>Платно</th><th>Институт</th><th><span class="sr">Перейти</span></th></tr></thead><tbody>${rows.map((p,k)=>`<tr data-k="${k}" class="${p.l==='М'?'lvm':'lvs'}"><td><b class="t51n">${hl(p.n)} <span class="cd64" data-tip="${esc(p.c+' '+p.d)}" tabindex="0">${hl(p.c)}</span></b></td><td class="t51l">${ty(p)}</td><td class="t51d">${z0(p.bud)}</td><td class="t51d">${z0(p.paid)}</td><td class="t51i">${inst(p)}</td><td class="t51x">${EXT}</td></tr>`).join('')}</tbody></table>`}
  else{ls.className='ls '+(S.v==='cards'?'cards':'');ls.innerHTML=rows.map((p,k)=>`<article class="rw ${p.l==='М'?'lvm':'lvs'}" data-k="${k}" tabindex="0"><div class="rt">${ty(p)}<span class="t51x">${EXT}</span></div><div class="nm">${hl(p.n)}</div><div class="cd">${hl(p.c)} ${hl(p.d)}</div>${facts(p)}</article>`).join('')}
  ls.querySelectorAll('[data-k]').forEach(e=>{e.onclick=ev=>{if(ev.target.closest('[data-tip]'))return;go(rows[+e.dataset.k])};e.onkeydown=ev=>{if(ev.key==='Enter')go(rows[+e.dataset.k])}});
  const AR=d=>`<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
@@ -67,8 +68,8 @@ document.querySelectorAll('#fin button').forEach(b=>b.onclick=()=>{document.quer
 document.querySelectorAll('#vl a').forEach((a,i)=>a.onclick=()=>{document.querySelectorAll('#vl a').forEach(x=>x.classList.toggle('on',x===a));$('#vb img').src='img/v'+(i+1)+'.jpg';$('#vb img').alt=a.textContent});
 document.querySelectorAll('.cg dl[data-lv]').forEach(dl=>{const L=PROGS.filter(p=>p.l===dl.dataset.lv),set=(c,t)=>dl.querySelector(`[data-c=${c}]`).textContent=t,nf=f=>L.filter(p=>p.forms.includes(f)).length;
  const wb=L.filter(p=>p.bud>0),pr=L.map(p=>p.price).filter(x=>x>0);
- set('n',L.length);set('b',`На ${wb.length} из ${L.length} программ, всего ${wb.reduce((s,p)=>s+p.bud,0).toLocaleString('ru-RU')} мест`);
- set('f',[['Очная','очная'],['Очно-заочная','очно-заочная'],['Заочная','заочная']].filter(x=>nf(x[0])).map(x=>`${x[1]} — ${nf(x[0])}`).join(', ').replace(/^./,c=>c.toUpperCase()));
+ const pl=n=>n%10==1&&n%100!=11?'программа':n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?'программы':'программ';set('n',`${L.length} ${pl(L.length)}`);set('b',`На ${wb.length} из ${L.length} программ, всего ${wb.reduce((s,p)=>s+p.bud,0).toLocaleString('ru-RU')} мест`);
+ set('f',[['Очная','очная'],['Очно-заочная','очно-заочная'],['Заочная','заочная']].filter(x=>nf(x[0])).map(x=>x[1]).join(', ').replace(/^./,c=>c.toUpperCase()));   /* 20.11: без чисел — программа бывает в нескольких формах, суммы не сходились с числом программ */
  set('p',pr.length?rub(Math.min(...pr)):'—')});
 const nW=f=>PROGS.filter(p=>p.forms.includes(f)).length;if($('#wk'))$('#wk').textContent=`Учишься без отрыва от работы: заочно — ${nW('Заочная')} ${pl(nW('Заочная'))}, очно-заочно — ${nW('Очно-заочная')}`;
 document.querySelectorAll('[data-f=w]').forEach(a=>a.addEventListener('click',()=>{S.l='';S.f.clear();S.f.add('Заочная');S.f.add('Очно-заочная');S.pg=1;draw()}));
@@ -81,7 +82,7 @@ const RV=[
 const AV={'Юлия Толмачева':'img/a_tolm.jpg','Владимир Давыдик':'img/a_dav.jpg','Мария Кремешкова':'img/a_krem.jpg'};const ini=n=>`<img src="${AV[n]}" alt="">`;
 let ri=0;
 function drawRv(){const m=RV[ri],o=[RV[(ri+1)%3],RV[(ri+2)%3]];
- $('#rm').className='rmain';$('#rm').innerHTML=`<div class="qm">«</div><q>${m[0]}</q><div class="fullw"><div><p class="full">${m[3]}</p></div></div><button>Читать полностью</button><div class="who"><span class="av">${ini(m[1])}</span><div><b>${m[1]}</b><span>${m[2]}</span></div></div>`;
+ $('#rm').className='rmain';$('#rm').innerHTML=`<div class="qm" aria-hidden="true">“</div><q>${m[0]}</q><div class="fullw"><div><p class="full">${m[3]}</p></div></div><button>Читать полностью</button><div class="who"><span class="av">${ini(m[1])}</span><div><b>${m[1]}</b><span>${m[2]}</span></div></div>`;
  $('#rm button').onclick=e=>{const r=$('#rm');r.classList.toggle('op');e.target.textContent=r.classList.contains('op')?'Свернуть':'Читать полностью'};
  $('#rsd').innerHTML=o.map(r=>`<div class="rs" data-i="${RV.indexOf(r)}"><q>${r[0]}</q><div class="who"><span class="av">${ini(r[1])}</span><div><b>${r[1]}</b><span>${r[2]}</span></div></div></div>`).join('');
  document.querySelectorAll('.rs').forEach(e=>e.onclick=()=>{ri=+e.dataset.i;drawRv()})}
@@ -95,7 +96,7 @@ const FQ=[
  ['Кому подойдёт специализированное высшее?',['Тем, кто уже понимает, для какой профессиональной задачи ему нужны дополнительные знания. Например, это может быть специалист, который хочет углубиться в конкретную отрасль, заняться исследованиями или перейти к управлению командами и проектами.']],
  ['Можно ли после специализированного высшего поступить в аспирантуру?',['Да. После окончания любой из программ специализированного высшего образования можно продолжить обучение в аспирантуре.']]];
 
-$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===0?' op':''}"><button aria-expanded="${i===0}"><span class="n">0${i+1}</span>${f[0]}<span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${t}</p>`).join('')}</div></div></div>`).join('');
+$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===0?' op':''}"><button aria-expanded="${i===0}"><span class="n">0${i+1}</span><span class="fq">${f[0]}</span><span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${t}</p>`).join('')}</div></div></div>`).join('');
 document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.parentNode.classList.toggle('op');b.setAttribute('aria-expanded',o)});{const f=document.querySelector('.fi');if(f){f.classList.add('op');f.querySelector('button').setAttribute('aria-expanded',true)}}
 
 /* финал: мягкое свечение и грани */

@@ -4,7 +4,7 @@ if(ah&&b){const set=o=>{ah.classList.toggle('open',o);b.setAttribute('aria-expan
  b.onclick=()=>set(!ah.classList.contains('open'));
  ah.querySelectorAll('.anv a').forEach(a=>a.addEventListener('click',()=>set(false)));
  addEventListener('keydown',e=>{if(e.key==='Escape')set(false)})}
-const mq=matchMedia('(max-width:820px)');let keep=null;
+const mq=matchMedia('(max-width:1023px)');let keep=null;
 const ap=()=>{if(typeof S==='undefined'||typeof draw!=='function')return;
  if(mq.matches){if(S.v!=='cards'){keep=S.v;S.v='cards';draw()}}
  else if(keep){S.v=keep;keep=null;draw()}};
@@ -28,7 +28,7 @@ fbn.onclick=()=>op(true);sh.addEventListener('click',e=>{if(e.target.closest('[d
 addEventListener('keydown',e=>{if(e.key==='Escape'&&sh.classList.contains('on'))op(false)});
 rs.onclick=()=>{S.l='';S.a.clear();S.i.clear();S.f.clear();if(S.b){S.b=false;const fb=document.getElementById('fb');fb.classList.remove('on');fb.setAttribute('aria-checked',false)}S.pg=1;draw()};
 const d0=draw;draw=function(){const r=d0.apply(this,arguments);upd();return r};
-const mq=matchMedia('(max-width:560px)');
+const mq=matchMedia('(max-width:767px)');
 const ap=()=>{if(mq.matches)items.forEach(e=>body.append(e));else{items.forEach(e=>fl.insertBefore(e,srch));op(false)}};
 mq.addEventListener('change',ap);ap();upd()})();
 /* уровень в списке — один за раз: после выбора список закрывается */
