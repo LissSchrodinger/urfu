@@ -242,3 +242,8 @@ main.n2 .fi{padding-bottom:21px}
 main.n2 .fi .ans>div>:last-child{margin-bottom:9px}
 /* 3: наведение — плашка «+» как стрелки «Отзывов» */
 main.n2 .fi button:hover .pm{background:var(--color-level-spvo-bg)}
+
+/* ===== ревью финала (20.11) ===== */
+/* ≤1023: срез съедал отступ раздела — от среза до заголовка видно 56 (было 30 на 768, 44 на 375) */
+@media (min-width:768px) and (max-width:1023px){main.n2 .fin{padding-top:calc(var(--spacing-section) + 26px)!important}}
+@media (max-width:767px){main.n2 .fin{padding-top:calc(var(--spacing-section) + 12px)!important}}

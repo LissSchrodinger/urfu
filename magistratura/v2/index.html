@@ -1010,6 +1010,11 @@ main.n2 .fi{padding-bottom:21px}
 main.n2 .fi .ans>div>:last-child{margin-bottom:9px}
 /* 3: наведение — плашка «+» как стрелки «Отзывов» */
 main.n2 .fi button:hover .pm{background:var(--color-level-spvo-bg)}
+
+/* ===== ревью финала (20.11) ===== */
+/* ≤1023: срез съедал отступ раздела — от среза до заголовка видно 56 (было 30 на 768, 44 на 375) */
+@media (min-width:768px) and (max-width:1023px){main.n2 .fin{padding-top:calc(var(--spacing-section) + 26px)!important}}
+@media (max-width:767px){main.n2 .fin{padding-top:calc(var(--spacing-section) + 12px)!important}}
 /* ===== Подбор программы за 4 вопроса (компонент лендингов, 17.11, v2 окна) ===== */
 .pkf{position:fixed;right:24px;bottom:24px;z-index:400;display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 24px 0 16px;border:0;border-radius:12px;cursor:pointer;
   background:var(--color-surface-glass-contrast);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--color-text-on-media);font:500 14px/20px Golos;
@@ -1517,7 +1522,7 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
     <div><dt>Телефон</dt><dd><a href="tel:+73433754474">+7 (343) 375 44 74</a></dd></div>
     <div><dt>Адрес</dt><dd>Екатеринбург, ул. Мира, 19, каб. ГУК-100</dd></div>
   </dl>
-  <div class="bt"><span>Уральский федеральный университет</span><span class="so"><a>ВКонтакте</a><a>MAX</a></span></div>
+  <div class="bt"><span>Уральский федеральный университет</span><span class="so"><a href="https://vk.ru/ural.federal.university" target="_blank" rel="noopener">ВКонтакте</a><a href="https://max.ru/urfu" target="_blank" rel="noopener">MAX</a></span></div>
 </div></footer>
 
 <div class="cons" id="cons" hidden><div class="cbox" role="dialog" aria-modal="true" aria-labelledby="consT">
