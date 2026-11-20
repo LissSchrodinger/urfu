@@ -255,3 +255,11 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 
 /* 20.11 ≤1023: срез первого экрана — обрезкой самого фона (срез из Figma при другом масштабе ложился на даты) */
 @media (max-width:1023px){.top{background:var(--pg)}.top>svg.figbg .pgcut{display:none}.top>svg.figbg{clip-path:polygon(0 0,100% 0,100% calc(100% - 64px),0 calc(100% - 16px))}}
+
+/* 20.11 Василиса, сравнение «Есть диплом»: рамка сверху убрана, снизу — ближе к последней строке; обе линии под заголовками цветом текста; черта ближе к названию; сноска 14 на ≤1023 */
+.zc .cg{border-top:0}
+.zc .cg>div,.zc .cg>div+div{padding-top:0;padding-bottom:0}
+.zc .cg>div+div h3{border-color:var(--ink2)}
+.zc .cg h3{gap:8px}
+@media (max-width:1023px){.zc .cg h3{gap:8px!important}.zc .cft{font:400 14px/20px Golos}}
+@media (max-width:767px){.zc .cg h3 .sl{display:none!important}.zc .cg h3{gap:0!important}} /* 20.11 Василиса: на телефоне без косой черты */
