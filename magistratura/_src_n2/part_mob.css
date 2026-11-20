@@ -306,3 +306,8 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 @media (max-width:1279px){.zh2 .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important}.zh2 .sp4,.zh2 .sp4+.sp4{padding:24px!important}.zh2 .sp4 h3{min-height:64px!important;margin:24px 0 16px!important}}
 @media (max-width:767px){.zh2 .steps{grid-template-columns:1fr!important}.zh2 .sp4,.zh2 .sp4+.sp4{padding:16px!important}.zh2 .sp4 h3{min-height:0!important;margin:16px 0!important}.zh2 .sp4 dl,.zh2 .sp4 .tags{margin-bottom:16px!important}}
 @media (min-width:1024px) and (max-width:1279px){.zh2 .sp4 .k{font-size:120px!important}}
+/* ===== ревью «Отзывов» (20.11, Василиса): стрелки справа ===== */
+/* планшет: стрелки в строке с заголовком, по его низу */
+@media (min-width:768px) and (max-width:1023px){#reviews .zh{flex-direction:row!important;flex-wrap:nowrap!important;align-items:flex-end!important;justify-content:space-between;gap:16px}#reviews .zh .st{min-width:0;flex:1 1 auto}#reviews .nav2{flex:none}}
+/* телефон: стрелки под нижней линией отзыва (24), по правому полю (линия сверху остаётся; от линии до видимого верха кавычки 24) */
+@media (max-width:767px){#reviews .wrap{display:flex;flex-direction:column}#reviews .zh{display:contents}#reviews .zh .st{order:0;margin-bottom:40px}#reviews .rvg{order:1}#reviews .nav2{order:2;align-self:flex-end;margin-top:24px}main.n2 .zr .rmain{padding-top:24px!important;padding-bottom:24px!important}main.n2 .zr .rmain .qm{margin-top:-23px}}
