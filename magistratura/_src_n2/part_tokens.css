@@ -83,6 +83,8 @@
 }
 :root{
   --color-gradient-brand-start:var(--p-violet-70); --color-gradient-brand-end:var(--p-peach-50);
+  /* 20.11 «Как поступить»: точки градиента бренда на 1/4, 1/2, 3/4 — шаги 1–4 идут одним градиентом */
+  --color-gradient-brand-25:#7A3BAA; --color-gradient-brand-50:#A65590; --color-gradient-brand-75:#D36E76;
   --color-gradient-avatar-start:var(--p-violet-50);
   --color-highlight:var(--p-violet-70-a14);              /* найденное в поиске, светлое */
   --color-highlight-on-contrast:var(--p-peach-50-a35);   /* то же на тёмном */

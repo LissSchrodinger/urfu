@@ -286,3 +286,23 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 
 /* 20.11 ревью кадра «новые знания»: на телефоне текст лежал на человеке — затемнение снизу, фото выше */
 @media (max-width:767px){.k1 .kbin::after{background:var(--effect-scrim-media-bottom)}.k1 img{object-position:50% 30%}}
+
+/* 20.11 · Василиса, ревью «Как поступить»: шаги — белые карточки r20 (как таблица «Программ»), ссылки прижаты к низу;
+   один порядок: цифра → заголовок → сроки / пояснение → ссылки; сроки цветом текста; цифры — один градиент на ряд (1 фиолет → 4 коралл) */
+.zh2 .steps{gap:12px!important}
+.zh2 .sp4,.zh2 .sp4+.sp4{border-top:0!important;background:var(--color-surface-primary);border-radius:20px;padding:32px!important}
+.zh2 .sp4 .k{margin-top:-.125em!important;align-self:flex-start;padding-right:.04em} /* верх знака = поле карточки (правило «сверху = сбоку») */
+.zh2 .sp4:nth-child(1) .k{background-image:linear-gradient(90deg,var(--color-gradient-brand-start),var(--color-gradient-brand-25))}
+.zh2 .sp4:nth-child(2) .k{background-image:linear-gradient(90deg,var(--color-gradient-brand-25),var(--color-gradient-brand-50))}
+.zh2 .sp4:nth-child(3) .k{background-image:linear-gradient(90deg,var(--color-gradient-brand-50),var(--color-gradient-brand-75))}
+.zh2 .sp4:nth-child(4) .k{background-image:linear-gradient(90deg,var(--color-gradient-brand-75),var(--color-gradient-brand-end))}
+.zh2 .sp4 .k{-webkit-background-clip:text;background-clip:text}
+.zh2 .sp4 h3{margin:32px 0 24px!important;min-height:96px!important}
+.zh2 .sp4 dl{margin:0 0 24px!important}
+.zh2 .sp4 dd{color:var(--color-text-primary)!important;margin-bottom:12px}
+.zh2 .sp4 dd:last-child{margin-bottom:0}
+.zh2 .sp4 .tags{margin:0 0 24px!important}
+.zh2 .sp4 .ln{margin-top:auto}
+@media (max-width:1279px){.zh2 .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important}.zh2 .sp4,.zh2 .sp4+.sp4{padding:24px!important}.zh2 .sp4 h3{min-height:64px!important;margin:24px 0 16px!important}}
+@media (max-width:767px){.zh2 .steps{grid-template-columns:1fr!important}.zh2 .sp4,.zh2 .sp4+.sp4{padding:16px!important}.zh2 .sp4 h3{min-height:0!important;margin:16px 0!important}.zh2 .sp4 dl,.zh2 .sp4 .tags{margin-bottom:16px!important}}
+@media (min-width:1024px) and (max-width:1279px){.zh2 .sp4 .k{font-size:120px!important}}
