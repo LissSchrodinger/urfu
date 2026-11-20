@@ -79,7 +79,7 @@
   --p-peach-50-a55:rgb(255 135 92/.55); --p-peach-50-a70:rgb(255 135 92/.7); --p-peach-5-a85:rgb(255 236 226/.85);
   --p-glow-violet-a8:rgb(107 56 242/.08); --p-glow-violet-a14:rgb(107 56 242/.14); --p-glow-violet-a35:rgb(107 56 242/.35);
   --p-violet-40-a55:rgb(143 140 240/.55); --p-violet-70-a5:rgb(77 34 196/.05); --p-violet-70-a14:rgb(77 34 196/.14);
-  --p-scrim-a72:rgb(26 10 80/.72); --p-scrim-a20:rgb(26 10 80/.2);
+  --p-scrim-a72:rgb(26 10 80/.72); --p-scrim-a20:rgb(26 10 80/.2); --p-scrim-a80:rgb(26 10 80/.8); --p-scrim-a60:rgb(26 10 80/.6); --p-scrim-a85:rgb(26 10 80/.85);
 }
 :root{
   --color-gradient-brand-start:var(--p-violet-70); --color-gradient-brand-end:var(--p-peach-50);
@@ -97,6 +97,7 @@
   --effect-glow-warm:radial-gradient(closest-side,var(--p-peach-50-a28),var(--p-glow-violet-a14) 55%,transparent);
   --effect-glow-cool:radial-gradient(closest-side,var(--p-glow-violet-a35),transparent);
   --effect-glow-picker:radial-gradient(closest-side,var(--p-peach-50-a16),var(--p-glow-violet-a8) 60%,transparent);
-  --effect-scrim-media:linear-gradient(90deg,var(--p-scrim-a72) 0,var(--p-scrim-a20) 42%,transparent 60%);
+  --effect-scrim-media:linear-gradient(90deg,var(--p-scrim-a80) 0,var(--p-scrim-a60) 30%,var(--p-scrim-a20) 55%,transparent 72%);
+  --effect-scrim-media-bottom:linear-gradient(0deg,var(--p-scrim-a85) 0,var(--p-scrim-a60) 40%,transparent 75%);
   --effect-shimmer:linear-gradient(90deg,transparent,var(--p-peach-50-a55) 30%,var(--p-peach-5-a85) 52%,var(--p-violet-40-a55) 74%,transparent);
 }

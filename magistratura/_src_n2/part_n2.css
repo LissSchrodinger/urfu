@@ -228,3 +228,7 @@ main.n2 .fin .btn.c:hover{background:var(--color-fill-cta-on-media-hover)}
 /* 20.11 — «Получить консультацию» на гранях: подложка-стекло из ДС (Василиса: «нужен какой-то фон»). Первый экран и финал одинаково */
 .top .hM .btn.o,main.n2 .fin .btn.o{background:var(--color-surface-glass-tint);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .top .hM .btn.o:hover,main.n2 .fin .btn.o:hover{background:var(--color-surface-glass-tint-hover)}
+
+/* 20.11 ревью кадра «новые знания»: подпись — 28/36, как слоган сравнения (одна роль — один размер); белый 100 % */
+@media (min-width:1024px){.kt p{font-size:28px;line-height:36px;margin-top:32px}}
+.kt p{opacity:1}

@@ -283,3 +283,6 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 /* переключатель вида — как в каталоге: кнопки 36 (сегмент 44, как у уровня), у активной лёгкая тень; иконки по пиксельной сетке, у таблицы — рамка с шапкой и колонкой (Василиса 20.11, Б) */
 .pl .vw button{height:36px}
 .pl .vw button.on{box-shadow:var(--effect-shadow-s)}
+
+/* 20.11 ревью кадра «новые знания»: на телефоне текст лежал на человеке — затемнение снизу, фото выше */
+@media (max-width:767px){.k1 .kbin::after{background:var(--effect-scrim-media-bottom)}.k1 img{object-position:50% 30%}}
