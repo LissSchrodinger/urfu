@@ -236,7 +236,7 @@
 :root{
   --color-accent:var(--color-level-bachelor-accent);           /* цвет уровня в акцентах */
   --color-accent-tint:var(--color-level-bachelor-hover);
-  --color-window-field:#2A0B27;                                  /* поле окна «закручивание» (05, не токен) */
+  --color-window-field:#4A1742;                                  /* поле окна «закручивание» (05, не токен) */
   --color-track-ba:var(--p-teal-50); --color-track-mac:var(--p-apricot-50); --color-track-ved:var(--p-magenta-50);
   --color-track-inv:var(--p-green-50); --color-track-law:var(--p-yellow-30); --color-track-prj:var(--p-scarlet-50);
   --color-track-int:var(--p-violet-50); --color-track-lng:var(--p-rose-50); --color-track-gen:var(--p-gray-40);
@@ -278,12 +278,12 @@ svg.i.s{width:16px;height:16px}
 .pl{display:flex;gap:var(--spacing-8)}
 .pill{display:inline-flex;align-items:center;gap:var(--spacing-6);height:32px;padding:0 var(--spacing-12);border-radius:var(--radius-8);box-shadow:inset 0 0 0 1px var(--color-border-on-media);font:var(--text-label-m);font-weight:600}
 .w h1{margin-top:var(--spacing-16);font:var(--text-heading-l);font-weight:600;letter-spacing:-.02em;max-width:800px;text-wrap:balance}
-.w .d{margin-top:var(--spacing-12);color:var(--p-gray-30)}
+.w .d{margin-top:var(--spacing-12);color:var(--p-white)}
 .w .n{margin-top:auto;display:flex;padding-top:var(--spacing-32)}
 .w .n div{padding:0 var(--spacing-28);box-shadow:inset 1px 0 0 var(--p-gray-70)}
 .w .n div:first-child{box-shadow:none;padding-left:0}
 .w .n b{display:block;font:var(--text-heading-l);font-size:56px;line-height:56px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.w .n span{display:block;margin-top:var(--spacing-12);color:var(--p-gray-30)}
+.w .n span{display:block;margin-top:var(--spacing-12);color:var(--p-white)}
 .pass{background:var(--color-surface-primary);border-radius:var(--radius-24);padding:var(--spacing-28);display:flex;flex-direction:column}
 .pass .row{display:flex;gap:var(--spacing-32);padding-bottom:var(--spacing-20);box-shadow:inset 0 -1px 0 var(--color-border-primary)}
 .pass .blk{padding-block:var(--spacing-20);box-shadow:inset 0 -1px 0 var(--color-border-primary)}
@@ -689,20 +689,20 @@ const L=(href,t,e=1)=>`<a class="lnk" href="${href}" ${e?'target="_blank" rel="n
 const T=(id,t)=>`<a class="lnk" href="#${id}" data-go="${id}"><span>${t}</span>${arr}</a>`;
 const TC={ba:'Бизнес-аналитика',mac:'Макроэкономические принципы',ved:'Международный бизнес и ВЭД',inv:'Инвестиционный анализ и аудит',law:'Принципы права',prj:'Проектный практикум',int:'Практики',lng:'Языки и мобильность',gen:'Общие дисциплины'};
 
-/* ── окно «закручивание», эскиз 26 (claude/sk-okno-programmy.html), без наведения ── */
+/* ── окно «закручивание», эскиз 26 → вариант A2 (20.11): поле светлее, жёлтый в кольцах, внешние кольца размыты ── */
 (()=>{const w=$('#win'),k='w0';
-const G11=[[600,40,-10,-15],[500,-30,10,40],[420,10,30,300],[330,-36,6,135],[250,4,30,0],[180,-28,0,200],[118,0,22,90],[74,4,8,270]];
+const G11=[[600,40,-10,-15],[500,-30,10,40],[420,10,30,300],[330,-36,6,40],[250,4,30,0],[180,-28,0,200],[118,0,22,90],[74,4,8,270]];
 const AP='#FF9A3C',SC='#FF4D5E',MG='#C93DB5',M9='#6E1563';
-const CH={ap:[[0,AP],[.28,SC],[.55,M9]],sc:[[0,SC],[.3,MG],[.58,M9]],mg:[[0,MG],[.45,M9]]};
-const RING=['mg','mg','sc','mg','ap','mg','ap'],BG='#2A0B27',O={x:690,y:250},F={m:.62,e:.6,h:.72};
-let defs='',body=`<rect width="888" height="470" fill="${BG}"/>`;
+const YL='#FFC94A';const CH={ap:[[0,YL],[.2,AP],[.4,SC],[.6,M9]],sc:[[0,AP],[.2,SC],[.42,MG],[.62,M9]],mg:[[0,MG],[.45,M9]]};
+const RING=['mg','sc','ap','ap','ap','sc','ap'],BG='#4A1742',O={x:720,y:260},F={m:.62,e:.6,h:1};
+let defs=`<filter id="${k}bo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="32"/></filter>`,body=`<rect width="888" height="470" fill="${BG}"/>`;
 const R=G11.map(([r,dx,dy,a])=>({r,cx:O.x+dx,cy:O.y+dy,a}));
 const axis=c=>{const t=c.a*Math.PI/180;return `gradientUnits="userSpaceOnUse" x1="${(c.cx+Math.cos(t)*c.r).toFixed(1)}" y1="${(c.cy+Math.sin(t)*c.r).toFixed(1)}" x2="${(c.cx-Math.cos(t)*c.r).toFixed(1)}" y2="${(c.cy-Math.sin(t)*c.r).toFixed(1)}"`};
 R.forEach((c,i)=>{if(i==R.length-1){body+=`<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" fill="${BG}"/>`;return}
  const st=CH[RING[i]].map(([o,col],j)=>`<stop offset="${(o*F.m).toFixed(3)}" stop-color="${col}" stop-opacity="${j==0?F.h:1}"/>`).join('');
  defs+=`<linearGradient id="${k}g${i}" ${axis(c)}>${st}<stop offset="${F.e}" stop-color="${BG}"/></linearGradient>`;
- body+=`<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" fill="url(#${k}g${i})"/>`});
-w.innerHTML=`<svg viewBox="0 0 888 470" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><defs>${defs}</defs>${body}<linearGradient id="${k}sink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${BG}"/><stop offset=".4" stop-color="${BG}" stop-opacity=".88"/><stop offset=".58" stop-color="${BG}" stop-opacity=".45"/><stop offset=".74" stop-color="${BG}" stop-opacity="0"/></linearGradient><rect width="888" height="470" fill="url(#${k}sink)"/></svg>
+ body+=`<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" fill="url(#${k}g${i})"${i<4?` filter="url(#${k}bo)"`:''}/>`});
+w.innerHTML=`<svg viewBox="0 0 888 470" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><defs>${defs}</defs>${body}<linearGradient id="${k}sink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${BG}"/><stop offset=".45" stop-color="${BG}" stop-opacity=".8"/><stop offset=".64" stop-color="${BG}" stop-opacity=".45"/><stop offset=".8" stop-color="${BG}" stop-opacity="0"/></linearGradient><rect width="888" height="470" fill="url(#${k}sink)"/></svg>
 <div class="pl"><span class="pill">Бакалавриат</span><span class="pill" data-tip="Можно учиться по своему плану: сочетать очные занятия и онлайн-курсы.">Индивидуальная траектория <svg class="i s" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 7.5v3M8 5.2v.1"/></svg></span></div>
 <h1>Мировая экономика и&nbsp;международный бизнес</h1>
 <div class="d">38.03.01 Экономика · Институт экономики и управления</div>
