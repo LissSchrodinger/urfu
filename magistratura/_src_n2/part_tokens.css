@@ -88,6 +88,7 @@
   --color-highlight-on-contrast:var(--p-peach-50-a35);   /* то же на тёмном */
   --color-surface-hover-on-sunken:var(--p-white-a55);/* наведение в сегменте на сиреневой подложке */
   --color-surface-hover-tint:var(--p-violet-70-a5);      /* наведение на строку отзыва */
+  --effect-shadow-s:0 1px 4px var(--p-indigo-100-a6),0 1px 2px var(--p-indigo-100-a6); /* активная кнопка сегмента (как в каталоге) */
   --effect-shadow-m:0 18px 44px -12px var(--p-indigo-100-a28),0 0 0 1px var(--p-indigo-100-a6);
   --effect-shadow-sticky:0 24px 40px -24px var(--p-indigo-100-a30);
   --effect-shadow-l:0 0 0 1px var(--p-white-a8),0 40px 120px -30px var(--p-night-a80);

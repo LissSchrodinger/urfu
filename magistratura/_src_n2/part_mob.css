@@ -280,3 +280,6 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 .pl .t51 th:first-child::before,.pl .t51 th:last-child::after{content:"";position:absolute;top:0;width:20px;height:20px;pointer-events:none}
 .pl .t51 th:first-child::before{left:0;background:radial-gradient(circle at 100% 100%,transparent 19.5px,var(--pg) 20px)}
 .pl .t51 th:last-child::after{right:0;background:radial-gradient(circle at 0 100%,transparent 19.5px,var(--pg) 20px)}
+/* переключатель вида — как в каталоге: кнопки 36 (сегмент 44, как у уровня), у активной лёгкая тень; иконки по пиксельной сетке, у таблицы — рамка с шапкой и колонкой (Василиса 20.11, Б) */
+.pl .vw button{height:36px}
+.pl .vw button.on{box-shadow:var(--effect-shadow-s)}
