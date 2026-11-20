@@ -96,7 +96,7 @@ main.n2 .zr .rmain q{font-size:32px!important;line-height:40px!important}
 main.n2 .zr .rside{border-left:0!important;border-top:1px solid var(--li)}
 
 /* FAQ */
-.fqg{grid-template-columns:1fr!important;gap:32px}
+.fqg{grid-template-columns:1fr!important;gap:40px} /* 20.11: шапка раздела → контент 40 */
 .fqg .st{position:static}
 
 /* финал и подвал */

@@ -1000,6 +1000,16 @@ main.n2 .fin .btn.c:hover{background:var(--color-fill-cta-on-media-hover)}
 /* 20.11 ревью кадра «новые знания»: подпись — 28/36, как слоган сравнения (одна роль — один размер); белый 100 % */
 @media (min-width:1024px){.kt p{font-size:28px;line-height:36px;margin-top:32px}}
 .kt p{opacity:1}
+
+/* ===== ревью FAQ (20.11) ===== */
+/* 1А: колонка заголовка — по самому длинному слову (на 1024–1439 заголовок наезжал на список); верх букв — по верхней линии */
+@media (min-width:1024px){main.n2 .fqg{grid-template-columns:min-content minmax(0,1fr)}main.n2 .fqg .st{margin-top:-.125em}}
+/* 2А: строка 32 сверху и снизу до видимого края; вопрос → ответ 16, ответ → линия 32 */
+main.n2 .fi button{padding:19px 0 3px}
+main.n2 .fi{padding-bottom:21px}
+main.n2 .fi .ans>div>:last-child{margin-bottom:9px}
+/* 3: наведение — плашка «+» как стрелки «Отзывов» */
+main.n2 .fi button:hover .pm{background:var(--color-level-spvo-bg)}
 /* ===== Подбор программы за 4 вопроса (компонент лендингов, 17.11, v2 окна) ===== */
 .pkf{position:fixed;right:24px;bottom:24px;z-index:400;display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 24px 0 16px;border:0;border-radius:12px;cursor:pointer;
   background:var(--color-surface-glass-contrast);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--color-text-on-media);font:500 14px/20px Golos;
@@ -1172,7 +1182,7 @@ main.n2 .zr .rmain q{font-size:32px!important;line-height:40px!important}
 main.n2 .zr .rside{border-left:0!important;border-top:1px solid var(--li)}
 
 /* FAQ */
-.fqg{grid-template-columns:1fr!important;gap:32px}
+.fqg{grid-template-columns:1fr!important;gap:40px} /* 20.11: шапка раздела → контент 40 */
 .fqg .st{position:static}
 
 /* финал и подвал */
@@ -1825,7 +1835,8 @@ const FQ=[
  ['Кому подойдёт специализированное высшее?',['Тем, кто уже понимает, для какой профессиональной задачи ему нужны дополнительные знания. Например, это может быть специалист, который хочет углубиться в конкретную отрасль, заняться исследованиями или перейти к управлению командами и проектами.']],
  ['Можно ли после специализированного высшего поступить в аспирантуру?',['Да. После окончания любой из программ специализированного высшего образования можно продолжить обучение в аспирантуре.']]];
 
-$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===0?' op':''}"><button aria-expanded="${i===0}"><span class="n">0${i+1}</span><span class="fq">${f[0]}</span><span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${t}</p>`).join('')}</div></div></div>`).join('');
+const NB=t=>t.replace(/(^|[\s(«])([А-Яа-яЁёA-Za-z]{1,2}) /g,'$1$2\u00a0'); /* 20.11: короткие слова не висят в конце строки */
+$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===0?' op':''}"><button aria-expanded="${i===0}"><span class="n">0${i+1}</span><span class="fq">${NB(f[0])}</span><span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${NB(t)}</p>`).join('')}</div></div></div>`).join('');
 document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.parentNode.classList.toggle('op');b.setAttribute('aria-expanded',o)});{const f=document.querySelector('.fi');if(f){f.classList.add('op');f.querySelector('button').setAttribute('aria-expanded',true)}}
 
 /* финал: мягкое свечение и грани */

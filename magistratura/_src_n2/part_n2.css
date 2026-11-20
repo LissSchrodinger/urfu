@@ -232,3 +232,13 @@ main.n2 .fin .btn.c:hover{background:var(--color-fill-cta-on-media-hover)}
 /* 20.11 ревью кадра «новые знания»: подпись — 28/36, как слоган сравнения (одна роль — один размер); белый 100 % */
 @media (min-width:1024px){.kt p{font-size:28px;line-height:36px;margin-top:32px}}
 .kt p{opacity:1}
+
+/* ===== ревью FAQ (20.11) ===== */
+/* 1А: колонка заголовка — по самому длинному слову (на 1024–1439 заголовок наезжал на список); верх букв — по верхней линии */
+@media (min-width:1024px){main.n2 .fqg{grid-template-columns:min-content minmax(0,1fr)}main.n2 .fqg .st{margin-top:-.125em}}
+/* 2А: строка 32 сверху и снизу до видимого края; вопрос → ответ 16, ответ → линия 32 */
+main.n2 .fi button{padding:19px 0 3px}
+main.n2 .fi{padding-bottom:21px}
+main.n2 .fi .ans>div>:last-child{margin-bottom:9px}
+/* 3: наведение — плашка «+» как стрелки «Отзывов» */
+main.n2 .fi button:hover .pm{background:var(--color-level-spvo-bg)}

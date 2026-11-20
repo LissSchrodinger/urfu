@@ -96,7 +96,8 @@ const FQ=[
  ['Кому подойдёт специализированное высшее?',['Тем, кто уже понимает, для какой профессиональной задачи ему нужны дополнительные знания. Например, это может быть специалист, который хочет углубиться в конкретную отрасль, заняться исследованиями или перейти к управлению командами и проектами.']],
  ['Можно ли после специализированного высшего поступить в аспирантуру?',['Да. После окончания любой из программ специализированного высшего образования можно продолжить обучение в аспирантуре.']]];
 
-$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===0?' op':''}"><button aria-expanded="${i===0}"><span class="n">0${i+1}</span><span class="fq">${f[0]}</span><span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${t}</p>`).join('')}</div></div></div>`).join('');
+const NB=t=>t.replace(/(^|[\s(«])([А-Яа-яЁёA-Za-z]{1,2}) /g,'$1$2\u00a0'); /* 20.11: короткие слова не висят в конце строки */
+$('#fq').innerHTML=FQ.map((f,i)=>`<div class="fi${i===0?' op':''}"><button aria-expanded="${i===0}"><span class="n">0${i+1}</span><span class="fq">${NB(f[0])}</span><span class="pm"></span></button><div class="ans"><div>${f[1].map(t=>`<p>${NB(t)}</p>`).join('')}</div></div></div>`).join('');
 document.querySelectorAll('.fi button').forEach(b=>b.onclick=()=>{const o=b.parentNode.classList.toggle('op');b.setAttribute('aria-expanded',o)});{const f=document.querySelector('.fi');if(f){f.classList.add('op');f.querySelector('button').setAttribute('aria-expanded',true)}}
 
 /* финал: мягкое свечение и грани */
