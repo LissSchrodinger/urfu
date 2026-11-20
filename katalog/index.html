@@ -847,6 +847,7 @@ html[data-hv] .rp{transition:none!important}
 .k2.p5on .p5{display:block}
 .p5r{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:var(--spacing-12);align-items:stretch}
 .p5w{position:relative;min-height:470px;border-radius:var(--radius-24);overflow:hidden;background:var(--color-path-first-hero);color:var(--w-ink,var(--color-text-on-accent));padding:var(--spacing-32) var(--spacing-36) var(--spacing-36);display:flex;flex-direction:column}
+.p5w.p5ok{--w-ink:#fff!important;--w-dim:#fff!important;--w-ln:rgba(255,255,255,.3)!important;--w-pl:rgba(255,255,255,.4)!important;color:#fff}
 .p5w svg.p5g{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .p5w > *:not(svg){position:relative}
 .p5bc{display:flex;gap:var(--spacing-6);font:500 14px/20px var(--font-family-base);color:var(--w-dim)}
@@ -860,11 +861,13 @@ html[data-hv] .rp{transition:none!important}
 .p5w h1{margin:var(--spacing-16) 0 0;max-width:none;font:600 56px/60px var(--font-family-base);letter-spacing:-.02em}
 .p5d{margin-top:var(--spacing-12);font:500 14px/20px var(--font-family-base);color:var(--w-dim)}
 .p5n{margin-top:auto;align-self:flex-end;display:flex;padding-top:var(--spacing-32)}
+.p5w.p5w0 .p5n{align-self:flex-start}
 .p5n div{padding:0 var(--spacing-28);border-left:1px solid var(--w-ln)}
 .p5n div:first-child{border:0;padding-left:0}
 .p5n div:last-child{padding-right:0}
 .p5n b{display:block;font:600 56px/1 var(--font-family-base);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .p5n span{display:block;margin-top:var(--spacing-10);font:500 14px/20px var(--font-family-base);color:var(--w-dim)}
+.p5nt b{font:600 32px/40px var(--font-family-base);letter-spacing:-.02em}
 .p5s{display:flex;flex-direction:column;background:var(--color-surface-primary);border-radius:var(--radius-24);padding:var(--spacing-28)}
 .p5c{padding:var(--spacing-16) 0;border-top:1px solid var(--color-border-primary)}
 .p5c:first-child{border:0;padding-top:0}
@@ -898,6 +901,7 @@ mark{color:inherit;border-radius:var(--radius-6);padding:1px var(--spacing-4);ma
 .p5l a + a{border-top:1px solid var(--color-border-primary)}
 .p5l a span{font:500 12px/16px var(--font-family-base);color:var(--color-text-tertiary)}
 .p5l a:hover{color:var(--color-text-tertiary)}
+.p5l a .p5ar{font:inherit;color:inherit}
 .p5 > .p5bc{color:var(--color-text-tertiary);margin-bottom:var(--spacing-16)}
 .p5 > .p5bc button:hover{color:var(--color-text-primary)}
 .p7{margin-top:var(--spacing-32);display:flex;flex-direction:column;gap:var(--spacing-12)}
@@ -2037,16 +2041,21 @@ const PR={
   fl:['Очная, 4 года','Частично на английском'],price:'390 000 ₽ в год',psub:'331 500 ₽ со скидкой — от 251 балла',
   ege:[['Русский язык',40],['Математика',40]],egeo:[['Обществознание',45],['Информатика',46],['Иностранный язык',40],['География',40],['История',40]],
   btn:['Посчитать мои баллы','Как поступить'],tabs:['Обзор','Траектории обучения','Преподаватели','Отзывы и выпускники','События','Документы']},
+ '10930':{g:0,n:'Химическая технология материалов современной энергетики',h:'Химическая технология материалов современной энергетики',crumb:['Первое высшее','Базовое высшее'],open:0,
+  d:'18.05.02 · Физико-технологический институт',num:[['29','бюджетных мест'],['3','платных места']],
+  fl:['Очная, 6 лет','Русский'],price:'275 000 ₽ в год',psub:'233 800 ₽ со скидкой, для граждан РФ',
+  ege:[['Русский язык',40],['Химия',40]],egeo:[['Информатика',46],['Математика',40],['Физика',41]],
+  btn:['Посчитать мои баллы','Как поступить'],tabs:['Обзор','Траектории обучения','Преподаватели','Отзывы и выпускники','Документы']},
  '9816':{g:1,n:'Технологии государственного и муниципального управления',h:'Технологии государственного и&nbsp;муниципального управления',crumb:['Есть диплом','Магистратура'],open:1,
   d:'38.04.04 Государственное и муниципальное управление · Институт экономики и управления',num:[['26','бюджетных мест'],['30','платных мест']],
   fl:['Заочная, 2,6 года','Русский'],price:'157 000 ₽ в год',psub:'Заочная форма, для граждан РФ',
   ex:'Вступительное испытание',exd:['Программа вступительных испытаний 38.04.04','Программа ВИ, 2026'],
   btn:['Как поступить','Учебный план'],tabs:['Обзор','Траектории обучения','Преподаватели','Отзывы и выпускники','Документы']},
  '10466':{g:2,n:'Ядерные энергетические установки, топливный цикл, радиационная безопасность',h:'Ядерные энергетические установки, топливный цикл, радиационная безопасность',crumb:['Хочу в науку','Аспирантура'],open:0,
-  d:'2.4.9 · Уральский энергетический институт',num:[['5','бюджетных мест'],['3','платных места']],
-  fl:['Очная, 4 года','Русский'],price:'265 000 ₽ в год',psub:'Очная форма, для граждан РФ',
+  d:'2.4.9 · Уральский энергетический институт',br:'Технические науки',
+  fl:['Очная, 4 года','Русский'],cost:'https://magister.urfu.ru/ru/documents/stoimost-obuchenija/',
   ex:'Вступительные испытания',exd:['Программа вступительных испытаний 2.4.9','Программа испытаний по иностранным языкам'],
-  btn:['Как поступить','Учебный план'],tabs:['Обзор','Научные руководители','Документы'],cond:'Места и стоимость — условные'}};
+  btn:['Как поступить','Учебный план'],tabs:['Обзор','Научные руководители','Документы']}};
 /* палитры окна (v44б: белый текст на любой грани ≥ 4,5:1; поле магистратуры чуть темнее #6E6DC5, аспирантуры — #248562 вместо #2a9a72): [поле, грани a1 a2, b, c1 c2, d1 d2, e1 e2, f1 f2, свечение, кнопка, текст кнопки, текст окна] */
 const PAL=[
  {bg:'#FF4D5E',a:['#ff8a72','#ff6268'],b:'#ff5864',c:['#e8405a','#FF4D5E'],d:['#ffb09c','#ff7478'],e:['#C93DB5','#e8467e'],f:['#ff6a6c','#FF9A3C'],gl:'#FF9A3C',gm:'#ffb36b',btn:'#FF4D5E',bt:'#141416',ink:'#141416',dim:'rgba(20,20,22,.72)',ln:'rgba(20,20,22,.22)',pl:'rgba(20,20,22,.32)'},
@@ -2061,11 +2070,11 @@ const html=P=>{const c=PAL[P.g];return `<nav class="p5bc" aria-label="Путь">
   <div class="p5pl"><span class="p5p">${P.crumb[1]}</span>${P.open?`<span class="p5p" tabindex="0" data-tip="${TIP}">Индивидуальная траектория</span>`:''}</div>
   <h1>${P.h}</h1>
   <div class="p5d">${P.d}</div>
-  <div class="p5n">${P.num.map(([b,t])=>`<div><b>${b}</b><span>${t}</span></div>`).join('')}</div>
+  ${P.num?`<div class="p5n">${P.num.map(([b,t])=>`<div><b>${b}</b><span>${t}</span></div>`).join('')}</div>`:`<div class="p5n p5nt"><div><b>${P.br}</b><span>научная отрасль</span></div></div>`}
  </div>
  <aside class="p5s">
   <div class="p5c p5c2"><div><small>Форма и срок</small><b>${P.fl[0]}</b></div><div><small>Язык</small><b>${P.fl[1]}</b></div></div>
-  <div class="p5c"><small>Стоимость</small><b>${P.price}</b><em>${P.psub}</em></div>
+  ${P.price?`<div class="p5c"><small>Стоимость</small><b>${P.price}</b><em>${P.psub}</em></div>`:`<div class="p5c"><div class="p5l"><a href="${P.cost}" target="_blank" rel="noopener">Стоимость и скидки<span class="p5ar">↗</span></a></div></div>`}
   <div class="p5c">${P.ege?`<small>Минимальные баллы ЕГЭ</small>${chips(P.ege)}<small>и одно из</small>${chips(P.egeo,1)}`:
    `<small>${P.ex}</small><div class="p5l">${P.exd.map(x=>`<a href="#" data-noop>${x}<span>PDF</span></a>`).join('')}</div>`}</div>
   <div class="p5a"><button type="button" class="p5b" style="background:${c.btn};color:${c.bt}">${P.btn[0]}</button><button type="button" class="p5b2">${P.btn[1]}</button></div>
@@ -2073,9 +2082,64 @@ const html=P=>{const c=PAL[P.g];return `<nav class="p5bc" aria-label="Путь">
 </div>
 ${P.cond?`<p class="p5m">${P.cond}</p>`:''}
 <div class="p5t" role="tablist">${P.tabs.map((n,i)=>`<button type="button" role="tab" aria-selected="${!i}" class="${i?'':'on'}">${n}</button>`).join('')}</div>`};
+/* v77 — окно программы: рисунок пути (эскизы 26 и 35 И2, артефакт «Окно программы · фигуры уровней»).
+   g=0 «Первое высшее» — «закручивание» кругами, вариант Б (20.11), поле #3E1339; g=1 «Есть диплом» — грани агентства в его цветах на ступень глубже, поле #33177F.
+   g=2 «Хочу в науку» — пока прежние лучи (Rays), рисунок ищем. Контраст текста в окне проверен на 9816 и 10071 (заголовок ≥ 3, подписи ≥ 4,5). */
+const OKNO=(()=>{let n=0;const rad=a=>a*Math.PI/180;
+ const hx=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),mx=(a,b,t)=>'#'+hx(a).map((v,i)=>Math.round(v+(hx(b)[i]-v)*t).toString(16).padStart(2,'0')).join('');
+ const BG=['#3E1339','#33177F'];
+ /* g=0 «Первое высшее» — «закручивание» на основе окна v80 (больше колец, резкие края) + жёлтый внизу кольца у дырки (как в A2, ниже),
+    поле #3E1339 (светлее v80 #2A0B27), кольцо r250→275, чтобы залить правый нижний угол; правый верхний угол погашен (край кольца заходил в скругление), нижний правый затемнён слабее. Вариант Б, 20.11. */
+ const circles=k=>{const B=BG[0],P={"O": {"x": 690, "y": 250}, "G": [[600, 40, -10, -15], [500, -30, 10, 40], [420, 10, 30, 300], [330, -36, 6, 135], [275, 4, 30, 0], [180, -28, 0, 200], [118, 0, 40, 90], [74, 4, 8, 270]], "RING": ["mg", "mg", "sc", "mg", "ap", "mg", "yl"], "CH": {"ap2": [[0, "#FF9A3C"], [0.5, "#FF4D5E"], [0.78, "#6E1563"]], "ap": [[0, "#FF9A3C"], [0.28, "#FF4D5E"], [0.55, "#6E1563"]], "sc": [[0, "#FF4D5E"], [0.3, "#C93DB5"], [0.58, "#6E1563"]], "mg": [[0, "#C93DB5"], [0.45, "#6E1563"]], "yl": [[0, "#FFC94A"], [0.2, "#FF9A3C"], [0.4, "#FF4D5E"], [0.6, "#6E1563"]]}, "h": 0.72, "blur": 0, "bs": 32, "corner": 0.35, "tr": 90},G=P.G,O=P.O,F={m:.62,e:.6,h:P.h},CH=P.CH,RING=P.RING;
+  let d=`<filter id="${k}bo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${P.bs}"/></filter>`,b=`<rect width="888" height="470" fill="${B}"/>`;
+  G.forEach(([r,dx,dy,a],i)=>{const cx=O.x+dx,cy=O.y+dy;if(i==G.length-1){b+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${B}"/>`;return}
+   const t=a*Math.PI/180,st=CH[RING[i]].map(([o,c],j)=>`<stop offset="${(o*F.m).toFixed(3)}" stop-color="${c}" stop-opacity="${j==0&&!/^y/.test(RING[i])?F.h:1}"/>`).join('');
+   d+=`<linearGradient id="${k}g${i}" gradientUnits="userSpaceOnUse" x1="${(cx+Math.cos(t)*r).toFixed(1)}" y1="${(cy+Math.sin(t)*r).toFixed(1)}" x2="${(cx-Math.cos(t)*r).toFixed(1)}" y2="${(cy-Math.sin(t)*r).toFixed(1)}">${st}<stop offset="${F.e}" stop-color="${B}"/></linearGradient>`;
+   b+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${k}g${i})"${i<P.blur?` filter="url(#${k}bo)"`:''}/>`});
+  d+=`<linearGradient id="${k}s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${B}"/><stop offset=".4" stop-color="${B}" stop-opacity=".88"/><stop offset=".58" stop-color="${B}" stop-opacity=".45"/><stop offset=".74" stop-color="${B}" stop-opacity="0"/></linearGradient>`;
+  d+=`<radialGradient id="${k}n" gradientUnits="userSpaceOnUse" cx="860" cy="470" r="330"><stop offset="0" stop-color="${B}" stop-opacity="${.82*P.corner}"/><stop offset=".55" stop-color="${B}" stop-opacity="${.55*P.corner}"/><stop offset="1" stop-color="${B}" stop-opacity="0"/></radialGradient>`;
+  d+=`<radialGradient id="${k}tr" gradientUnits="userSpaceOnUse" cx="888" cy="0" r="${P.tr}"><stop offset="0" stop-color="${B}"/><stop offset=".45" stop-color="${B}" stop-opacity=".85"/><stop offset="1" stop-color="${B}" stop-opacity="0"/></radialGradient>`;
+  return `<defs>${d}</defs>${b}<rect width="888" height="470" fill="url(#${k}s)"/><rect width="888" height="470" fill="url(#${k}n)"/>${P.tr?`<rect width="888" height="470" fill="url(#${k}tr)"/>`:''}`};
+ const facets=k=>{const [vx,vy]=[420,470],CO='#FF875C',FAR=1800,P=(a,r)=>[vx+Math.cos(rad(a))*r,vy+Math.sin(rad(a))*r];
+  const PL=[[-180,-158,'#5246BE',.3,220],[-158,-98,'#3B21A0',.2,160],[-98,-72,'#5A2FD8',.2,340],[-72,-54,'#5048C0',.18,300],[-54,-34,'#33177F',.2,220],[-34,-14,'#4D22C4',.22,440],[-14,0,'#2A1478',.2,200]];
+  let d='',b=`<rect width="888" height="470" fill="${BG[1]}"/>`;
+  PL.forEach(([a1,a2,t,li,bl],i)=>{const [x1,y1]=P(a1,FAR),[x2,y2]=P(a2,FAR),[ax,ay]=P(a1,500),[bx,by]=P(a2,500);
+   d+=`<linearGradient id="${k}l${i}" gradientUnits="userSpaceOnUse" x1="${ax.toFixed(0)}" y1="${ay.toFixed(0)}" x2="${bx.toFixed(0)}" y2="${by.toFixed(0)}"><stop offset="0" stop-color="${mx(t,'#8F8CF0',li)}"/><stop offset="1" stop-color="${mx(t,'#140A40',.15)}"/></linearGradient><radialGradient id="${k}c${i}" gradientUnits="userSpaceOnUse" cx="${vx}" cy="${vy}" r="${bl}"><stop offset="0" stop-color="${CO}" stop-opacity=".85"/><stop offset=".3" stop-color="${CO}" stop-opacity=".5"/><stop offset=".65" stop-color="#C77AC8" stop-opacity=".18"/><stop offset="1" stop-color="#C77AC8" stop-opacity="0"/></radialGradient>`;
+   const p=`M${vx} ${vy}L${x1.toFixed(0)} ${y1.toFixed(0)}L${x2.toFixed(0)} ${y2.toFixed(0)}Z`;b+=`<path d="${p}" fill="url(#${k}l${i})"/><path d="${p}" fill="url(#${k}c${i})"/>`});
+  return `<defs>${d}</defs>${b}`};
+
+ /* g=2 «Хочу в науку» — атом (К2 «с жизнью», эскиз 37): веер граней из ядра, как у «Есть диплом», + три орбиты широкими полупрозрачными плоскостями
+    (на пересечениях — грани), электроны на орбитах, свет ядра #55E0EC. К заголовку всё гаснет (маска слева). Цвета — путь «Хочу в науку» + доп. палитра концепта. */
+ /* g=2 «Хочу в науку» — атом v78: веер граней из ядра со светом ядра по граням (как коралл у «Есть диплом»), чередование светлых и тёмных граней,
+    три орбиты линиями с электронами, ядро — острая звезда из граней (светлая и тёмная половина у каждого луча). К заголовку гаснет маской. */
+ const atom=(k,o)=>{const B='#0A2E2A',N={x:o.nx,y:o.ny},P=(a,r)=>[N.x+Math.cos(rad(a))*r,N.y+Math.sin(rad(a))*r];let d='',b=`<rect width="888" height="470" fill="${B}"/>`,fig='';
+  const L=o.lc||'#55E0EC';
+  const F=[[-172,-128,'#0F4540',.18,260],[-128,-92,'#1E7D6E',.5,420],[-92,-62,'#0C3A35',.08,220],[-62,-30,'#239082',.55,480],[-30,4,'#0E4A4F',.12,300],[4,44,'#1A7A80',.45,440],[44,96,'#0C3A35',.08,240],[96,140,'#176A62',.4,380],[140,188,'#0C3A35',.1,260]];
+  F.forEach(([a1,a2,t,li,bl],i)=>{const [x1,y1]=P(a1,1600),[x2,y2]=P(a2,1600),[ax,ay]=P(a1,420),[bx,by]=P(a2,420);
+   d+=`<linearGradient id="${k}f${i}" gradientUnits="userSpaceOnUse" x1="${ax.toFixed(0)}" y1="${ay.toFixed(0)}" x2="${bx.toFixed(0)}" y2="${by.toFixed(0)}"><stop offset="0" stop-color="${mx(t,'#8FF2F7',li*o.fk)}"/><stop offset="1" stop-color="${mx(t,B,.25)}"/></linearGradient><radialGradient id="${k}fc${i}" gradientUnits="userSpaceOnUse" cx="${N.x}" cy="${N.y}" r="${bl*o.bk}"><stop offset="0" stop-color="${L}" stop-opacity="${o.gl}"/><stop offset=".3" stop-color="${L}" stop-opacity="${o.gl*.55}"/><stop offset=".65" stop-color="#2A9A72" stop-opacity=".18"/><stop offset="1" stop-color="#2A9A72" stop-opacity="0"/></radialGradient>`;
+   const p=`M${N.x} ${N.y}L${x1.toFixed(0)} ${y1.toFixed(0)}L${x2.toFixed(0)} ${y2.toFixed(0)}Z`;fig+=`<path d="${p}" fill="url(#${k}f${i})"/><path d="${p}" fill="url(#${k}fc${i})"/>`});
+  /* мягкий свет ядра — ПОД ядром, чтобы звезда оставалась резкой */
+  d+=`<radialGradient id="${k}n" gradientUnits="userSpaceOnUse" cx="${N.x}" cy="${N.y}" r="${o.gr}"><stop offset="0" stop-color="#8FF2F7" stop-opacity=".7"/><stop offset=".35" stop-color="${L}" stop-opacity=".25"/><stop offset="1" stop-color="${L}" stop-opacity="0"/></radialGradient>`;
+  fig+=`<circle cx="${N.x}" cy="${N.y}" r="${o.gr}" fill="url(#${k}n)"/>`;
+  const O=[[o.r0,'#8FE8E0'],[o.r0+60,'#55E0EC'],[o.r0+120,'#5FD0A3']];
+  d+=`<radialGradient id="${k}e"><stop offset="0" stop-color="#8FF2F7" stop-opacity=".8"/><stop offset=".4" stop-color="${L}" stop-opacity=".3"/><stop offset="1" stop-color="${L}" stop-opacity="0"/></radialGradient>`;
+  O.forEach(([a,c],i)=>{const ta=rad(a),x1=N.x-Math.cos(ta)*o.rx,y1=N.y-Math.sin(ta)*o.rx,x2=N.x+Math.cos(ta)*o.rx,y2=N.y+Math.sin(ta)*o.rx;
+   d+=`<linearGradient id="${k}o${i}" gradientUnits="userSpaceOnUse" x1="${x1.toFixed(0)}" y1="${y1.toFixed(0)}" x2="${x2.toFixed(0)}" y2="${y2.toFixed(0)}"><stop offset="0" stop-color="${c}" stop-opacity=".35"/><stop offset=".5" stop-color="#E6FFFC"/><stop offset="1" stop-color="${c}" stop-opacity=".8"/></linearGradient>`;
+   fig+=`<ellipse cx="${N.x}" cy="${N.y}" rx="${o.rx}" ry="${o.ry}" transform="rotate(${a} ${N.x} ${N.y})" fill="none" stroke="url(#${k}o${i})" stroke-width="${o.sw}"/>`;
+   const th=rad(o.el[i]),ex=Math.cos(th)*o.rx,ey=Math.sin(th)*o.ry,x=N.x+ex*Math.cos(ta)-ey*Math.sin(ta),y=N.y+ex*Math.sin(ta)+ey*Math.cos(ta);
+   fig+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="22" fill="url(#${k}e)"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" fill="#E6FFFC"/>`});
+  /* ядро — острая светлая звезда одним цветом, без граней; рисуется поверх маски, чтобы не серела */
+  const n=o.st[0],R=o.st[1],r=o.st[2],a0=o.st[3];let st='';const LT=['#F2FFFD','#F2FFFD','#F2FFFD'],DK=LT;
+  {let pts=[];for(let i=0;i<n;i++){const a=a0+i*360/n,Rr=i%2?R*o.st[4]:R,[tx,ty]=P(a,Rr),[rx2,ry2]=P(a+180/n,r);pts.push(tx.toFixed(1)+' '+ty.toFixed(1),rx2.toFixed(1)+' '+ry2.toFixed(1))}st+=`<path d="M${pts.join('L')}Z" fill="${LT[0]}"/>`}
+  d+=`<linearGradient id="${k}fd" gradientUnits="userSpaceOnUse" x1="${o.fx[0]}" y1="0" x2="${o.fx[1]}" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="${o.fl}"/><stop offset="1" stop-color="#fff"/></linearGradient><radialGradient id="${k}cg"><stop offset="0" stop-color="#000" stop-opacity=".75"/><stop offset=".55" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+   <mask id="${k}m"><rect width="888" height="470" fill="url(#${k}fd)"/>${(o.cut||[]).map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="url(#${k}cg)"/>`).join('')}</mask>`;
+  return `<defs>${d}</defs>${b}<g mask="url(#${k}m)">${fig}</g>${st}`};
+ window.ATOM={nx:770,ny:250,rx:380,ry:124,r0:-18,el:[335,150,15],gr:150,fk:1,bk:1.1,gl:.85,sw:3,lc:'#55E0EC',st:[12,70,13,-90,.5],fx:[480,720],fl:.12,cut:[[690,428,250],[700,100,160],[600,190,100]]};
+ return (svg,w,g)=>{const k='ok'+(n++);svg.setAttribute('viewBox','0 0 888 470');svg.setAttribute('preserveAspectRatio','xMaxYMid slice');
+  svg.innerHTML=g==2?atom(k,window.ATOM):g?facets(k):circles(k);w.style.background=g==2?'#0A2E2A':BG[g];w.classList.add('p5ok');w.classList.toggle('p5w0',!g);return true}})();
 const el=document.createElement('div');el.className='p5';el.id='p5';k2.appendChild(el);
 let y0=0,unb=null;
-const open=id=>{const P=PR[id];if(!P)return;el.innerHTML=html(P)+(window.p5body?p5body(id):'');if(window.Rays){unb&&unb();const w=el.querySelector('.p5w');unb&&unb();unb=Rays.bind(el.querySelector('.p5w'),Rays.make(el.querySelector('.p5g'),PAL[P.g],{mode:'LD',intro:false}))}el.dataset.g=P.g;y0=scrollY;k2.classList.add('p5on');scrollTo(0,0)};
+const open=id=>{const P=PR[id];if(!P)return;el.innerHTML=html(P)+(window.p5body?p5body(id):'');if(OKNO(el.querySelector('.p5g'),el.querySelector('.p5w'),P.g)){unb&&unb();unb=null}else if(window.Rays){unb&&unb();const w=el.querySelector('.p5w');unb&&unb();unb=Rays.bind(el.querySelector('.p5w'),Rays.make(el.querySelector('.p5g'),PAL[P.g],{mode:'LD',intro:false}))}el.dataset.g=P.g;y0=scrollY;k2.classList.add('p5on');scrollTo(0,0)};
 const close=()=>{unb&&unb();unb=null;k2.classList.remove('p5on');try{if(location.hash)history.replaceState(null,'',location.pathname+location.search)}catch(e){}requestAnimationFrame(()=>scrollTo(0,y0))};
 window.p5open=open;window.p5close=close;
 el.addEventListener('click',e=>{if(e.target.closest('[data-p5back]'))close();if(e.target.closest('[data-noop]'))e.preventDefault();const t=e.target.closest('.p5t button');if(t)el.querySelectorAll('.p5t button').forEach(b=>{b.classList.toggle('on',b===t);b.setAttribute('aria-selected',b===t)})});
