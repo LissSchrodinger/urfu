@@ -17,7 +17,7 @@
   --p-white-a6:rgb(255 255 255/.06); --p-white-a12:rgb(255 255 255/.12); --p-white-a14:rgb(255 255 255/.14);
   --p-white-a22:rgb(255 255 255/.22); --p-white-a55:rgb(255 255 255/.55); --p-white-a60:rgb(255 255 255/.6);
   --p-white-a72:rgb(255 255 255/.72);
-  --p-indigo-ink-a70:rgb(12 6 40/.7); --p-lilac-10-a82:rgb(244 242 251/.82); --p-indigo-90-a86:rgb(29 14 90/.86);
+  --p-indigo-ink-a70:rgb(12 6 40/.7); --p-lilac-10-a94:rgb(244 242 251/.94); --p-indigo-90-a86:rgb(29 14 90/.86);
 }
 :root{
   /* фон и поверхности */
@@ -30,7 +30,7 @@
   --color-surface-on-contrast:var(--p-white-a6);  /* плашка на тёмном */
   --color-surface-on-contrast-hover:var(--p-white-a12);
   --color-surface-on-contrast-active:var(--p-white-a22);
-  --color-surface-glass:var(--p-lilac-10-a82);
+  --color-surface-glass:var(--p-lilac-10-a94);
   --color-surface-glass-contrast:var(--p-indigo-90-a86);
   --color-overlay-primary:var(--p-indigo-ink-a70);
   --color-fill-accent:var(--p-violet-70);         /* фиолетовая заливка: бейдж, активный шаг */

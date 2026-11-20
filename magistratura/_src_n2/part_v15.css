@@ -15,7 +15,7 @@
 /* v16 (16.11, 23:30) */
 .cg h3{margin-bottom:28px}
 /* даты на первом экране — белым: коралл давал 2,4–3,4:1 */
-.hero .dates dd,.dates dd{color:var(--co)!important;font-weight:600!important}.dates dt{opacity:.85}
+.hero .dates dd,.dates dd{color:var(--color-text-on-media)!important;font-weight:600!important} /* 20.11 Василиса: даты белым жирным — коралл на гранях не читался */.dates dt{opacity:.85}
 /* финал без подзаголовка */
 .fin .h1{margin-bottom:40px}
 /* переключатели — сегментом: одна подложка, активный пункт плашкой */

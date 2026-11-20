@@ -13,8 +13,8 @@
 .anv a:focus-visible{outline:2px solid var(--color-fill-accent);outline-offset:4px;border-radius:6px}
 .ah.onhero{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
 .ah.onhero .ahi>a{color:var(--color-text-on-media)}.ah.onhero .logo path[fill="#E50046"]{fill:var(--color-text-on-media)}
-.ah.onhero .anv a{color:var(--color-text-on-media-secondary)}.ah.onhero .anv a:hover{color:var(--color-text-on-media)}
+.ah.onhero .anv a{color:var(--color-text-on-media)}.ah.onhero .anv a:hover{color:var(--color-text-on-media)}
 @media (prefers-reduced-motion:reduce){.anv a::after{transition:none}}
 .ah .logo{height:32px;color:var(--color-text-primary);transition:color .35s}
-.ah:not(.onhero) .logo path[fill="#E50046"]{fill:var(--color-brand)}
+.ah:not(.onhero) .logo path[fill="#E50046"]{fill:currentColor} /* 20.11 Василиса: на светлом логотип одноцветный тёмный */
 .ah.onhero .logo{color:var(--color-text-on-media)}

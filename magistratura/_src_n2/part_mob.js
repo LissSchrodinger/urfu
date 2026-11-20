@@ -3,7 +3,8 @@
 if(ah&&b){const set=o=>{ah.classList.toggle('open',o);b.setAttribute('aria-expanded',o)};
  b.onclick=()=>set(!ah.classList.contains('open'));
  ah.querySelectorAll('.anv a').forEach(a=>a.addEventListener('click',()=>set(false)));
- addEventListener('keydown',e=>{if(e.key==='Escape')set(false)})}
+ addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
+ ah.addEventListener('click',e=>{if(e.target===ah)set(false)})}
 const mq=matchMedia('(max-width:1023px)');let keep=null;
 const ap=()=>{if(typeof S==='undefined'||typeof draw!=='function')return;
  if(mq.matches){if(S.v!=='cards'){keep=S.v;S.v='cards';draw()}}
@@ -39,4 +40,12 @@ document.querySelectorAll('#compare dd').forEach(d=>{const w=document.createTree
 
 /* 20.11 фон первого экрана: ≤1023 — правая часть веера (у вершины слева внизу коралл, на нём пропадают коралловые даты) */
 (()=>{const s=document.querySelector('.top>svg.figbg');if(!s)return;const m=matchMedia('(max-width:1023px)');
-const f=()=>s.setAttribute('preserveAspectRatio',m.matches?'xMaxYMax slice':'xMinYMax slice');f();m.addEventListener('change',f)})();
+/* 20.11 Василиса (А): ≤1023 — вершина веера у левого края на уровне кнопок, как на десктопе; низ кадра (956) — по низу экрана */
+const t=s.parentNode,acts=t.querySelector('.hero .acts');
+const sc=s.querySelector('.mscrim');
+const f=()=>{if(!m.matches||!acts){s.setAttribute('viewBox','0 60 1440 896');s.setAttribute('preserveAspectRatio','xMinYMax slice');if(sc)sc.setAttribute('width',0);return}
+  const tr=t.getBoundingClientRect(),w=tr.width,H=tr.height,ya=acts.getBoundingClientRect().top-tr.top-16,k=1.2; /* 1,2 ед. на px: свечение вершины почти как на десктопе, веер виден шире */
+  s.setAttribute('viewBox',`0 ${(700-ya*k).toFixed(1)} ${(w*k).toFixed(1)} ${(H*k).toFixed(1)}`);s.setAttribute('preserveAspectRatio','xMinYMin meet');
+  /* затемнение сверху до вершины: на узких свечение вершины крупное, белые заголовки на нём < 3 : 1 */
+  if(sc){sc.setAttribute('y',(700-ya*k).toFixed(1));sc.setAttribute('width',(w*k).toFixed(1));sc.setAttribute('height',(ya*k).toFixed(1))}};
+f();m.addEventListener('change',f);addEventListener('resize',f);new ResizeObserver(f).observe(t)})();

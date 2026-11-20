@@ -48,4 +48,6 @@ let k=0;
 function step(){k=(k+1)%SL.length;
   if(RM){mount(wEl,SL[k][0]);if(lEl&&!window.LEADFIX)mount(lEl,SL[k][1]);return}
   swap(wEl,SL[k][0],0);if(lEl&&!window.LEADFIX)swap(lEl,SL[k][1],120)}
-if(!/static/.test(location.search))window.HT=setInterval(step,4000);
+/* 20.11 Василиса (Б): цикл бесконечный, но пауза при наведении на слоган и когда вкладка скрыта; при «уменьшить движение» слово не меняется */
+let hold=false;const t2=document.querySelector('.hero .t2');if(t2){t2.addEventListener('pointerenter',()=>hold=true);t2.addEventListener('pointerleave',()=>hold=false)}
+if(!/static/.test(location.search)&&!RM)window.HT=setInterval(()=>{if(!hold&&!document.hidden)step()},4000);

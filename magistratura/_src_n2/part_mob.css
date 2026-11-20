@@ -21,22 +21,22 @@ main.n2 .zr .rs{padding-left:0!important}
 .ahb:focus-visible{outline:2px solid var(--color-fill-accent);outline-offset:2px}
 .anv{position:absolute;left:0;right:0;top:64px;flex-direction:column;gap:0;padding:8px var(--pad) 24px;background:var(--color-bg-primary);box-shadow:var(--effect-shadow-sticky);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,transform .3s,visibility 0s .3s}
 .ah.open{background:var(--color-bg-primary)!important;-webkit-backdrop-filter:blur(16px)!important;backdrop-filter:blur(16px)!important}
-.ah.open .ahi>a{color:var(--color-text-primary)!important}.ah.open .logo path[fill="#E50046"]{fill:var(--color-brand)!important}.ah.open .logo{color:var(--color-text-primary)!important}.ah.open .ahb{color:var(--color-text-primary)}
+.ah.open .ahi>a{color:var(--color-text-primary)!important}.ah.open .logo path[fill="#E50046"]{fill:currentColor!important}.ah.open .logo{color:var(--color-text-primary)!important}.ah.open .ahb{color:var(--color-text-primary)}
 .ah.open .anv{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .3s}
-.anv a,.ah.onhero .anv a{color:var(--color-text-primary);font:500 18px/24px Golos;padding:12px 0;border-bottom:1px solid var(--color-border-primary)}
+.anv a,.ah.onhero .anv a{color:var(--color-text-primary);font:500 18px/24px Golos;padding:16px 0;border-bottom:0}
 .ah .anv a:last-child{border-bottom:0!important}
 .anv a::after{display:none}
 .anv a.on{color:var(--color-text-accent)}
 
 /* первый экран: из абсолютной раскладки — в поток */
-.hM{height:auto;padding:128px var(--pad) 96px;display:flex;flex-direction:column}
+.hM{height:auto;padding:128px var(--pad) 80px;display:flex;flex-direction:column}
 .hM .h1{position:static;font-size:56px;line-height:56px}
 .hM .t1{left:auto;top:auto}
-.hM .t2{left:auto;top:auto;margin-top:32px}
+.hM .t2{left:auto;top:auto;margin-top:32px;text-align:right} /* 20.11 Василиса: на планшете «новые …» по правому полю, как на десктопе */
 .hM .bar{position:static;margin-top:48px;padding-top:32px;flex-direction:column;align-items:stretch;gap:32px}
 .bar .acts{flex-wrap:wrap}
 .dates{gap:32px}
-.top{padding-bottom:48px}
+.top{padding-bottom:16px} /* 20.11 Василиса: под датами было много места — от дат до верхней точки среза 48 */
 .top::after{height:48px}
 
 /* заголовки разделов */
@@ -110,7 +110,7 @@ main.n2 .zr .rside{border-left:0!important;border-top:1px solid var(--li)}
 :root{--pad:16px}
 .hM{padding:112px var(--pad) 80px}
 .hM .h1{font-size:40px;line-height:42px}
-.hM .t2{margin-top:24px}
+.hM .t2{margin-top:24px;text-align:left}
 .bar .acts{flex-direction:column}
 .bar .acts .btn{width:100%;justify-content:center}
 .dates{flex-direction:column;gap:16px}
@@ -244,3 +244,14 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 .zh2 .sp4 .ln a:after{margin-top:calc((1lh - 16px)/2)!important}
 .zh2 .sp4 .ln a:hover:after{transform:translate(2px,-2px)}
 .zh2 .sp4 .ln a.in:hover:after,.cgo:hover:after{transform:translateX(3px)}
+
+/* 20.11 Василиса: меню без разделителей, под меню — затемнение страницы (клик закрывает) */
+.ah::before{content:"";position:absolute;left:0;right:0;top:64px;height:100dvh;background:var(--color-overlay-primary);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+.ah.open::before{opacity:1;visibility:visible;transition:opacity .3s}
+@media (min-width:1024px){.ah::before{display:none}}
+
+/* скрытый текст для скринридера */
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* 20.11 ≤1023: срез первого экрана — обрезкой самого фона (срез из Figma при другом масштабе ложился на даты) */
+@media (max-width:1023px){.top{background:var(--pg)}.top>svg.figbg .pgcut{display:none}.top>svg.figbg{clip-path:polygon(0 0,100% 0,100% calc(100% - 64px),0 calc(100% - 16px))}}

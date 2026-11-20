@@ -71,25 +71,26 @@ fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(tk);documen
    вершина веера — (0, 902) в координатах группы .fan (группа перекошена: на экране вершина у линии над кнопками). Слой света — копия грани с градиентом вдоль её оси, soft-light. */
 /* 20.11 — та же функция светит и в финале (svg.finbg, фон повёрнут на 180°: координаты курсора переводятся через getScreenCTM группы, поворот учитывается сам). */
 const figLight=(s,pre)=>{if(!s||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-const defs=s.querySelector('defs'),P={x:0,y:902},K=.14,PW=3,BAND=380;
-const faces=[...s.querySelectorAll('.fan path[fill*="_linear"]')];if(!faces.length)return;const host=faces[0].parentNode;
-const F=faces.map((p,i)=>{const m=p.getAttribute('d').match(/-?\d*\.?\d+(?:e-?\d+)?/g).map(Number);let sx=0,sy=0,n=0;
+const defs=s.querySelector('defs'),P0={x:0,y:902},K=.14,PW=3,BAND=380;
+/* 20.11 Василиса: свет и по нижним граням — под линией вершины, вне перекошенной группы .fan (вершина там (0,700)) */
+const faces=[...s.querySelectorAll('.fan path[fill*="_linear"],.lowf')];if(!faces.length)return;
+const F=faces.map((p,i)=>{const low=p.classList.contains('lowf'),P=low?{x:0,y:700}:P0,host=p.parentNode;const m=p.getAttribute('d').match(/-?\d*\.?\d+(?:e-?\d+)?/g).map(Number);let sx=0,sy=0,n=0;
   for(let k=2;k+1<m.length;k+=2){sx+=m[k]-P.x;sy+=m[k+1]-P.y;n++}const a=Math.atan2(sy/n,sx/n);
   defs.insertAdjacentHTML('beforeend',`<linearGradient id="${pre}${i}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF875C" stop-opacity="0"/><stop offset=".5" stop-color="#FFB08F" stop-opacity=".95"/><stop offset="1" stop-color="#FF875C" stop-opacity="0"/></linearGradient>`);
   const w=p.cloneNode();w.setAttribute('fill',`url(#${pre}${i})`);w.setAttribute('opacity','0');w.style.mixBlendMode='soft-light';
   const nx=p.nextElementSibling;(nx&&nx.getAttribute('d')===p.getAttribute('d')?nx:p).after(w);
-  return {a,w,g:defs.querySelector('#'+pre+i),v:0,t:0,r:300,rt:300}});
+  return {a,w,P,host,g:defs.querySelector('#'+pre+i),v:0,t:0,r:300,rt:300}});
 let raf=0;const tick=()=>{raf=0;let more=false;
   F.forEach(f=>{f.v+=(f.t-f.v)*K;f.r+=(f.rt-f.r)*K;if(Math.abs(f.t-f.v)>.002||Math.abs(f.rt-f.r)>.5)more=true;
     f.w.setAttribute('opacity',Math.max(0,f.v).toFixed(3));const r0=f.r-BAND,r1=f.r+BAND,cx=Math.cos(f.a),cy=Math.sin(f.a);
-    f.g.setAttribute('x1',(P.x+cx*r0).toFixed(1));f.g.setAttribute('y1',(P.y+cy*r0).toFixed(1));f.g.setAttribute('x2',(P.x+cx*r1).toFixed(1));f.g.setAttribute('y2',(P.y+cy*r1).toFixed(1))});
+    f.g.setAttribute('x1',(f.P.x+cx*r0).toFixed(1));f.g.setAttribute('y1',(f.P.y+cy*r0).toFixed(1));f.g.setAttribute('x2',(f.P.x+cx*r1).toFixed(1));f.g.setAttribute('y2',(f.P.y+cy*r1).toFixed(1))});
   if(more)raf=requestAnimationFrame(tick)};
 const go=()=>{if(!raf)raf=requestAnimationFrame(tick)};
 const sm=(x,a,b)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)};
 addEventListener('pointermove',e=>{const r=s.getBoundingClientRect();if(e.clientY<r.top-80||e.clientY>r.bottom+80){F.forEach(f=>f.t=0);go();return}
-  const m=host.getScreenCTM();if(!m)return;const q=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());
-  const dx=q.x-P.x,dy=q.y-P.y,ca=Math.atan2(dy,dx),d=Math.hypot(dx,dy),near=sm(d,40,340);
-  F.forEach(f=>{const c=Math.cos(ca-f.a);f.t=c>0?Math.pow(c,PW)*near:0;f.rt=d*Math.max(.25,c)});go()},{passive:true});
+  F.forEach(f=>{const m=f.host.getScreenCTM();if(!m)return;const q=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());
+  const dx=q.x-f.P.x,dy=q.y-f.P.y,ca=Math.atan2(dy,dx),d=Math.hypot(dx,dy),near=sm(d,40,340);
+  const c=Math.cos(ca-f.a);f.t=c>0?Math.pow(c,PW)*near:0;f.rt=d*Math.max(.25,c)});go()},{passive:true});
 document.addEventListener('pointerleave',()=>{F.forEach(f=>f.t=0);go()},{passive:true});
 };
 figLight(document.querySelector('.top>svg.figbg'),'fbl');
