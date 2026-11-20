@@ -222,3 +222,25 @@ html.fsh-lock{overflow:hidden}
 /* 20.11 — фон первого экрана из Figma: на планшете и телефоне показываем правую часть веера —
    у вершины веера (слева внизу) коралл, на нём не читаются коралловые даты. Звезда на телефоне не помещается в строку. */
 @media (max-width:767px){.hM .spark{display:none}}
+
+/* 20.11 · Василиса: крупные заголовки баннеров одного размера — финал = кадр «новые знания» (120 при 1440) */
+.fin .h1{font-size:calc(var(--u)*120)!important;line-height:calc(var(--u)*108)!important}
+@media (max-width:1023px){.fin .h1{font-size:56px!important;line-height:60px!important}}
+@media (max-width:767px){.fin .h1{font-size:40px!important;line-height:48px!important}}
+
+/* 20.11 · Василиса: заголовки шагов «Как поступить» — высота кратна строке (32), ссылки под ними на одной линии */
+.zh2 .sp4 h3{min-height:64px}
+@media (max-width:1360px){.zh2 .sp4 h3{min-height:96px}}
+@media (min-width:768px) and (max-width:1023px){.zh2 .sp4 h3{min-height:64px!important}}
+
+/* 20.11 · Василиса, правило стрелок (вариант А): текст — цвет текста, стрелка — акцентная, одна иконка 16 px (↗ наружу, → внутрь);
+   кегль — как у соседнего текста; зазор 8; наведение — пунктир под текстом, стрелка сдвигается на 3 px по своему направлению */
+.zh2 .sp4 .ln a,.cgo{gap:8px!important;color:var(--ink2)!important}
+.cgo{font-size:inherit!important;line-height:inherit!important;align-items:flex-start}
+html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!important;opacity:1!important;transition:transform .3s}
+.cgo:after{content:""!important;flex:none;width:16px;height:16px;margin-top:calc((1lh - 16px)/2);
+ -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 8h11M9.5 4l4 4-4 4'/%3E%3C/svg%3E") center/16px no-repeat;
+ mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 8h11M9.5 4l4 4-4 4'/%3E%3C/svg%3E") center/16px no-repeat}
+.zh2 .sp4 .ln a:after{margin-top:calc((1lh - 16px)/2)!important}
+.zh2 .sp4 .ln a:hover:after{transform:translate(2px,-2px)}
+.zh2 .sp4 .ln a.in:hover:after,.cgo:hover:after{transform:translateX(3px)}
