@@ -226,5 +226,5 @@ main.n2 .fi .n{margin-top:10px}
 main.n2 .fin .btn.c{background:var(--color-fill-cta-on-media);color:var(--color-text-primary)}
 main.n2 .fin .btn.c:hover{background:var(--color-fill-cta-on-media-hover)}
 /* 20.11 — «Получить консультацию» на гранях: подложка-стекло из ДС (Василиса: «нужен какой-то фон»). Первый экран и финал одинаково */
-.top .hM .btn.o,main.n2 .fin .btn.o{background:var(--color-surface-on-contrast-hover);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-.top .hM .btn.o:hover,main.n2 .fin .btn.o:hover{background:var(--color-surface-on-contrast-active)}
+.top .hM .btn.o,main.n2 .fin .btn.o{background:var(--color-surface-glass-tint);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.top .hM .btn.o:hover,main.n2 .fin .btn.o:hover{background:var(--color-surface-glass-tint-hover)}

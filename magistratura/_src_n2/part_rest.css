@@ -50,7 +50,7 @@ body{background:var(--color-surface-contrast)}
 .seg button{border:0;height:40px;padding:0 16px;border-radius:999px;background:var(--color-surface-on-contrast-hover);color:var(--color-text-on-media);font:500 14px/20px Golos;cursor:pointer;transition:background .3s,color .3s}
 .seg button:hover{background:var(--color-surface-on-contrast-active)}
 .seg button.on{background:var(--color-surface-primary);color:var(--color-text-primary)}
-.seg button i{font-style:normal;opacity:.55;margin-left:6px}
+.seg button i{font-style:normal;color:var(--color-text-tertiary);margin-left:6px}
 .fl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
 .sel{position:relative}
 .sel select{appearance:none;height:40px;border:0;border-radius:999px;background:var(--color-surface-on-contrast-hover);color:var(--color-text-on-media);padding:0 36px 0 16px;font:500 14px/20px Golos;cursor:pointer;outline:none}

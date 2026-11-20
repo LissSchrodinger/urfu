@@ -263,3 +263,20 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 .zc .cg h3{gap:8px}
 @media (max-width:1023px){.zc .cg h3{gap:8px!important}.zc .cft{font:400 14px/20px Golos}}
 @media (max-width:767px){.zc .cg h3 .sl{display:none!important}.zc .cg h3{gap:0!important}} /* 20.11 Василиса: на телефоне без косой черты */
+
+/* 20.11 — ревью «Программ» (Василиса: 1А 2А 3А 4Б 5А 6А) */
+/* таблица: числа вправо — разряды друг под другом */
+.pl .t51 td.t51d,.pl .t51 th:nth-child(3),.pl .t51 th:nth-child(4){text-align:right;padding-right:24px!important}
+/* стрелка в таблице: в покое бледная, при наведении на строку — акцент (правило стрелок) */
+.pl .t51 td.t51x{color:var(--color-text-tertiary)}
+.pl .t51 tbody tr:hover td.t51x{color:var(--color-text-accent)}
+/* пагинация: шеврон «‹» — по полю контента */
+.pgn{margin-left:-12px}
+/* таблица — на белой карточке по полям контента, как строки и плитка (Василиса 20.11, вариант А; заменяет «на линиях без карточки» 16.11) */
+.pl .tb{background:var(--color-surface-primary)!important;border-radius:20px!important;margin:0!important;overflow:clip}
+.pl .t51 th{background-color:var(--color-surface-primary)!important}
+.pl .t51 tbody tr:last-child td{background-size:0 0!important}
+/* прилипшая шапка — тоже со скруглёнными верхними углами: углы закрыты цветом страницы, строки под ними не просвечивают */
+.pl .t51 th:first-child::before,.pl .t51 th:last-child::after{content:"";position:absolute;top:0;width:20px;height:20px;pointer-events:none}
+.pl .t51 th:first-child::before{left:0;background:radial-gradient(circle at 100% 100%,transparent 19.5px,var(--pg) 20px)}
+.pl .t51 th:last-child::after{right:0;background:radial-gradient(circle at 0 100%,transparent 19.5px,var(--pg) 20px)}

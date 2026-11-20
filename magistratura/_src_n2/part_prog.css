@@ -11,7 +11,8 @@
 .pl .sel:after{border-color:var(--color-text-primary)}
 .pl .chk{background:var(--color-surface-primary);color:var(--color-text-primary)}.pl .chk:hover{background:var(--color-surface-sunken)}
 .pl .chk i{border-color:var(--color-border-control)}.pl .chk.on i{background:var(--color-fill-accent);border-color:var(--color-fill-accent)}.pl .chk i svg{stroke:var(--color-text-on-media)}
-.pl .srch input{background:var(--color-surface-primary);color:var(--color-text-primary);box-shadow:inset 0 0 0 1px var(--color-border-primary)}
+.pl .srch input{background:var(--color-surface-primary);color:var(--color-text-primary);box-shadow:none}
+.pl .srch:hover input:not(:focus){box-shadow:inset 0 0 0 1px var(--color-border-hover)}
 .pl .srch input:focus{background:var(--color-surface-primary);box-shadow:inset 0 0 0 1px var(--color-text-primary)}
 .pl .srch input::placeholder{color:var(--color-text-tertiary)}.pl .srch svg{stroke:var(--color-text-tertiary)}
 .pl .cnt{font:500 20px/28px Golos;color:var(--color-text-primary)}
@@ -28,11 +29,12 @@
 .pl .t51 tbody tr:last-child td:first-child{border-bottom-left-radius:18px}.pl .t51 tbody tr:last-child td:last-child{border-bottom-right-radius:18px}
 .k25l{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:8px;background:var(--color-level-spvo-bg);color:var(--color-text-primary);font:600 12px/16px Golos;white-space:nowrap}
 .pl .t51n{display:block;margin-top:8px;font:500 14px/20px Golos}
-.pl .cd64{font:400 14px/20px Golos;color:var(--color-text-tertiary);margin-left:4px;white-space:nowrap}
+.pl .cd64{font:400 14px/20px Golos;color:var(--color-text-tertiary);white-space:nowrap}
+/* зазор название–код 8: пробел шире на 4; при переносе пробел висит в конце строки, код встаёт ровно по левому краю (20.11) */
+.pl .cd64s{word-spacing:4px}
 .pl .t51d{padding-top:16px!important;font:600 14px/20px Golos;font-variant-numeric:tabular-nums}
 .pl .t51i{padding-top:16px!important;color:var(--color-text-secondary)}
 .pl .t51x{color:var(--color-text-tertiary);text-align:right;padding-top:16px!important;padding-right:20px!important}
-.pl tr:hover .t51x,.pl .rw:hover .t51x{color:var(--color-text-primary)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .pl .rw{background:var(--color-surface-primary);color:var(--color-text-primary);grid-template-columns:minmax(0,1fr);gap:0;padding:20px}
 .pl .rw:hover{background:color-mix(in srgb,var(--color-fill-accent) 5%,var(--color-surface-primary))}

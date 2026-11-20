@@ -13,7 +13,6 @@
 .panel.p1{border-radius:24px 24px 0 0;padding-bottom:40px}
 #programs.pl{margin:0 20px!important;border-radius:0 0 24px 24px!important;padding-top:72px!important}
 /* наведение на строку — заметно темнее сиреневой панели */
-.pl .t51 tbody tr:hover .t51x,.pl .rw:hover .t51x{color:var(--color-text-accent)}
 /* «Как поступить»: стрелки — цветом текста и одной толщины, подчёркивание пунктиром и только под текстом */
 .sp4 .ln a:after{content:"";flex:none;width:16px;height:16px;margin-top:4px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center/16px no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 11.5l7-7M6 4.5h5.5V10'/%3E%3C/svg%3E") center/16px no-repeat;opacity:.7;transition:opacity .2s}
 .sp4 .ln a.in:after{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 8h11M9.5 4l4 4-4 4'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 8h11M9.5 4l4 4-4 4'/%3E%3C/svg%3E")}
@@ -76,7 +75,6 @@
 .pfan,.slg{display:none!important}
 #programs{margin-bottom:120px!important}
 /* наведение на строки программ — светлые оттенки по очереди */
-.pl .t51 tbody tr:hover .t51x,.pl .rw:hover .t51x{color:var(--color-text-primary)}
 /* ничего не нашлось — без подложки */
 .pl .empty{background:none!important;padding:48px 0;text-align:left}
 /* видео — наведение как в таблице: на всю ширину, без скруглений, содержимое с отступом */
