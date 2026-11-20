@@ -218,3 +218,7 @@ html.fsh-lock{overflow:hidden}
 .pl .fl .ddb,.pl .fl .chk,.pl .fl .srch input{height:44px}
 .pl .fl .srch svg{top:14px}
 }
+
+/* 20.11 — фон первого экрана из Figma: на планшете и телефоне показываем правую часть веера —
+   у вершины веера (слева внизу) коралл, на нём не читаются коралловые даты. Звезда на телефоне не помещается в строку. */
+@media (max-width:767px){.hM .spark{display:none}}

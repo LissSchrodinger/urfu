@@ -202,3 +202,29 @@ main.n2 .zr .rmain .qm{font:600 120px/1 Golos;height:56px;overflow:visible;lette
 main.n2 .fi button{align-items:start}
 main.n2 .fi .fq{padding:6px 0}
 main.n2 .fi .n{margin-top:10px}
+
+/* 20.11 — фон первого экрана из Figma (фрейм 63:159 Василисы): веер граней из левого нижнего угла, коралловое свечение, косой срез.
+   Срез — внутри SVG (цвет страницы), старый срез .top::after и лучи под «Есть диплом» не нужны. Звезда — у «магистратуры». */
+.top>svg.figbg{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none}
+.top::after{display:none}
+.hM .spark{display:inline-block;width:.39em;height:.39em;margin-left:.16em;vertical-align:baseline;position:relative;top:-.59em}
+.hM .btn.c{background:var(--color-fill-cta-on-media);color:var(--color-text-primary)}
+.hM .btn.c:hover{background:var(--color-fill-cta-on-media-hover)}
+/* 20.11 — «новые …» по правому полю, выравнивание вправо (решение 18.11; Василиса 20.11). Правый край текста = поле, как левый у «новой магистратуры». */
+@media (min-width:1024px){.hM .t2{left:auto;right:calc(var(--pad) - var(--u)*5);text-align:right}}
+/* 20.11 — линии над кнопками первого экрана нет (Василиса); отступ остаётся, кнопки и даты на месте */
+.hM .bar{border-top:0}
+
+/* 20.11 — финал и подвал тем же приёмом, что первый экран: фон 63:159, повёрнутый на 180° (part_finbg.svg).
+   Вершина веера — у правого края под срезом, лучи идут вниз-влево к подвалу. Срез — внутри SVG, старый .fin::before не нужен. */
+.fin>svg.finbg{position:absolute;left:0;top:0;width:100%;z-index:0;display:block;pointer-events:none}
+.fin::before{display:none}
+.fin>*:not(svg){z-index:1}
+/* 20.11 — надпись и кнопки финала ниже (Василиса): зазор от среза до заголовка ≈ зазору от кнопок до линии подвала */
+@media (min-width:1024px){main.n2 .fin{padding-top:calc(var(--spacing-section) + var(--u)*80)!important}}
+/* 20.11 — главная кнопка финала белая, как на первом экране (Василиса) */
+main.n2 .fin .btn.c{background:var(--color-fill-cta-on-media);color:var(--color-text-primary)}
+main.n2 .fin .btn.c:hover{background:var(--color-fill-cta-on-media-hover)}
+/* 20.11 — «Получить консультацию» на гранях: подложка-стекло из ДС (Василиса: «нужен какой-то фон»). Первый экран и финал одинаково */
+.top .hM .btn.o,main.n2 .fin .btn.o{background:var(--color-surface-on-contrast-hover);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.top .hM .btn.o:hover,main.n2 .fin .btn.o:hover{background:var(--color-surface-on-contrast-active)}

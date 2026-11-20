@@ -66,3 +66,48 @@ document.addEventListener('pointerout',e=>{const el=e.target.closest&&e.target.c
 (()=>{const ph=document.querySelector('.dipA .ph'),im=ph&&ph.querySelector('img'),tk=document.querySelector('.dipA .tks');if(!im||!tk)return;
 const fit=()=>{const ps=[...tk.querySelectorAll('p')];if(!ps.length)return;const b=Math.max(...ps.map(p=>p.getBoundingClientRect().bottom));const h=b-ph.getBoundingClientRect().top;if(h>120)im.style.height=Math.round(h)+'px'};
 fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(tk);document.fonts&&document.fonts.ready.then(fit)})();
+
+/* 20.11 — «полоса света» на фоне первого экрана из Figma (svg.figbg): тот же приём, что режим b выше,
+   вершина веера — (0, 902) в координатах группы .fan (группа перекошена: на экране вершина у линии над кнопками). Слой света — копия грани с градиентом вдоль её оси, soft-light. */
+/* 20.11 — та же функция светит и в финале (svg.finbg, фон повёрнут на 180°: координаты курсора переводятся через getScreenCTM группы, поворот учитывается сам). */
+const figLight=(s,pre)=>{if(!s||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+const defs=s.querySelector('defs'),P={x:0,y:902},K=.14,PW=3,BAND=380;
+const faces=[...s.querySelectorAll('.fan path[fill*="_linear"]')];if(!faces.length)return;const host=faces[0].parentNode;
+const F=faces.map((p,i)=>{const m=p.getAttribute('d').match(/-?\d*\.?\d+(?:e-?\d+)?/g).map(Number);let sx=0,sy=0,n=0;
+  for(let k=2;k+1<m.length;k+=2){sx+=m[k]-P.x;sy+=m[k+1]-P.y;n++}const a=Math.atan2(sy/n,sx/n);
+  defs.insertAdjacentHTML('beforeend',`<linearGradient id="${pre}${i}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF875C" stop-opacity="0"/><stop offset=".5" stop-color="#FFB08F" stop-opacity=".95"/><stop offset="1" stop-color="#FF875C" stop-opacity="0"/></linearGradient>`);
+  const w=p.cloneNode();w.setAttribute('fill',`url(#${pre}${i})`);w.setAttribute('opacity','0');w.style.mixBlendMode='soft-light';
+  const nx=p.nextElementSibling;(nx&&nx.getAttribute('d')===p.getAttribute('d')?nx:p).after(w);
+  return {a,w,g:defs.querySelector('#'+pre+i),v:0,t:0,r:300,rt:300}});
+let raf=0;const tick=()=>{raf=0;let more=false;
+  F.forEach(f=>{f.v+=(f.t-f.v)*K;f.r+=(f.rt-f.r)*K;if(Math.abs(f.t-f.v)>.002||Math.abs(f.rt-f.r)>.5)more=true;
+    f.w.setAttribute('opacity',Math.max(0,f.v).toFixed(3));const r0=f.r-BAND,r1=f.r+BAND,cx=Math.cos(f.a),cy=Math.sin(f.a);
+    f.g.setAttribute('x1',(P.x+cx*r0).toFixed(1));f.g.setAttribute('y1',(P.y+cy*r0).toFixed(1));f.g.setAttribute('x2',(P.x+cx*r1).toFixed(1));f.g.setAttribute('y2',(P.y+cy*r1).toFixed(1))});
+  if(more)raf=requestAnimationFrame(tick)};
+const go=()=>{if(!raf)raf=requestAnimationFrame(tick)};
+const sm=(x,a,b)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)};
+addEventListener('pointermove',e=>{const r=s.getBoundingClientRect();if(e.clientY<r.top-80||e.clientY>r.bottom+80){F.forEach(f=>f.t=0);go();return}
+  const m=host.getScreenCTM();if(!m)return;const q=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());
+  const dx=q.x-P.x,dy=q.y-P.y,ca=Math.atan2(dy,dx),d=Math.hypot(dx,dy),near=sm(d,40,340);
+  F.forEach(f=>{const c=Math.cos(ca-f.a);f.t=c>0?Math.pow(c,PW)*near:0;f.rt=d*Math.max(.25,c)});go()},{passive:true});
+document.addEventListener('pointerleave',()=>{F.forEach(f=>f.t=0);go()},{passive:true});
+};
+figLight(document.querySelector('.top>svg.figbg'),'fbl');
+
+/* 20.11 — финал и подвал: svg.finbg от верха финала до низа подвала. 1 ед. viewBox = 1 px на 1440 (как --u у первого экрана);
+   на узких масштаб не мельче 1,3 ед./px; ≤1023 — левая часть веера, вершина за правым краем (зеркально первому экрану: там ≤1023 вершина за левым краем) — иначе свечение вершины ложится под заголовок и кнопки. Затем — тот же свет от курсора. */
+(()=>{const f=document.querySelector('#apply'),s=f&&f.querySelector('svg.finbg'),ft=document.querySelector('.ft');if(!s)return;
+const fit=()=>{const fr=f.getBoundingClientRect(),w=fr.width;if(!w)return;const bot=ft?ft.getBoundingClientRect().bottom:fr.bottom,h=Math.ceil(bot-fr.top);
+  const k=Math.min(1440/w,1.3),vw=w*k,vh=h*k,x0=w<1024?0:1440-vw;s.style.height=h+'px';
+  /* верх кадра на 20 ед. выше угла среза (61,2): иначе пик срезан краем SVG и луч из вершины не попадает в уголок (Василиса 20.11) */
+  s.setAttribute('viewBox',`${x0.toFixed(1)} 40 ${vw.toFixed(1)} ${vh.toFixed(1)}`);s.setAttribute('preserveAspectRatio','xMaxYMin meet');
+  /* ≤1023 видна левая, самая толстая часть среза — сжимаем срез по высоте до 120·u, как был .fin::before, иначе он наезжает на заголовок */
+  const ct=s.querySelector('.cut');if(ct){const fy=w<1024?Math.min(1,120*w/1440*k/116):1;ct.setAttribute('transform',`translate(0 40) scale(1 ${fy.toFixed(3)}) translate(0 -40) rotate(180 720 508)`);
+    /* веер — вслед за сжатым углом среза (944,6; 61,2), чтобы луч из вершины по-прежнему приходил в уголок */
+    const rt=s.querySelector('.rot');if(rt)rt.setAttribute('transform',`translate(0 ${(21.2*fy-21.2).toFixed(2)}) rotate(180 720 508)`)}
+  /* затемнение со стороны текста: грани у вершины светлые, без него «выбери программу» и обводная кнопка ниже 3 : 1 и 4,5 : 1 */
+  const sc=s.querySelector('.scrim'),gr=s.querySelector('#fnscrim'),hd=f.querySelector('.h1');
+  if(sc&&gr&&hd){const rg=document.createRange();rg.selectNodeContents(hd);const tr=(rg.getBoundingClientRect().right-fr.left+240)*k;sc.setAttribute('x',x0.toFixed(1));sc.setAttribute('y','0');sc.setAttribute('width',vw.toFixed(1));sc.setAttribute('height',(vh+120).toFixed(1));
+    gr.setAttribute('x1',x0.toFixed(1));gr.setAttribute('x2',(x0+tr).toFixed(1))}};
+fit();addEventListener('resize',fit);new ResizeObserver(fit).observe(f);if(ft)new ResizeObserver(fit).observe(ft);
+figLight(s,'fnl')})();

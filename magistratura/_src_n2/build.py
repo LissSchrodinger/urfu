@@ -12,9 +12,9 @@ js=r('hdr_anchor.js')+r('part_herojs.js')+r('part_dd.js')+r('part_top.js')+r('pa
 js+=r('part_pick.js')+r('part_mob.js')
 js=js
 html=head+body+'<script>'+('window.RAYS_PICK=1;' if '--pick' in sys.argv else '')+js+'</script></body></html>'
-html=html.replace('%RAYS%',r('part_rays.svg'))
+html=html.replace('%RAYS%',r('part_figbg.svg'))  # 20.11: фон первого экрана — из Figma (63:159); part_rays.svg остаётся для финала и слогана
 import re as _re
-html=html.replace('%RAYS2%',_re.sub(r'(id="|url\(#)g',r'\1f',r('part_rays.svg')).replace('class="rays"','class="rays3"').replace('xMinYMin slice','xMidYMin slice'))
+html=html.replace('%RAYS2%',r('part_finbg.svg'))  # 20.11: финал и подвал — фон первого экрана, повёрнутый на 180° (вершина справа сверху)
 html=html.replace('%RAYS3%',_re.sub(r'(id="|url\(#)g',r'\1h',r('part_rays.svg')).replace('class="rays"','class="rays4"').replace('xMinYMin slice','xMidYMid slice'))
 html=html.replace('%FAN1%',r('part_fan1.svg')).replace('%FAN2%',r('part_fan2.svg'))
 html=html.replace('%LOGO%',r('logo.svg').replace('fill="#E50046"','fill="currentColor"'))

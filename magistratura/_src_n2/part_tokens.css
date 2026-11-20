@@ -36,6 +36,8 @@
   --color-fill-accent:var(--p-violet-70);         /* фиолетовая заливка: бейдж, активный шаг */
   --color-fill-cta:var(--p-peach-50);             /* коралловая кнопка */
   --color-fill-cta-hover:var(--p-peach-40);
+  --color-fill-cta-on-media:var(--p-white);        /* главная кнопка на фоне первого экрана (макет Василисы 63:159, 20.11) */
+  --color-fill-cta-on-media-hover:var(--p-lilac-20);
   --color-fill-inverse-hover:var(--p-lilac-60);
   --color-accent-slogan:var(--p-violet-40);       /* плашка у слогана — отдельный акцент (Василиса 19.11) */
   --color-brand:var(--p-urfu-red);                /* знак логотипа */

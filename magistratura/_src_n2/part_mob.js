@@ -35,3 +35,8 @@ mq.addEventListener('change',ap);ap();upd()})();
 (()=>{const sel=document.getElementById('flv');if(sel)sel.addEventListener('change',()=>setTimeout(()=>document.dispatchEvent(new Event('click')),0))})();
 /* сравнение: тире не уходит в начало строки */
 document.querySelectorAll('#compare dd').forEach(d=>{const w=document.createTreeWalker(d,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode())n.nodeValue=n.nodeValue.replace(/ (—|–) /g,'\u00a0$1\u00a0')});
+
+
+/* 20.11 фон первого экрана: ≤1023 — правая часть веера (у вершины слева внизу коралл, на нём пропадают коралловые даты) */
+(()=>{const s=document.querySelector('.top>svg.figbg');if(!s)return;const m=matchMedia('(max-width:1023px)');
+const f=()=>s.setAttribute('preserveAspectRatio',m.matches?'xMaxYMax slice':'xMinYMax slice');f();m.addEventListener('change',f)})();
