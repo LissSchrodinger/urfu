@@ -33,7 +33,7 @@
   --color-surface-glass:var(--p-lilac-10-a94);
   --color-surface-glass-contrast:var(--p-indigo-90-a86);
   --color-surface-glass-tint:var(--p-indigo-90-a32);       /* вторая кнопка на гранях: белый текст ≥ 6 : 1 (решение 20.11) */
-  --color-surface-glass-tint-hover:var(--p-indigo-90-a44);
+  --color-surface-glass-tint-hover:var(--p-indigo-90-a44);--color-surface-glass-light:rgb(255 255 255 / .2);--color-surface-glass-light-hover:rgb(255 255 255 / .28);
   --color-overlay-primary:var(--p-indigo-ink-a70);
   --color-fill-accent:var(--p-violet-70);         /* фиолетовая заливка: бейдж, активный шаг */
   --color-fill-cta:var(--p-peach-50);             /* коралловая кнопка */

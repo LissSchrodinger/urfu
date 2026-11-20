@@ -311,3 +311,14 @@ html .zh2 .sp4 .ln a:after,.cgo:after{background:var(--color-text-accent)!import
 @media (min-width:768px) and (max-width:1023px){#reviews .zh{flex-direction:row!important;flex-wrap:nowrap!important;align-items:flex-end!important;justify-content:space-between;gap:16px}#reviews .zh .st{min-width:0;flex:1 1 auto}#reviews .nav2{flex:none}}
 /* телефон: стрелки под нижней линией отзыва (24), по правому полю (линия сверху остаётся; от линии до видимого верха кавычки 24) */
 @media (max-width:767px){#reviews .wrap{display:flex;flex-direction:column}#reviews .zh{display:contents}#reviews .zh .st{order:0;margin-bottom:40px}#reviews .rvg{order:1}#reviews .nav2{order:2;align-self:flex-end;margin-top:24px}main.n2 .zr .rmain{padding-top:24px!important;padding-bottom:24px!important}main.n2 .zr .rmain .qm{margin-top:-23px}}
+/* ===== ревью видео (20.11, Василиса): косой срез только сверху, снизу прямо; нижний отступ = шапка→контент; свои кнопки play ===== */
+.zv .vcut{position:absolute;left:0;top:0;width:100%;height:80px;z-index:1;pointer-events:none}
+.zv .vcut .pg{fill:var(--pg)}
+.zv{padding-bottom:64px!important}
+.zv .vpl{position:absolute;left:50%;top:50%;z-index:3;width:80px;height:80px;margin:-40px 0 0 -40px;display:grid;place-items:center;border-radius:50%;background:var(--color-surface-glass-light);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--color-text-on-media);transition:background .3s}
+.zv .vpl svg{width:48px;height:48px;transform:translateX(-5%)} /* оптический центр треугольника: сдвиг влево (Василиса) */
+.zv .vt:not(.big) .vpl{width:56px;height:56px;margin:-28px 0 0 -28px}
+.zv .vt:not(.big) .vpl svg{width:34px;height:34px}
+.zv .vt:hover .vpl{background:var(--color-surface-glass-light-hover)}
+@media (max-width:1023px){.zv{padding-bottom:40px!important}}
+@media (max-width:767px){.zv .vcut{height:40px}.zv .vt .vpl{width:56px;height:56px;margin:-28px 0 0 -28px}.zv .vt .vpl svg{width:34px;height:34px}}
