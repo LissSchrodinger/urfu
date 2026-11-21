@@ -1,4 +1,4 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<!doctype html><html lang="ru"><head><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Мировая экономика и международный бизнес · страница программы</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,500&display=swap">
 <style>
@@ -236,7 +236,8 @@
 :root{
   --color-accent:var(--color-level-bachelor-accent);           /* цвет уровня в акцентах */
   --color-accent-tint:var(--color-level-bachelor-hover);
-  --color-window-field:#4A1742;                                  /* поле окна «закручивание» (05, не токен) */
+  --color-divider-on-media:var(--p-white-a35);                  /* линия между цифрами в окне (21.11, как в каталоге) */
+  --color-window-field:#C24A22;                                  /* поле окна «восход» (21.11, не токен) */
   --color-track-ba:var(--p-teal-50); --color-track-mac:var(--p-apricot-50); --color-track-ved:var(--p-magenta-50);
   --color-track-inv:var(--p-green-50); --color-track-law:var(--p-yellow-30); --color-track-prj:var(--p-scarlet-50);
   --color-track-int:var(--p-violet-50); --color-track-lng:var(--p-rose-50); --color-track-gen:var(--p-gray-40);
@@ -273,14 +274,14 @@ svg.i.s{width:16px;height:16px}
 
 /* шапка программы: окно + паспорт */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:var(--spacing-12)}
-.w{position:relative;min-height:516px;border-radius:var(--radius-24);overflow:hidden;padding:var(--spacing-32) var(--spacing-36) var(--spacing-36);display:flex;flex-direction:column;isolation:isolate;color:var(--p-gray-15);background:var(--color-window-field)}
+.w{position:relative;min-height:506px;border-radius:var(--radius-24);overflow:hidden;padding:var(--spacing-32) var(--spacing-36) var(--spacing-36);display:flex;flex-direction:column;isolation:isolate;color:var(--color-text-on-media);background:var(--color-window-field)}
 .w>svg{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
 .pl{display:flex;gap:var(--spacing-8)}
 .pill{display:inline-flex;align-items:center;gap:var(--spacing-6);height:32px;padding:0 var(--spacing-12);border-radius:var(--radius-8);box-shadow:inset 0 0 0 1px var(--color-border-on-media);font:var(--text-label-m);font-weight:600}
 .w h1{margin-top:var(--spacing-16);font:var(--text-heading-l);font-weight:600;letter-spacing:-.02em;max-width:800px;text-wrap:balance}
 .w .d{margin-top:var(--spacing-12);color:var(--p-white)}
-.w .n{margin-top:auto;display:flex;padding-top:var(--spacing-32)}
-.w .n div{padding:0 var(--spacing-28);box-shadow:inset 1px 0 0 var(--p-gray-70)}
+.w .n{margin-top:auto;align-self:flex-end;display:flex;padding-top:var(--spacing-32)}
+.w .n div{padding:0 var(--spacing-28);box-shadow:inset 1px 0 0 var(--color-divider-on-media)}
 .w .n div:first-child{box-shadow:none;padding-left:0}
 .w .n b{display:block;font:var(--text-heading-l);font-size:56px;line-height:56px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .w .n span{display:block;margin-top:var(--spacing-12);color:var(--p-white)}
@@ -296,7 +297,7 @@ svg.i.s{width:16px;height:16px}
 .chip b{font-weight:600}
 .chip.o{background:none;box-shadow:inset 0 0 0 1px var(--color-border-secondary)}
 .ex+.lbl{margin-top:var(--spacing-12)}
-.pass .btns{margin-top:auto;display:grid;grid-template-columns:auto 1fr;gap:var(--spacing-8);padding-top:var(--spacing-24)}
+.pass .btns{margin-top:auto;display:grid;grid-template-columns:auto 1fr;gap:var(--spacing-8);padding-top:var(--spacing-10)}
 .btn{white-space:nowrap;height:52px;border-radius:var(--radius-12);display:inline-flex;align-items:center;justify-content:center;gap:var(--spacing-8);padding:0 var(--spacing-20);font:var(--text-label-m);font-weight:600;transition:background .2s,box-shadow .2s,filter .2s}
 .btn.p{background:var(--color-accent);color:var(--color-text-on-accent)}
 .btn.p:hover{filter:brightness(1.06)}
@@ -689,23 +690,42 @@ const L=(href,t,e=1)=>`<a class="lnk" href="${href}" ${e?'target="_blank" rel="n
 const T=(id,t)=>`<a class="lnk" href="#${id}" data-go="${id}"><span>${t}</span>${arr}</a>`;
 const TC={ba:'Бизнес-аналитика',mac:'Макроэкономические принципы',ved:'Международный бизнес и ВЭД',inv:'Инвестиционный анализ и аудит',law:'Принципы права',prj:'Проектный практикум',int:'Практики',lng:'Языки и мобильность',gen:'Общие дисциплины'};
 
-/* ── окно «закручивание», эскиз 26 → вариант A2 (20.11): поле светлее, жёлтый в кольцах, внешние кольца размыты ── */
+/* ── окно «восход» (21.11, утверждено): тот же рисунок, что OKNO g=0 в каталоге; институт из строки убран ── */
 (()=>{const w=$('#win'),k='w0';
-const G11=[[600,40,-10,-15],[500,-30,10,40],[420,10,30,300],[330,-36,6,40],[250,4,30,0],[180,-28,0,200],[118,0,22,90],[74,4,8,270]];
-const AP='#FF9A3C',SC='#FF4D5E',MG='#C93DB5',M9='#6E1563';
-const YL='#FFC94A';const CH={ap:[[0,YL],[.2,AP],[.4,SC],[.6,M9]],sc:[[0,AP],[.2,SC],[.42,MG],[.62,M9]],mg:[[0,MG],[.45,M9]]};
-const RING=['mg','sc','ap','ap','ap','sc','ap'],BG='#4A1742',O={x:720,y:260},F={m:.62,e:.6,h:1};
-let defs=`<filter id="${k}bo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="32"/></filter>`,body=`<rect width="888" height="470" fill="${BG}"/>`;
-const R=G11.map(([r,dx,dy,a])=>({r,cx:O.x+dx,cy:O.y+dy,a}));
-const axis=c=>{const t=c.a*Math.PI/180;return `gradientUnits="userSpaceOnUse" x1="${(c.cx+Math.cos(t)*c.r).toFixed(1)}" y1="${(c.cy+Math.sin(t)*c.r).toFixed(1)}" x2="${(c.cx-Math.cos(t)*c.r).toFixed(1)}" y2="${(c.cy-Math.sin(t)*c.r).toFixed(1)}"`};
-R.forEach((c,i)=>{if(i==R.length-1){body+=`<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" fill="${BG}"/>`;return}
- const st=CH[RING[i]].map(([o,col],j)=>`<stop offset="${(o*F.m).toFixed(3)}" stop-color="${col}" stop-opacity="${j==0?F.h:1}"/>`).join('');
- defs+=`<linearGradient id="${k}g${i}" ${axis(c)}>${st}<stop offset="${F.e}" stop-color="${BG}"/></linearGradient>`;
- body+=`<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" fill="url(#${k}g${i})"${i<4?` filter="url(#${k}bo)"`:''}/>`});
-w.innerHTML=`<svg viewBox="0 0 888 470" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><defs>${defs}</defs>${body}<linearGradient id="${k}sink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${BG}"/><stop offset=".45" stop-color="${BG}" stop-opacity=".8"/><stop offset=".64" stop-color="${BG}" stop-opacity=".45"/><stop offset=".8" stop-color="${BG}" stop-opacity="0"/></linearGradient><rect width="888" height="470" fill="url(#${k}sink)"/></svg>
+const sun=(o)=>{const W=888,H=516,k='sn'+o.id;let d='',b='';
+ d+=`<filter id="${k}nz" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0"/></filter>`;
+ d+=`<filter id="${k}rb"><feGaussianBlur stdDeviation="1.4"/></filter>`;
+ d+=`<linearGradient id="${k}f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${o.f0}"/><stop offset="1" stop-color="${o.f1}"/></linearGradient>`;
+ b+=`<rect width="${W}" height="${H}" fill="url(#${k}f)"/>`;
+ const T={x:o.tx,y:H+o.ty},R=o.R;
+ R.forEach((r,i)=>{const cx=T.x,cy=T.y-r;const t=i/(R.length-1);
+  // градиент пути по диагонали: абрикос → коралл → пурпур (как фигура на главной)
+  d+=`<linearGradient id="${k}g${i}" gradientUnits="userSpaceOnUse" x1="${cx-r*Math.cos((45+(o.rot||0)*i)*Math.PI/180)*1.41}" y1="${cy-r*Math.sin((45+(o.rot||0)*i)*Math.PI/180)*1.41}" x2="${cx+r*Math.cos((45+(o.rot||0)*i)*Math.PI/180)*1.41}" y2="${cy+r*Math.sin((45+(o.rot||0)*i)*Math.PI/180)*1.41}"><stop offset="0" stop-color="${o.c0||'#FF9A3C'}"/><stop offset=".5" stop-color="${o.c1||'#FF4D5E'}"/><stop offset="1" stop-color="${o.c2||'#C93DB5'}"/></linearGradient>`;
+  if(o.op){const hx=h=>[1,3,5].map(j=>parseInt(h.slice(j,j+2),16)),mx=(a,c,q)=>'#'+hx(a).map((v,j)=>Math.round(v+(hx(c)[j]-v)*q).toString(16).padStart(2,'0')).join('');
+   const q=Math.min(1,Math.max(0,o.op[0]+o.op[1]*(1-t)+(i%2?-o.op[2]:o.op[2])*(1-t*(o.soft||0))));
+   d+=`<linearGradient id="${k}q${i}" gradientUnits="userSpaceOnUse" x1="${cx-r*Math.cos((45+(o.rot||0)*i)*Math.PI/180)*1.41}" y1="${cy-r*Math.sin((45+(o.rot||0)*i)*Math.PI/180)*1.41}" x2="${cx+r*Math.cos((45+(o.rot||0)*i)*Math.PI/180)*1.41}" y2="${cy+r*Math.sin((45+(o.rot||0)*i)*Math.PI/180)*1.41}"><stop offset="0" stop-color="${mx(o.f0,o.c0||'#FF9A3C',q)}"/><stop offset=".5" stop-color="${mx(o.f0,o.c1||'#FF4D5E',q)}"/><stop offset="1" stop-color="${mx(o.f1,o.c2||'#C93DB5',q)}"/></linearGradient>`;
+   b+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${k}q${i})"/>`;
+   if(o.rim){d+=`<linearGradient id="${k}rm${i}" gradientUnits="userSpaceOnUse" x1="${cx-r*.7}" y1="${cy-r*.7}" x2="${cx+r*.3}" y2="${cy+r*.3}"><stop offset="0" stop-color="#FFE6C8" stop-opacity="${o.rim}"/><stop offset="1" stop-color="#FFE6C8" stop-opacity="0"/></linearGradient>`;
+    b+=`<circle cx="${cx}" cy="${cy}" r="${r-1.5}" fill="none" stroke="url(#${k}rm${i})" stroke-width="3" filter="url(#${k}rb)"/>`}
+   return}
+  b+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="url(#${k}g${i})" fill-opacity="${(o.a0+(o.a1-o.a0)*(1-t)).toFixed(3)}" stroke="url(#${k}g${i})" stroke-width="${o.sw}" stroke-opacity="${o.so}"/>`});
+ // свет у точки касания
+ d+=`<radialGradient id="${k}l" gradientUnits="userSpaceOnUse" cx="${T.x}" cy="${H+(o.gy||0)}" r="${o.lr}"><stop offset="0" stop-color="${o.core||'#FFE38A'}" stop-opacity="${o.gk||.95}"/><stop offset=".35" stop-color="#FFC94A" stop-opacity=".55"/><stop offset="1" stop-color="#FF9A3C" stop-opacity="0"/></radialGradient>`;
+ 
+ // затемнение под текстом слева
+ d+=`<linearGradient id="${k}s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${o.f0}" stop-opacity="${o.sc}"/><stop offset=".42" stop-color="${o.f0}" stop-opacity="${o.sc*.6}"/><stop offset=".7" stop-color="${o.f0}" stop-opacity="0"/></linearGradient>`;
+ d+=`<linearGradient id="${k}b" x1="0" y1="0" x2="0" y2="1"><stop offset=".45" stop-color="${o.f0}" stop-opacity="0"/><stop offset="1" stop-color="${o.f0}" stop-opacity="${o.bs||0}"/></linearGradient>`;
+ b+=`<rect width="${W}" height="${H}" fill="url(#${k}b)"/><rect width="${W}" height="${H}" fill="url(#${k}s)"/><rect width="${W}" height="${H}" filter="url(#${k}nz)" opacity=".22" style="mix-blend-mode:overlay"/>`;
+ b+=`<rect width="${W}" height="${H}" fill="url(#${k}l)" style="mix-blend-mode:screen"/>`;
+d+=`<linearGradient id="${k}ts" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${o.tc||o.f0}" stop-opacity="${o.ts||0}"/><stop offset=".5" stop-color="${o.tc||o.f0}" stop-opacity="${(o.ts||0)*.6}"/><stop offset=".72" stop-color="${o.tc||o.f0}" stop-opacity="0"/></linearGradient><radialGradient id="${k}br" gradientUnits="userSpaceOnUse" cx="${W-120}" cy="${H-70}" r="300"><stop offset="0" stop-color="${o.f1}" stop-opacity="${o.br||0}"/><stop offset=".5" stop-color="${o.f1}" stop-opacity="${(o.br||0)*.7}"/><stop offset="1" stop-color="${o.f1}" stop-opacity="0"/></radialGradient>`;
+ if(o.cb){d+=`<radialGradient id="${k}cb" cx="0" cy=".5" r="1" gradientTransform="scale(1 .5) translate(0 .5)"><stop offset="0" stop-color="${o.f0}" stop-opacity="${o.cb[1]}"/><stop offset=".7" stop-color="${o.f0}" stop-opacity="${o.cb[1]*.6}"/><stop offset="1" stop-color="${o.f0}" stop-opacity="0"/></radialGradient>`}
+ if(o.pk){d+=`<radialGradient id="${k}pk" gradientUnits="userSpaceOnUse" cx="${o.pk[0]}" cy="${o.pk[1]}" r="${o.pk[2]}" gradientTransform="translate(${o.pk[0]} ${o.pk[1]}) scale(1.5 1) translate(${-o.pk[0]} ${-o.pk[1]})"><stop offset="0" stop-color="${o.pk[3]}" stop-opacity="${o.pk[4]}"/><stop offset=".55" stop-color="${o.pk[3]}" stop-opacity="${o.pk[4]*.55}"/><stop offset="1" stop-color="${o.pk[3]}" stop-opacity="0"/></radialGradient>`}
+ b+=`<rect width="${W}" height="${H}" fill="url(#${k}ts)"/><rect width="${W}" height="${H}" fill="url(#${k}br)"/>`+(o.cb?`<rect x="0" y="${o.cb[0]-40}" width="${W*.6}" height="80" fill="url(#${k}cb)"/>`:'')+(o.pk?`<rect width="${W}" height="${H}" fill="url(#${k}pk)"/>`:'');
+ return `<defs>${d}</defs>${b}`};
+w.innerHTML=`<svg viewBox="0 0 888 516" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${sun({id:k,tx:230,ty:110,c0:'#FFC08A',c1:'#FF8A7A',sc:.42,gy:30,tc:'#A83A1C',br:.8,sw:0,so:0,a0:0,a1:0,f0:'#C24A22',f1:'#7E2A8A',c2:'#B45CE0',pk:[520,150,300,'#C8306A',.6],R:[900,620,530,450,380,262,212,168,130,98,72,50],op:[.0,.8,.05],ts:.65,lr:200,gk:.75,soft:.8,cb:[216,.55]})}</svg>
 <div class="pl"><span class="pill">Бакалавриат</span><span class="pill" data-tip="Можно учиться по своему плану: сочетать очные занятия и онлайн-курсы.">Индивидуальная траектория <svg class="i s" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 7.5v3M8 5.2v.1"/></svg></span></div>
 <h1>Мировая экономика и&nbsp;международный бизнес</h1>
-<div class="d">38.03.01 Экономика · Институт экономики и управления</div>
+<div class="d">38.03.01 Экономика</div>
 <div class="n"><div><b>18</b><span>бюджетных мест</span></div><div><b>118</b><span>платных мест</span></div></div>`})();
 
 /* ── страницы ── */
